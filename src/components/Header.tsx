@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scissors, ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
+import { ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
 
 interface HeaderProps {
   hasVideo: boolean;
@@ -12,22 +12,24 @@ export const Header: React.FC<HeaderProps> = ({ hasVideo, onReset }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo & Name */}
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-0.5 shadow-lg shadow-indigo-500/20">
-            <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Scissors className="w-5 h-5 text-indigo-400 -rotate-45" />
-            </div>
+          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500/30 via-slate-800 to-indigo-500/20 p-0.5 shadow-lg shadow-orange-500/10 border border-orange-500/30">
+            <img
+              src="./reeyansh-logo.png"
+              alt="Reeyansh Tech Solutions Logo"
+              className="w-7 h-7 object-contain drop-shadow-md"
+            />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
                 SplitStream
               </span>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                v2.0
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/25 tracking-wide">
+                Reeyansh Tech Solutions
               </span>
             </div>
             <p className="text-xs text-slate-400 hidden sm:block">
-              Client-Side High Precision Video Cutter & Splitter
+              Client-Side High Precision Video Cutter & 9:16 Shorts Engine
             </p>
           </div>
         </div>

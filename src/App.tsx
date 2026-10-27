@@ -6,6 +6,9 @@ import { SplitConfiguration } from './components/SplitConfiguration';
 import { TimelinePreview } from './components/TimelinePreview';
 import { ProcessingModal } from './components/ProcessingModal';
 import { CompletionView } from './components/CompletionView';
+import { Footer } from './components/Footer';
+import { SeoContentSection } from './components/SeoContentSection';
+import { trackEvent } from './utils/analytics';
 import type {
   ExportedClip,
   ProcessingProgress,
@@ -71,6 +74,12 @@ export function App() {
     setExportedClips([]);
     setCurrentVideoTime(0);
 
+    trackEvent('video_uploaded', {
+      name: metadata.name,
+      size_mb: Number((metadata.size / (1024 * 1024)).toFixed(2)),
+      duration_sec: Math.round(metadata.duration),
+    });
+
     const defaultEnd = Math.min(60, metadata.duration);
     setConfig((prev) => ({
       ...prev,
@@ -109,6 +118,16 @@ export function App() {
   const handleStartProcess = async () => {
     if (!video || segments.length === 0) return;
 
+    trackEvent('split_started', {
+      mode: config.mode,
+      total_clips: segments.length,
+      aspect_ratio: config.targetAspectRatio,
+      has_promo_cards: !!(
+        config.promoCards?.enabled &&
+        (config.promoCards?.topCard || config.promoCards?.bottomCard)
+      ),
+    });
+
     const timestamp = new Date()
       .toISOString()
       .replace(/[-:]/g, '')
@@ -145,6 +164,10 @@ export function App() {
       );
 
       setExportedClips(clips);
+      trackEvent('split_completed', {
+        total_clips: clips.length,
+      });
+
       setProgress((prev) => ({
         ...prev,
         status: 'completed',
@@ -174,7 +197,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans selection:bg-orange-500 selection:text-white">
       {/* Top Navigation Bar */}
       <Header hasVideo={!!video} onReset={handleReset} />
 
@@ -184,21 +207,24 @@ export function App() {
         {!video && (
           <div className="space-y-10 animate-in fade-in duration-300">
             {/* Hero Heading */}
-            <div className="text-center max-w-2xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-semibold mb-2">
-                <span>Fast, Local & Lossless Video Splitting</span>
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-2">
+                <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
               </div>
               <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
                 Split Any Video Into Clips In Seconds
               </h1>
-              <p className="text-sm sm:text-base text-slate-400">
-                Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion.
+              <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
                 All processing happens 100% locally in your browser using FFmpeg WebAssembly.
               </p>
             </div>
 
             {/* Video Upload Dropzone */}
             <VideoUploader onVideoSelected={handleVideoSelected} />
+
+            {/* Full SEO & Educational Content Section */}
+            <SeoContentSection />
           </div>
         )}
 
@@ -273,17 +299,8 @@ export function App() {
         />
       )}
 
-      {/* Footer */}
-      <footer className="w-full border-t border-slate-800/60 py-6 mt-12 bg-slate-950/60 backdrop-blur-md text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>
-            SplitStream Video Cutter • Powered by FFmpeg WebAssembly & React.
-          </p>
-          <p className="text-slate-400">
-            Files remain strictly on your local device. Zero server transmission.
-          </p>
-        </div>
-      </footer>
+      {/* Reeyansh Tech Solutions Footer & Copyright */}
+      <Footer />
     </div>
   );
 }
