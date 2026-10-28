@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SplitStream — Redirecting...</title>
+  <meta http-equiv="refresh" content="0; url=./">
+  <script>
+    // GitHub Pages SPA redirect: if opened at /video-cutter/ or any subpath on custom domain, redirect to root
+    var path = window.location.pathname;
+    if (path.indexOf('video-cutter') !== -1) {
+      window.location.replace(window.location.origin + '/');
+    } else {
+      window.location.replace(window.location.origin + '/');
+    }
+  </script>
+</head>
+<body style="background:#0b0f19;color:#e2e8f0;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+  <div style="text-align:center;">
+    <h2 style="color:#f97316;">SplitStream Video Cutter</h2>
+    <p>Redirecting to home page...</p>
+    <p><a href="/" style="color:#38bdf8;text-decoration:none;">Click here if you are not redirected automatically</a></p>
+  </div>
+</body>
+</html>
