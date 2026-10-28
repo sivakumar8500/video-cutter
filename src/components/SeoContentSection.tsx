@@ -9,6 +9,7 @@ import {
   FolderDown,
   Layers,
   HelpCircle,
+  ExternalLink,
 } from 'lucide-react';
 
 interface FaqItem {
@@ -65,10 +66,17 @@ export const SeoContentSection: React.FC = () => {
     <section className="w-full mt-16 pt-12 border-t border-slate-800/80 space-y-16 text-slate-300">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3 px-4">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5" />
+        <a
+          href="https://www.reeyanshtech.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold uppercase tracking-wider transition-all group cursor-pointer"
+          title="Visit Reeyansh Tech Solutions Official Website"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-orange-400 group-hover:scale-110 transition-transform" />
           <span>Engineered by Reeyansh Tech Solutions</span>
-        </div>
+          <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+        </a>
         <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
           Complete In-Browser Video Cutting & Shorts Suite
         </h2>
@@ -135,7 +143,18 @@ export const SeoContentSection: React.FC = () => {
           </div>
           <h3 className="text-base font-bold text-white">100% Confidential & Secure</h3>
           <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Designed with a strict privacy-first architecture by Reeyansh Tech Solutions. All video processing executes entirely inside your browser's WebAssembly sandbox.
+            Designed with a strict privacy-first architecture by{' '}
+            <a
+              href="https://www.reeyanshtech.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-400 hover:text-orange-300 font-semibold underline decoration-orange-500/40 hover:decoration-orange-400 transition-colors inline-flex items-center gap-0.5"
+              title="Visit Reeyansh Tech Solutions Official Website"
+            >
+              <span>Reeyansh Tech Solutions</span>
+              <ExternalLink className="w-2.5 h-2.5 inline-block opacity-70" />
+            </a>
+            . All video processing executes entirely inside your browser's WebAssembly sandbox.
           </p>
         </article>
       </div>
@@ -201,7 +220,18 @@ export const SeoContentSection: React.FC = () => {
             Frequently Asked Questions
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">
-            Everything you need to know about SplitStream by Reeyansh Tech Solutions.
+            Everything you need to know about SplitStream by{' '}
+            <a
+              href="https://www.reeyanshtech.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-orange-400 hover:text-orange-300 font-semibold underline decoration-orange-500/40 hover:decoration-orange-400 transition-colors inline-flex items-center gap-0.5"
+              title="Visit Reeyansh Tech Solutions Official Website"
+            >
+              <span>Reeyansh Tech Solutions</span>
+              <ExternalLink className="w-2.5 h-2.5 inline-block opacity-70" />
+            </a>
+            .
           </p>
         </div>
 

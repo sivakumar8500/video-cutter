@@ -9,6 +9,7 @@ import { CompletionView } from './components/CompletionView';
 import { Footer } from './components/Footer';
 import { SeoContentSection } from './components/SeoContentSection';
 import { trackEvent } from './utils/analytics';
+import { ExternalLink } from 'lucide-react';
 import type {
   ExportedClip,
   ProcessingProgress,
@@ -217,14 +218,21 @@ export function App() {
                     className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
                   />
                 </div>
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold">
+                <a
+                  href="https://www.reeyanshtech.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
+                  title="Visit Reeyansh Tech Solutions Official Website"
+                >
                   <img
                     src="./reeyansh-logo.png"
                     alt="Reeyansh"
-                    className="w-3.5 h-3.5 object-contain"
+                    className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                   />
                   <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
-                </div>
+                  <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                </a>
               </div>
 
               <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">

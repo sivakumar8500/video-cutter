@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Sparkles, RefreshCw } from 'lucide-react';
+import { ShieldCheck, Sparkles, RefreshCw, ExternalLink } from 'lucide-react';
 
 interface HeaderProps {
   hasVideo: boolean;
@@ -24,16 +24,23 @@ export const Header: React.FC<HeaderProps> = ({ hasVideo, onReset }) => {
               <span className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
                 SplitStream
               </span>
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/25">
+              <a
+                href="https://www.reeyanshtech.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 hover:text-orange-300 border border-orange-500/25 hover:border-orange-500/40 transition-all cursor-pointer group"
+                title="Visit Reeyansh Tech Solutions Official Website"
+              >
                 <img
                   src="./reeyansh-logo.png"
                   alt="Reeyansh"
-                  className="w-3 h-3 object-contain"
+                  className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                 />
                 <span className="text-[10px] font-bold tracking-wide">
                   Reeyansh Tech Solutions
                 </span>
-              </div>
+                <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+              </a>
             </div>
             <p className="text-xs text-slate-400 hidden sm:block">
               Client-Side High Precision Video Cutter & 9:16 Shorts Engine

@@ -198,3 +198,11 @@ The repository includes an automated CI/CD workflow (`.github/workflows/deploy.y
 3. Under **Build and deployment** > **Source**, select **GitHub Actions**.
 4. Any push to `main` will automatically build and publish the latest version!
 
+---
+
+## 🏢 Company & Copyright
+
+- **Developed by**: [Reeyansh Tech Solutions](https://www.reeyanshtech.in/)
+- **Website**: [https://www.reeyanshtech.in/](https://www.reeyanshtech.in/)
+- **Copyright**: © 2026 Reeyansh Tech Solutions. All rights reserved.
+
