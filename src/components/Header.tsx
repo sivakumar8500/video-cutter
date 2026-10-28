@@ -12,21 +12,28 @@ export const Header: React.FC<HeaderProps> = ({ hasVideo, onReset }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo & Name */}
         <div className="flex items-center gap-3">
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-orange-500/30 via-slate-800 to-indigo-500/20 p-0.5 shadow-lg shadow-orange-500/10 border border-orange-500/30">
+          <div className="relative group flex items-center justify-center w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500/20 via-indigo-500/20 to-orange-500/20 p-0.5 shadow-lg shadow-cyan-500/10 border border-cyan-500/30">
             <img
-              src="./reeyansh-logo.png"
-              alt="Reeyansh Tech Solutions Logo"
-              className="w-7 h-7 object-contain drop-shadow-md"
+              src="./app-icon.png"
+              alt="SplitStream App Icon"
+              className="w-full h-full object-cover rounded-[10px] shadow-sm transition-transform duration-200 group-hover:scale-105"
             />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-400 bg-clip-text text-transparent">
+              <span className="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
                 SplitStream
               </span>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/25 tracking-wide">
-                Reeyansh Tech Solutions
-              </span>
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/25">
+                <img
+                  src="./reeyansh-logo.png"
+                  alt="Reeyansh"
+                  className="w-3 h-3 object-contain"
+                />
+                <span className="text-[10px] font-bold tracking-wide">
+                  Reeyansh Tech Solutions
+                </span>
+              </div>
             </div>
             <p className="text-xs text-slate-400 hidden sm:block">
               Client-Side High Precision Video Cutter & 9:16 Shorts Engine

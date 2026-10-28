@@ -206,11 +206,27 @@ export function App() {
         {/* State 1: No video selected yet */}
         {!video && (
           <div className="space-y-10 animate-in fade-in duration-300">
-            {/* Hero Heading */}
-            <div className="text-center max-w-3xl mx-auto space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold mb-2">
-                <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
+            {/* Hero Heading with Unique App Icon */}
+            <div className="text-center max-w-3xl mx-auto space-y-4">
+              <div className="flex flex-col items-center justify-center">
+                <div className="relative group mb-3">
+                  <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
+                  <img
+                    src="./app-icon.png"
+                    alt="SplitStream App Icon"
+                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
+                  />
+                </div>
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-semibold">
+                  <img
+                    src="./reeyansh-logo.png"
+                    alt="Reeyansh"
+                    className="w-3.5 h-3.5 object-contain"
+                  />
+                  <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
+                </div>
               </div>
+
               <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
                 Split Any Video Into Clips In Seconds
               </h1>

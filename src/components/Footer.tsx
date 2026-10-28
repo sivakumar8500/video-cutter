@@ -9,22 +9,28 @@ export const Footer: React.FC = () => {
           {/* Company Brand & Logo */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-500/20 via-slate-900 to-indigo-500/10 p-1 border border-orange-500/30 shadow-lg shadow-orange-500/10">
+              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500/20 via-slate-900 to-indigo-500/20 p-1 border border-cyan-500/30 shadow-lg shadow-cyan-500/10">
                 <img
-                  src="./reeyansh-logo.png"
-                  alt="Reeyansh Tech Solutions"
-                  className="w-10 h-10 object-contain drop-shadow"
+                  src="./app-icon.png"
+                  alt="SplitStream App Icon"
+                  className="w-10 h-10 object-cover rounded-xl drop-shadow"
                 />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                  <span>Reeyansh Tech Solutions</span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-orange-500/15 text-orange-400 border border-orange-500/30">
-                    Official
+                  <span>SplitStream</span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+                    v2.0
                   </span>
                 </h3>
-                <p className="text-xs text-slate-400">
-                  SplitStream • Next-Gen In-Browser Video Studio
+                <p className="text-xs text-slate-400 flex items-center gap-1.5">
+                  <span>A product of</span>
+                  <img
+                    src="./reeyansh-logo.png"
+                    alt="Reeyansh"
+                    className="w-3.5 h-3.5 object-contain"
+                  />
+                  <strong className="text-slate-300">Reeyansh Tech Solutions</strong>
                 </p>
               </div>
             </div>
