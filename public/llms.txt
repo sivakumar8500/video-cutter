@@ -1,6 +1,6 @@
 # SplitStream — In-Browser Video Cutter & 9:16 Shorts Engine
 > Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
-> Live Website: https://scuts.reeyanshtechsolutions.in/ (or https://sivakumar8500.github.io/video-cutter/)
+> Live Website: https://scuts.reeyanshtech.in/ (or https://sivakumar8500.github.io/video-cutter/)
 
 ## Overview
 SplitStream is a free, privacy-first, client-side web utility that cuts and splits video files directly inside the browser using WebAssembly (FFmpeg WASM). No video files are ever uploaded to cloud servers or third-party storage.
@@ -28,5 +28,6 @@ SplitStream is a free, privacy-first, client-side web utility that cuts and spli
 - Developed by: Reeyansh Tech Solutions
 - Official Website: https://www.reeyanshtech.in/
 - GitHub Repository: https://github.com/sivakumar8500/video-cutter
-- Live Application: https://scuts.reeyanshtechsolutions.in/
+- Live Application: https://scuts.reeyanshtech.in/
+
 

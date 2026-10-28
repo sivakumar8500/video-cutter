@@ -36,4 +36,4 @@ User-agent: Cohere-ai
 Allow: /
 
 # Sitemap Location
-Sitemap: https://scuts.reeyanshtechsolutions.in/sitemap.xml
+Sitemap: https://scuts.reeyanshtech.in/sitemap.xml
