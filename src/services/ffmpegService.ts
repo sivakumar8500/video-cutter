@@ -46,14 +46,23 @@ export function getFilterArgs(
   return [];
 }
 
+export interface TimedBannerInput {
+  inputIndex: number;
+  position: 'top' | 'bottom';
+  start: number; // in seconds
+  end: number; // in seconds
+}
+
 /**
  * Build filter graph for top and bottom promotional card overlay in 9:16
  * with custom card adjustments (fit mode, custom heights, padding, zoom, and background color)
+ * and optional timed multi-banners with between(t, start, end) expressions.
  */
 export function getPromoCardsFilterArgs(
   topInputIndex: number | null,
   botInputIndex: number | null,
-  adjustments?: import('../types').CardAdjustments
+  adjustments?: import('../types').CardAdjustments,
+  timedBanners?: TimedBannerInput[]
 ): string[] {
   const topH = Math.max(200, Math.min(800, adjustments?.topHeight ?? 656));
   const botH = Math.max(200, Math.min(800, adjustments?.bottomHeight ?? 656));
@@ -72,29 +81,53 @@ export function getPromoCardsFilterArgs(
   let filter = `[0:v]scale=1080:${videoH}:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:${videoY}:${bgColor}[base]`;
   let currentBase = 'base';
 
-  if (topInputIndex !== null) {
-    if (fit === 'cover') {
-      const scaledW = Math.round(1080 * topZoom);
-      const scaledH = Math.round(topH * topZoom);
-      filter += `;[${topInputIndex}:v]scale=${scaledW}:${scaledH}:force_original_aspect_ratio=increase,crop=1080:${topH}[top_scaled]`;
-    } else {
-      filter += `;[${topInputIndex}:v]scale=1080:${topH}:force_original_aspect_ratio=decrease,pad=1080:${topH}:(ow-iw)/2:(oh-ih)/2:${bgColor}[top_scaled]`;
-    }
-    filter += `;[${currentBase}][top_scaled]overlay=0:0[with_top]`;
-    currentBase = 'with_top';
-  }
+  if (timedBanners && timedBanners.length > 0) {
+    // Multi-Banner Timeline Mode: iterate through each timed banner slot
+    for (let i = 0; i < timedBanners.length; i++) {
+      const b = timedBanners[i];
+      const isTop = b.position === 'top';
+      const h = isTop ? topH : botH;
+      const zoom = isTop ? topZoom : botZoom;
+      const yPos = isTop ? 0 : 1920 - botH;
 
-  if (botInputIndex !== null) {
-    const botY = 1920 - botH;
-    if (fit === 'cover') {
-      const scaledW = Math.round(1080 * botZoom);
-      const scaledH = Math.round(botH * botZoom);
-      filter += `;[${botInputIndex}:v]scale=${scaledW}:${scaledH}:force_original_aspect_ratio=increase,crop=1080:${botH}[bot_scaled]`;
-    } else {
-      filter += `;[${botInputIndex}:v]scale=1080:${botH}:force_original_aspect_ratio=decrease,pad=1080:${botH}:(ow-iw)/2:(oh-ih)/2:${bgColor}[bot_scaled]`;
+      if (fit === 'cover') {
+        const scaledW = Math.round(1080 * zoom);
+        const scaledH = Math.round(h * zoom);
+        filter += `;[${b.inputIndex}:v]scale=${scaledW}:${scaledH}:force_original_aspect_ratio=increase,crop=1080:${h}[tb_scale_${i}]`;
+      } else {
+        filter += `;[${b.inputIndex}:v]scale=1080:${h}:force_original_aspect_ratio=decrease,pad=1080:${h}:(ow-iw)/2:(oh-ih)/2:${bgColor}[tb_scale_${i}]`;
+      }
+
+      // Overlay with enable expression between(t, start, end)
+      filter += `;[${currentBase}][tb_scale_${i}]overlay=0:${yPos}:enable='between(t\\,${b.start.toFixed(2)}\\,${b.end.toFixed(2)})'[with_tb_${i}]`;
+      currentBase = `with_tb_${i}`;
     }
-    filter += `;[${currentBase}][bot_scaled]overlay=0:${botY}[with_bot]`;
-    currentBase = 'with_bot';
+  } else {
+    // Single static banners mode
+    if (topInputIndex !== null) {
+      if (fit === 'cover') {
+        const scaledW = Math.round(1080 * topZoom);
+        const scaledH = Math.round(topH * topZoom);
+        filter += `;[${topInputIndex}:v]scale=${scaledW}:${scaledH}:force_original_aspect_ratio=increase,crop=1080:${topH}[top_scaled]`;
+      } else {
+        filter += `;[${topInputIndex}:v]scale=1080:${topH}:force_original_aspect_ratio=decrease,pad=1080:${topH}:(ow-iw)/2:(oh-ih)/2:${bgColor}[top_scaled]`;
+      }
+      filter += `;[${currentBase}][top_scaled]overlay=0:0[with_top]`;
+      currentBase = 'with_top';
+    }
+
+    if (botInputIndex !== null) {
+      const botY = 1920 - botH;
+      if (fit === 'cover') {
+        const scaledW = Math.round(1080 * botZoom);
+        const scaledH = Math.round(botH * botZoom);
+        filter += `;[${botInputIndex}:v]scale=${scaledW}:${scaledH}:force_original_aspect_ratio=increase,crop=1080:${botH}[bot_scaled]`;
+      } else {
+        filter += `;[${botInputIndex}:v]scale=1080:${botH}:force_original_aspect_ratio=decrease,pad=1080:${botH}:(ow-iw)/2:(oh-ih)/2:${bgColor}[bot_scaled]`;
+      }
+      filter += `;[${currentBase}][bot_scaled]overlay=0:${botY}[with_bot]`;
+      currentBase = 'with_bot';
+    }
   }
 
   return ['-filter_complex', filter, '-map', `[${currentBase}]`, '-map', '0:a?'];
@@ -196,19 +229,61 @@ export class FFmpegService {
     let nextIndex = 1;
 
     const extraInputs: string[] = [];
+    const createdVirtualFiles: string[] = [];
+    const timedBanners: TimedBannerInput[] = [];
 
-    if (promoCards?.enabled && promoCards.topCard) {
-      topVirtualName = `top_card_${Date.now()}.png`;
-      await this.ffmpeg.writeFile(topVirtualName, await fetchFile(promoCards.topCard.blob));
-      extraInputs.push('-i', topVirtualName);
-      topIndex = nextIndex++;
-    }
+    const isTimelineMode = promoCards?.enabled && promoCards.bannerMode === 'timeline';
 
-    if (promoCards?.enabled && promoCards.bottomCard) {
-      botVirtualName = `bot_card_${Date.now()}.png`;
-      await this.ffmpeg.writeFile(botVirtualName, await fetchFile(promoCards.bottomCard.blob));
-      extraInputs.push('-i', botVirtualName);
-      botIndex = nextIndex++;
+    if (isTimelineMode) {
+      const topSlots = promoCards.topSlots || [];
+      for (let i = 0; i < topSlots.length; i++) {
+        const slot = topSlots[i];
+        if (slot.card && slot.end > slot.start) {
+          const vName = `slot_top_${i}_${Date.now()}.png`;
+          await this.ffmpeg.writeFile(vName, await fetchFile(slot.card.blob));
+          createdVirtualFiles.push(vName);
+          extraInputs.push('-i', vName);
+          timedBanners.push({
+            inputIndex: nextIndex++,
+            position: 'top',
+            start: Math.max(0, slot.start),
+            end: Math.min(clip.duration, slot.end),
+          });
+        }
+      }
+
+      const bottomSlots = promoCards.bottomSlots || [];
+      for (let i = 0; i < bottomSlots.length; i++) {
+        const slot = bottomSlots[i];
+        if (slot.card && slot.end > slot.start) {
+          const vName = `slot_bot_${i}_${Date.now()}.png`;
+          await this.ffmpeg.writeFile(vName, await fetchFile(slot.card.blob));
+          createdVirtualFiles.push(vName);
+          extraInputs.push('-i', vName);
+          timedBanners.push({
+            inputIndex: nextIndex++,
+            position: 'bottom',
+            start: Math.max(0, slot.start),
+            end: Math.min(clip.duration, slot.end),
+          });
+        }
+      }
+    } else {
+      if (promoCards?.enabled && promoCards.topCard) {
+        topVirtualName = `top_card_${Date.now()}.png`;
+        await this.ffmpeg.writeFile(topVirtualName, await fetchFile(promoCards.topCard.blob));
+        createdVirtualFiles.push(topVirtualName);
+        extraInputs.push('-i', topVirtualName);
+        topIndex = nextIndex++;
+      }
+
+      if (promoCards?.enabled && promoCards.bottomCard) {
+        botVirtualName = `bot_card_${Date.now()}.png`;
+        await this.ffmpeg.writeFile(botVirtualName, await fetchFile(promoCards.bottomCard.blob));
+        createdVirtualFiles.push(botVirtualName);
+        extraInputs.push('-i', botVirtualName);
+        botIndex = nextIndex++;
+      }
     }
 
     if (onProgress) {
@@ -220,7 +295,9 @@ export class FFmpegService {
     let filterArgs: string[] = [];
 
     // If promo cards are attached, use promo card overlay
-    if (targetRatio === '9:16' && (topIndex !== null || botIndex !== null)) {
+    if (targetRatio === '9:16' && timedBanners.length > 0) {
+      filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, timedBanners);
+    } else if (targetRatio === '9:16' && (topIndex !== null || botIndex !== null)) {
       filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments);
     } else {
       filterArgs = getFilterArgs(targetRatio, fitMode);
@@ -278,14 +355,15 @@ export class FFmpegService {
     try {
       await this.ffmpeg.deleteFile(inputName);
       await this.ffmpeg.deleteFile(outName);
-      if (topVirtualName) await this.ffmpeg.deleteFile(topVirtualName);
-      if (botVirtualName) await this.ffmpeg.deleteFile(botVirtualName);
+      for (const vName of createdVirtualFiles) {
+        await this.ffmpeg.deleteFile(vName);
+      }
     } catch {
       // ignore
     }
 
     const suffix = targetRatio === '9:16' ? '_9x16' : '_1x1';
-    const hasPromo = !!(topIndex !== null || botIndex !== null);
+    const hasPromo = timedBanners.length > 0 || !!(topIndex !== null || botIndex !== null);
     const newFilename = clip.filename.replace(
       /\.([^.]+)$/,
       `${hasPromo ? '_promo' : ''}${suffix}.$1`
@@ -331,8 +409,16 @@ export class FFmpegService {
       throw new Error('FFmpeg failed to initialize');
     }
 
-    const hasCards =
-      promoCards?.enabled && (!!promoCards.topCard || !!promoCards.bottomCard);
+    const hasStaticCards =
+      promoCards?.enabled &&
+      promoCards.bannerMode !== 'timeline' &&
+      (!!promoCards.topCard || !!promoCards.bottomCard);
+    const hasTimelineCards =
+      promoCards?.enabled &&
+      promoCards.bannerMode === 'timeline' &&
+      ((promoCards.topSlots?.some((s) => !!s.card)) ||
+        (promoCards.bottomSlots?.some((s) => !!s.card)));
+    const hasCards = hasStaticCards || !!hasTimelineCards;
     const isConvertingRatio = targetAspectRatio !== 'original' || hasCards;
     const effectiveReencoding = useReencoding || isConvertingRatio;
 
@@ -358,14 +444,14 @@ export class FFmpegService {
     const extraInputs: string[] = [];
     let nextIdx = 1;
 
-    if (hasCards && promoCards?.topCard) {
+    if (hasStaticCards && promoCards?.topCard) {
       topVirtualName = `top_card_${Date.now()}.png`;
       await this.ffmpeg.writeFile(topVirtualName, await fetchFile(promoCards.topCard.blob));
       extraInputs.push('-i', topVirtualName);
       topIndex = nextIdx++;
     }
 
-    if (hasCards && promoCards?.bottomCard) {
+    if (hasStaticCards && promoCards?.bottomCard) {
       botVirtualName = `bot_card_${Date.now()}.png`;
       await this.ffmpeg.writeFile(botVirtualName, await fetchFile(promoCards.bottomCard.blob));
       extraInputs.push('-i', botVirtualName);
@@ -410,6 +496,55 @@ export class FFmpegService {
 
         this.ffmpeg.on('progress', progressHandler);
 
+        const segExtraInputs: string[] = [];
+        const segTimedBanners: TimedBannerInput[] = [];
+        const segFilesToClean: string[] = [];
+        let segNextIdx = 1;
+
+        if (hasTimelineCards) {
+          const topSlots = promoCards?.topSlots || [];
+          for (let sIdx = 0; sIdx < topSlots.length; sIdx++) {
+            const slot = topSlots[sIdx];
+            if (slot.card && slot.end > segment.start && slot.start < segment.end) {
+              const relStart = Math.max(0, slot.start - segment.start);
+              const relEnd = Math.min(segment.duration, slot.end - segment.start);
+              if (relEnd > relStart) {
+                const vName = `seg_${clipNum}_top_${sIdx}_${Date.now()}.png`;
+                await this.ffmpeg.writeFile(vName, await fetchFile(slot.card.blob));
+                segFilesToClean.push(vName);
+                segExtraInputs.push('-i', vName);
+                segTimedBanners.push({
+                  inputIndex: segNextIdx++,
+                  position: 'top',
+                  start: relStart,
+                  end: relEnd,
+                });
+              }
+            }
+          }
+
+          const bottomSlots = promoCards?.bottomSlots || [];
+          for (let sIdx = 0; sIdx < bottomSlots.length; sIdx++) {
+            const slot = bottomSlots[sIdx];
+            if (slot.card && slot.end > segment.start && slot.start < segment.end) {
+              const relStart = Math.max(0, slot.start - segment.start);
+              const relEnd = Math.min(segment.duration, slot.end - segment.start);
+              if (relEnd > relStart) {
+                const vName = `seg_${clipNum}_bot_${sIdx}_${Date.now()}.png`;
+                await this.ffmpeg.writeFile(vName, await fetchFile(slot.card.blob));
+                segFilesToClean.push(vName);
+                segExtraInputs.push('-i', vName);
+                segTimedBanners.push({
+                  inputIndex: segNextIdx++,
+                  position: 'bottom',
+                  start: relStart,
+                  end: relEnd,
+                });
+              }
+            }
+          }
+        }
+
         let args: string[] = [];
 
         if (!effectiveReencoding) {
@@ -430,18 +565,22 @@ export class FFmpegService {
         } else {
           // Re-encoding with aspect ratio or promo cards
           let filterArgs: string[] = [];
-          if (hasCards && (topIndex !== null || botIndex !== null)) {
+          if (hasTimelineCards && segTimedBanners.length > 0) {
+            filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, segTimedBanners);
+          } else if (hasStaticCards && (topIndex !== null || botIndex !== null)) {
             filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments);
           } else {
             filterArgs = getFilterArgs(targetAspectRatio, verticalFitMode);
           }
+
+          const currentExtra = hasTimelineCards ? segExtraInputs : extraInputs;
 
           args = [
             '-ss',
             segment.start.toFixed(3),
             '-i',
             inputVirtualName,
-            ...extraInputs,
+            ...currentExtra,
             '-t',
             segment.duration.toFixed(3),
             ...filterArgs,
@@ -524,6 +663,9 @@ export class FFmpegService {
 
         try {
           await this.ffmpeg.deleteFile(outVirtualName);
+          for (const f of segFilesToClean) {
+            await this.ffmpeg.deleteFile(f);
+          }
         } catch {
           // ignore
         }

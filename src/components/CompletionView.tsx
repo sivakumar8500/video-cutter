@@ -337,6 +337,7 @@ export const CompletionView: React.FC<CompletionViewProps> = ({
             config={promoCardsConfig}
             onChange={setPromoCardsConfig}
             videoPreviewUrl={activeClipPreview?.url}
+            totalDuration={activeClipPreview?.duration || clips[0]?.duration || 60}
           />
         </div>
       </div>

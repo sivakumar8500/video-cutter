@@ -40,10 +40,23 @@ export interface PromoCard {
   previewUrl: string;
 }
 
+export interface TimedBannerSlot {
+  id: string;
+  start: number; // in seconds
+  end: number; // in seconds
+  card: PromoCard | null;
+  label?: string;
+}
+
+export type BannerMode = 'static' | 'timeline';
+
 export interface PromoCardsConfig {
   enabled: boolean;
+  bannerMode?: BannerMode; // 'static' (1 top, 1 bottom) | 'timeline' (multiple timed banners)
   topCard: PromoCard | null;
   bottomCard: PromoCard | null;
+  topSlots?: TimedBannerSlot[]; // Array of timed top banners
+  bottomSlots?: TimedBannerSlot[]; // Array of timed bottom banners
   adjustments: CardAdjustments;
 }
 

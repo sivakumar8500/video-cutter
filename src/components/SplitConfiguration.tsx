@@ -745,6 +745,7 @@ export const SplitConfiguration: React.FC<SplitConfigurationProps> = ({
                 config={
                   config.promoCards || {
                     enabled: false,
+                    bannerMode: 'static',
                     topCard: null,
                     bottomCard: null,
                     adjustments: DEFAULT_CARD_ADJUSTMENTS,
@@ -752,6 +753,8 @@ export const SplitConfiguration: React.FC<SplitConfigurationProps> = ({
                 }
                 onChange={(promoCards) => onChangeConfig({ ...config, promoCards })}
                 videoPreviewUrl={videoPreviewUrl}
+                totalDuration={totalDuration}
+                currentPlayheadTime={currentPlayheadTime}
               />
             </div>
           )}

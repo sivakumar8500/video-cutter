@@ -42,6 +42,11 @@ A modern, responsive, high-precision **Video Cutter & Splitter Web App** built w
 - **🎴 Top & Bottom Promotional Cards (Viral Social Stack)**:
   - Attach two promotional cards: **Top Card** at the top, **16:9 Video** in the middle, and **Bottom Card** at the bottom!
   - Upload custom card graphics (PNG, JPG, WebP) or click one-click pre-styled viral templates (*"🔥 Wait Till The End" + "👉 Subscribe For Part 2"*, *"Must Watch"*, etc.).
+  - **⏱️ Multiple Timed Banners (Timeline Mode)**:
+    - Attach different top and bottom banners at specific time intervals (e.g., 0-6s banner 1, 6-12s banner 2, up to 10+ banners across a 1-minute video).
+    - **⚡ Quick Auto-Divide**: Instant buttons to divide video duration into 10 banners, 5 banners, every 5s, or every 10s.
+    - **Visual Timeline Ribbon**: Interactive colored map of all time slices with click-to-seek.
+    - **Live Phone Preview with Playhead Scrubber**: Scrub or play the video to watch the top and bottom banners switch in real time!
   - **🎛️ Full Uploaded Card Adjustment Controls**:
     - **Fit Mode**: Switch between **Fill (Cover)** to fill the banner without borders, or **Fit (Contain)** to preserve the full image.
     - **Custom Card Heights**: Precision sliders to adjust the height of the Top Card ($300\text{px} - 750\text{px}$) and Bottom Card ($300\text{px} - 750\text{px}$).
