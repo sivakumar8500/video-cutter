@@ -1,0 +1,31 @@
+# SplitStream — In-Browser Video Cutter & 9:16 Shorts Engine
+> Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
+> Live Website: https://sivakumar8500.github.io/video-cutter/
+
+## Overview
+SplitStream is a free, privacy-first, client-side web utility that cuts and splits video files directly inside the browser using WebAssembly (FFmpeg WASM). No video files are ever uploaded to cloud servers or third-party storage.
+
+## Core Capabilities
+1. **Split by Piece Count**: Divide any video evenly into N parts (e.g. 2, 4, 5, 10 clips) with exact timestamp boundaries.
+2. **Split by Duration**: Slice video into fixed duration segments (e.g. 30 seconds for WhatsApp Status, 60 seconds for YouTube Shorts, 3 minutes for TikTok) with zero-loss remainder handling.
+3. **Cut Particular Minute to Minute**: Set custom start (mm:ss) and end (mm:ss) timestamps, with "Set to Now" real-time video player synchronization and multi-clip batch extraction.
+4. **16:9 to 9:16 Vertical Converter**: Transform landscape 16:9 videos into 9:16 vertical videos for Shorts, Reels, and TikTok using Blurred Background, Center Crop, or Letterbox styling.
+5. **Top & Bottom Promotional Cards & Multi-Banners**:
+   - Attach branded cards at the top and bottom with adjustable height (200px-800px), fit modes (Cover/Contain), zoom, padding, and background colors.
+   - Attach multiple timed banners across the timeline (e.g., 0-6s banner 1, 6-12s banner 2, up to 10+ banners across 1 minute) with an interactive timeline scrubber.
+6. **Lossless Stream Copy**: Ultra-fast cutting in milliseconds without re-encoding when slicing MP4 files.
+7. **Direct Folder Export**: Save all output clips directly to a designated folder on the user's hard drive using the File System Access API, or download as a single organized ZIP archive.
+
+## Technical Specifications
+- **Supported Containers**: MP4, MOV, MKV, AVI, WebM, M4V, FLV, TS
+- **Supported Video Codecs**: H.264 (AVC), H.265 (HEVC), VP8, VP9, ProRes
+- **Supported Audio Codecs**: AAC, MP3, Opus, PCM
+- **Engine**: Single-threaded FFmpeg Core 0.12 running inside WebAssembly sandbox
+- **Privacy Model**: 100% Client-Side. Zero server uploads. Works completely offline after initial load.
+- **Price**: 100% Free Forever. No subscription, no account required, no watermark.
+
+## Company & Attribution
+- Developed by: Reeyansh Tech Solutions
+- Official Website: https://www.reeyanshtech.in/
+- GitHub Repository: https://github.com/sivakumar8500/video-cutter
+- Live Application: https://sivakumar8500.github.io/video-cutter/

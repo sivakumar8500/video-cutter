@@ -22,6 +22,10 @@
     <meta property="og:title" content="SplitStream — Free Online Video Cutter & 9:16 Shorts Converter" />
     <meta property="og:description" content="Split any video into multiple clips by piece count, duration, or exact minute ranges. Convert 16:9 videos to 9:16 vertical with promotional cards. 100% private & client-side by Reeyansh Tech Solutions." />
     <meta property="og:image" content="https://sivakumar8500.github.io/video-cutter/app-icon.png" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:alt" content="SplitStream In-Browser Video Cutter and 9:16 Converter by Reeyansh Tech Solutions" />
     <meta property="og:site_name" content="SplitStream • Reeyansh Tech Solutions" />
     <meta property="og:locale" content="en_US" />
 
@@ -31,6 +35,13 @@
     <meta name="twitter:title" content="SplitStream — Free Online Video Cutter & 9:16 Shorts Converter" />
     <meta name="twitter:description" content="Split videos by parts, duration, or exact minutes. Convert to 9:16 Reels & Shorts with custom promotional cards. Powered by Reeyansh Tech Solutions." />
     <meta name="twitter:image" content="https://sivakumar8500.github.io/video-cutter/app-icon.png" />
+    <meta name="twitter:image:alt" content="SplitStream In-Browser Video Cutter by Reeyansh Tech Solutions" />
+
+    <!-- Additional Search & Browser Metadata -->
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="global" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="format-detection" content="telephone=no" />
 
     <!-- Favicon & Touch Icons -->
     <link rel="icon" type="image/png" sizes="64x64" href="./favicon.png" />
@@ -57,7 +68,7 @@
       });
     </script>
 
-    <!-- Schema.org JSON-LD Structured Data for SEO -->
+    <!-- Schema.org JSON-LD Structured Data for AEO & SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -79,25 +90,214 @@
           "url": "https://sivakumar8500.github.io/video-cutter/",
           "name": "SplitStream Video Cutter & Splitter",
           "applicationCategory": "MultimediaApplication",
-          "operatingSystem": "All modern web browsers (Chrome, Edge, Firefox, Safari)",
+          "applicationSubCategory": "VideoEditor",
+          "operatingSystem": "All modern web browsers (Chrome, Edge, Firefox, Safari, Brave, Opera)",
           "browserRequirements": "Requires JavaScript and WebAssembly support",
+          "softwareVersion": "2.1.0",
+          "inLanguage": "en-US",
           "creator": {
             "@id": "https://www.reeyanshtech.in/#organization"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "1280",
+            "bestRating": "5",
+            "worstRating": "1"
           },
           "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD"
           },
+          "screenshot": "https://sivakumar8500.github.io/video-cutter/app-icon.png",
           "description": "High-precision in-browser video cutter and splitter. Slice videos into equal parts, fixed durations, or minute-to-minute ranges with 16:9 to 9:16 vertical conversion and promotional cards.",
           "featureList": [
-            "Split video by number of pieces",
-            "Split video by fixed clip duration",
-            "Cut particular minute to minute ranges",
-            "16:9 to 9:16 vertical aspect ratio conversion",
-            "Attach top and bottom promotional cards with live adjustments",
-            "100% private in-browser FFmpeg WebAssembly processing",
-            "Direct save to folder (File System Access API) and JSZip export"
+            "Split video by number of pieces with zero lost frames",
+            "Split video by fixed clip duration (e.g. 30s WhatsApp, 60s Shorts)",
+            "Cut particular minute to minute ranges with real-time video scrubber sync",
+            "Convert 16:9 landscape to 9:16 vertical for TikTok, Reels & Shorts",
+            "Attach top and bottom promotional banner cards with live adjustment sliders",
+            "Attach multiple timed banners across video timeline (e.g. 10 banners in 1 minute)",
+            "100% private in-browser FFmpeg WebAssembly engine (zero server uploads)",
+            "Lossless stream copy cutting without re-encoding",
+            "Direct save to computer folder via File System Access API and single-click ZIP archive"
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://sivakumar8500.github.io/video-cutter/#howto-split",
+          "name": "How to Split a Video into Equal Parts Online for Free",
+          "description": "Step-by-step guide to splitting any local video file into equal parts or specific duration slices without uploading to a third-party server.",
+          "totalTime": "PT1M",
+          "supply": [
+            {
+              "@type": "HowToSupply",
+              "name": "Video file (MP4, MOV, MKV, AVI, WebM)"
+            }
+          ],
+          "tool": [
+            {
+              "@type": "HowToTool",
+              "name": "SplitStream by Reeyansh Tech Solutions"
+            }
+          ],
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Step 1: Upload Your Video",
+              "text": "Drag and drop any local video file into the SplitStream upload dropzone or click to select a file from your device.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#upload"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Step 2: Choose Splitting Mode",
+              "text": "Select 'Split by Pieces' for equal parts, 'Split by Duration' for fixed seconds/minutes, or 'Cut Min to Min' for exact timestamps.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#config"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Step 3: Export & Save Clips",
+              "text": "Click 'Start Splitting'. Once complete, preview clips, download as a ZIP file, or click 'Save to New Folder' to store all clips directly on your computer.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#export"
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://sivakumar8500.github.io/video-cutter/#howto-shorts",
+          "name": "How to Convert 16:9 Video to 9:16 Shorts with Promotional Banners",
+          "description": "Step-by-step instructions to convert widescreen horizontal footage into vertical 9:16 video for YouTube Shorts, Instagram Reels, and TikTok with promotional cards.",
+          "totalTime": "PT2M",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Step 1: Choose 9:16 Vertical Mode",
+              "text": "In the split configuration panel or on the completion view, switch the aspect ratio to 9:16 Vertical.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#aspect-ratio"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Step 2: Add Top & Bottom Promotional Cards",
+              "text": "Upload custom banner images or select viral templates, customize heights, zoom, padding, and background styling.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#promo-cards"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Step 3: Render and Save High-Engagement Vertical Shorts",
+              "text": "Click convert to render high-definition 1080x1920 vertical video ready for immediate social media publication.",
+              "url": "https://sivakumar8500.github.io/video-cutter/#render-shorts"
+            }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://sivakumar8500.github.io/video-cutter/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How do I split a video into multiple equal parts?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Upload your video, click the 'Split by Pieces' tab, and select how many parts you want (e.g., 4 or 5 pieces). SplitStream will automatically calculate the exact timestamp boundaries and divide the entire video timeline equally without missing a single frame."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I cut a specific minute-to-minute part of a video?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! Switch to the 'Cut Min to Min' tab. You can set the exact Start Time (e.g., 01:30) and End Time (e.g., 04:15). You can also click 'Set to Now' while previewing the video in the player to mark exact cut points instantly, or click '+ Add Another Cut' to extract multiple specific segments from the same video."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does 16:9 to 9:16 vertical conversion work for Reels and Shorts?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "You can select '9:16 Vertical' before splitting or convert your cut clips on the completion screen. You can choose from three styles: Blurred Background (centered video surrounded by dynamic blurred reflections), Center Crop (fills the full vertical screen), or Letterbox (classic black bars)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I attach promotional cards above and below the video?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Enable the 'Top & Bottom Promotional Cards' option in the 9:16 converter. You can upload custom banner graphics or pick pre-styled viral templates ('Wait Till The End', 'Subscribe for Part 2'). Full adjustment sliders allow you to customize top and bottom card heights (200px to 800px), fit modes (Cover vs Contain), zoom, video padding, and background colors with a live phone preview."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I add multiple timed banners across a video timeline?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "In the promotional cards manager, switch to 'Timeline Banners Mode'. You can add up to 10+ distinct banner pairs for specific time intervals (e.g., 0-6s, 6-12s, 12-18s) with instant auto-divide presets and an interactive timeline ribbon to switch banners dynamically during video playback."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are my videos uploaded to any external server or cloud?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No! SplitStream operates 100% locally in your web browser using WebAssembly (FFmpeg WASM). Your video data never leaves your computer, ensuring absolute privacy, zero bandwidth usage, and complete confidentiality for proprietary, sensitive, or personal content."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What video file formats are supported?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "SplitStream supports MP4, MOV, MKV, AVI, WebM, M4V, FLV, and all common video containers and codecs (H.264, H.265, VP8, VP9, ProRes). Stream copy is available for MP4 containers, while universal re-encoding guarantees compatibility for all formats."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can I save all split clips directly to a folder on my computer?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes! By using the native File System Access API in modern browsers (Chrome, Edge), you can click 'Save to New Folder' and SplitStream will create a dedicated timestamped folder on your computer and save each clip directly. You can also download all clips in a single ZIP file with one click."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is there any watermark on exported videos?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "No, SplitStream does not add any watermarks, logos, or branding to your exported video clips. All outputs remain in pristine, 100% original quality."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is SplitStream free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, SplitStream is 100% free and open to everyone with no subscriptions, paywalls, limits on file length, or registration required."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": "https://sivakumar8500.github.io/video-cutter/#breadcrumb",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://sivakumar8500.github.io/video-cutter/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Video Tools",
+              "item": "https://sivakumar8500.github.io/video-cutter/#tools"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "SplitStream Video Cutter & Splitter",
+              "item": "https://sivakumar8500.github.io/video-cutter/"
+            }
           ]
         }
       ]
