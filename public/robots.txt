@@ -36,4 +36,4 @@ User-agent: Cohere-ai
 Allow: /
 
 # Sitemap Location
-Sitemap: https://sivakumar8500.github.io/video-cutter/sitemap.xml
+Sitemap: https://scuts.reeyanshtechsolutions.in/sitemap.xml
