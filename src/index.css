@@ -7,8 +7,8 @@
   body {
     margin: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #0b0f19;
-    color: #e2e8f0;
+    background-color: #020202;
+    color: #ffedd6;
     overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
@@ -25,14 +25,14 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #020202;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #262626;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #ff7a00;
 }
 
 /* Glassmorphism and glow effects */
@@ -66,3 +66,192 @@
 .animate-pulse-glow {
   animation: pulseGlow 4s infinite ease-in-out;
 }
+
+/* ================= MOTION ANIMATIONS ================= */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(12px) rotate(-1deg); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+
+@keyframes laserCut {
+  0%, 100% { opacity: 0.2; transform: scaleY(0.9); }
+  50% { opacity: 1; transform: scaleY(1.05); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes audioWave {
+  0%, 100% { height: 25%; }
+  50% { height: 95%; }
+}
+
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulseBeam {
+  0% { transform: translateX(-100%); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%); opacity: 0; }
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes energyFlow {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 7s ease-in-out infinite;
+}
+
+.animate-scanline {
+  animation: scanline 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-laser-cut {
+  animation: laserCut 1.4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.animate-pulse-beam {
+  animation: pulseBeam 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.animate-orbit {
+  animation: orbitSpin 12s linear infinite;
+}
+
+.animate-energy-flow {
+  stroke-dasharray: 8 6;
+  animation: energyFlow 1.8s linear infinite;
+}
+
+/* ZERO-INSPIRED EDITORIAL & MOTION UTILITIES */
+.font-editorial {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.cutting-mat {
+  background-color: #0f3d2e;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.cutting-mat-dark {
+  background-color: #09261c;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes crumblePaper {
+  0% { transform: scale(1) rotate(0deg); border-radius: 4px; }
+  50% { transform: scale(0.65) rotate(15deg); border-radius: 40%; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+  100% { transform: scale(1) rotate(0deg); border-radius: 4px; }
+}
+
+.animate-crumble {
+  animation: crumblePaper 1.2s ease-in-out;
+}
+
+/* ================= ORYZO.AI DESIGN SYSTEM ================= */
+.o-dashline {
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed rgba(255, 237, 214, 0.22);
+}
+
+.glow-oryzo-border {
+  border: 1px solid rgba(255, 237, 214, 0.25);
+  box-shadow: 0 0 30px -5px rgba(255, 122, 0, 0.2);
+}
+
+.glow-oryzo-video {
+  box-shadow: 0 0 50px -10px rgba(255, 122, 0, 0.35), 0 0 20px -5px rgba(255, 237, 214, 0.15);
+}
+
+.btn-flipper {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease;
+  transform-style: preserve-3d;
+}
+
+.btn-flipper:hover {
+  transform: translateY(-2px);
+}
+
+.btn-flipper:active {
+  transform: translateY(1px);
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s ease-in-out infinite;
+}
+
+
+

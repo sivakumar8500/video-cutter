@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import { Header } from './components/Header';
+import { Header, type ActiveTab } from './components/Header';
 import { VideoUploader } from './components/VideoUploader';
 import { VideoPlayerPreview } from './components/VideoPlayerPreview';
 import { SplitConfiguration } from './components/SplitConfiguration';
@@ -8,6 +8,11 @@ import { ProcessingModal } from './components/ProcessingModal';
 import { CompletionView } from './components/CompletionView';
 import { Footer } from './components/Footer';
 import { SeoContentSection } from './components/SeoContentSection';
+import { ImageStudio } from './components/ImageStudio/ImageStudio';
+import { PdfStudio } from './components/PdfStudio/PdfStudio';
+import { FilesManagerView } from './components/FilesManagerView';
+import { QrStudio } from './components/QrStudio/QrStudio';
+import { HomePage } from './components/HomePage';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink } from 'lucide-react';
 import type {
@@ -24,6 +29,7 @@ import {
 import { ffmpegService } from './services/ffmpegService';
 
 export function App() {
+  const [activeTab, setActiveTab] = useState<ActiveTab>('home');
   const [video, setVideo] = useState<VideoMetadata | null>(null);
   const [seekTime, setSeekTime] = useState<number | null>(null);
   const [currentVideoTime, setCurrentVideoTime] = useState<number>(0);
@@ -198,111 +204,154 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col font-sans selection:bg-orange-500 selection:text-white">
-      {/* Top Navigation Bar */}
-      <Header hasVideo={!!video} onReset={handleReset} />
+    <div className="min-h-screen bg-[#020202] text-[#ffedd6] flex flex-col font-sans selection:bg-[#ff7a00] selection:text-black">
+      {/* Top Navigation Bar with Sub-Navigation Tabs */}
+      <Header
+        hasVideo={!!video}
+        onReset={handleReset}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-        {/* State 1: No video selected yet */}
-        {!video && (
-          <div className="space-y-10 animate-in fade-in duration-300">
-            {/* Hero Heading with Unique App Icon */}
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              <div className="flex flex-col items-center justify-center">
-                <div className="relative group mb-3">
-                  <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
-                  <img
-                    src="./app-icon.png"
-                    alt="SplitStream App Icon"
-                    className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
-                  />
+      <main className={`flex-1 w-full mx-auto ${activeTab === 'home' ? 'max-w-full p-0' : 'max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10'}`}>
+        {/* TAB 0: Home Overview Page (Explains All Features Professionally) */}
+        {activeTab === 'home' && (
+          <HomePage
+            onNavigate={setActiveTab}
+            filesCount={exportedClips.length}
+          />
+        )}
+
+        {/* TAB 1: Video Cutter & Splitter */}
+        {activeTab === 'video-cutter' && (
+          <>
+            {/* State 1: No video selected yet */}
+            {!video && (
+              <div className="space-y-10 animate-in fade-in duration-300">
+                {/* Hero Heading with Unique App Icon */}
+                <div className="text-center max-w-3xl mx-auto space-y-4">
+                  <div className="flex flex-col items-center justify-center">
+                    <div className="relative group mb-3">
+                      <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
+                      <img
+                        src="./app-icon.png"
+                        alt="SplitStream App Icon"
+                        className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
+                      />
+                    </div>
+                    <a
+                      href="https://www.reeyanshtech.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
+                      title="Visit Reeyansh Tech Solutions Official Website"
+                    >
+                      <img
+                        src="./reeyansh-logo.png"
+                        alt="Reeyansh"
+                        className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
+                      />
+                      <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
+                      <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                    </a>
+                  </div>
+
+                  <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                    Split Any Video Into Clips In Seconds
+                  </h1>
+                  <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                    Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
+                    All processing happens 100% locally in your browser using FFmpeg WebAssembly.
+                  </p>
                 </div>
-                <a
-                  href="https://www.reeyanshtech.in/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
-                  title="Visit Reeyansh Tech Solutions Official Website"
-                >
-                  <img
-                    src="./reeyansh-logo.png"
-                    alt="Reeyansh"
-                    className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
-                  />
-                  <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
-                  <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-                </a>
+
+                {/* Video Upload Dropzone */}
+                <VideoUploader onVideoSelected={handleVideoSelected} />
+
+                {/* Full SEO & Educational Content Section */}
+                <SeoContentSection />
               </div>
+            )}
 
-              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                Split Any Video Into Clips In Seconds
-              </h1>
-              <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-                Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
-                All processing happens 100% locally in your browser using FFmpeg WebAssembly.
-              </p>
-            </div>
+            {/* State 2: Video loaded & ready to configure / preview */}
+            {video && exportedClips.length === 0 && (
+              <div className="space-y-8 animate-in fade-in duration-300">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Left Column: Video Preview Player & Split Controls */}
+                  <div className="lg:col-span-7 space-y-6">
+                    <VideoPlayerPreview
+                      metadata={video}
+                      seekTime={seekTime}
+                      onRemove={handleReset}
+                      onChangeVideo={handleReset}
+                      onCurrentTimeChange={setCurrentVideoTime}
+                    />
 
-            {/* Video Upload Dropzone */}
-            <VideoUploader onVideoSelected={handleVideoSelected} />
+                    <SplitConfiguration
+                      totalDuration={video.duration}
+                      config={config}
+                      onChangeConfig={setConfig}
+                      defaultBaseName={defaultBaseName}
+                      currentPlayheadTime={currentVideoTime}
+                      onSeek={(time) => setSeekTime(time)}
+                      videoPreviewUrl={video.previewUrl}
+                    />
+                  </div>
 
-            {/* Full SEO & Educational Content Section */}
-            <SeoContentSection />
-          </div>
+                  {/* Right Column: Timeline Visualization & Segment Cuts */}
+                  <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+                    <TimelinePreview
+                      totalDuration={video.duration}
+                      segments={segments}
+                      onSeek={(time) => setSeekTime(time)}
+                      onStartProcess={handleStartProcess}
+                      isProcessing={
+                        progress.status === 'processing' ||
+                        progress.status === 'loading-ffmpeg' ||
+                        progress.status === 'preparing-file'
+                      }
+                      isRangeMode={config.mode === 'range'}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* State 3: Completed splitting results */}
+            {exportedClips.length > 0 && (
+              <CompletionView
+                clips={exportedClips}
+                folderName={outputFolderName}
+                onReset={handleReset}
+                onUpdateClips={setExportedClips}
+              />
+            )}
+          </>
         )}
 
-        {/* State 2: Video loaded & ready to configure / preview */}
-        {video && exportedClips.length === 0 && (
-          <div className="space-y-8 animate-in fade-in duration-300">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Left Column: Video Preview Player & Split Controls */}
-              <div className="lg:col-span-7 space-y-6">
-                <VideoPlayerPreview
-                  metadata={video}
-                  seekTime={seekTime}
-                  onRemove={handleReset}
-                  onChangeVideo={handleReset}
-                  onCurrentTimeChange={setCurrentVideoTime}
-                />
+        {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
+        {activeTab === 'image-studio' && <ImageStudio />}
 
-                <SplitConfiguration
-                  totalDuration={video.duration}
-                  config={config}
-                  onChangeConfig={setConfig}
-                  defaultBaseName={defaultBaseName}
-                  currentPlayheadTime={currentVideoTime}
-                  onSeek={(time) => setSeekTime(time)}
-                  videoPreviewUrl={video.previewUrl}
-                />
-              </div>
+        {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
+        {activeTab === 'pdf-studio' && <PdfStudio />}
 
-              {/* Right Column: Timeline Visualization & Segment Cuts */}
-              <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-                <TimelinePreview
-                  totalDuration={video.duration}
-                  segments={segments}
-                  onSeek={(time) => setSeekTime(time)}
-                  onStartProcess={handleStartProcess}
-                  isProcessing={
-                    progress.status === 'processing' ||
-                    progress.status === 'loading-ffmpeg' ||
-                    progress.status === 'preparing-file'
-                  }
-                  isRangeMode={config.mode === 'range'}
-                />
-              </div>
-            </div>
-          </div>
+        {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
+        {activeTab === 'qr' && (
+          <QrStudio
+            onSendToImageStudio={() => {
+              setActiveTab('image-studio');
+            }}
+          />
         )}
 
-        {/* State 3: Completed splitting results */}
-        {exportedClips.length > 0 && (
-          <CompletionView
-            clips={exportedClips}
-            folderName={outputFolderName}
-            onReset={handleReset}
-            onUpdateClips={setExportedClips}
+        {/* TAB 5: Media & Files Manager */}
+        {activeTab === 'files' && (
+          <FilesManagerView
+            activeVideo={video}
+            exportedClips={exportedClips}
+            onSelectVideoForCutter={handleVideoSelected}
+            onSwitchTab={setActiveTab}
           />
         )}
       </main>

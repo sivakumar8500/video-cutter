@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
           {/* Company Brand & Logo */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500/20 via-slate-900 to-indigo-500/20 p-1 border border-cyan-500/30 shadow-lg shadow-cyan-500/10">
+              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff7a00]/30 via-slate-900 to-[#ffedd6]/10 p-1 border border-[#ff7a00]/30 shadow-lg shadow-[#ff7a00]/10">
                 <img
                   src="./app-icon.png"
                   alt="SplitStream App Icon"
@@ -19,7 +19,7 @@ export const Footer: React.FC = () => {
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
                   <span>SplitStream</span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#ff7a00]/15 text-[#ff7a00] border border-[#ff7a00]/30">
                     v2.0
                   </span>
                 </h3>
@@ -61,13 +61,13 @@ export const Footer: React.FC = () => {
 
             <div className="flex flex-wrap gap-2 pt-1">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> 100% In-Browser Privacy
+                <ShieldCheck className="w-3.5 h-3.5 text-[#ff7a00]" /> 100% In-Browser Privacy
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <Zap className="w-3.5 h-3.5 text-amber-400" /> Lossless Stream Copy
+                <Zap className="w-3.5 h-3.5 text-[#ffedd6]" /> Lossless Stream Copy
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <Smartphone className="w-3.5 h-3.5 text-indigo-400" /> 9:16 Shorts & Reels
+                <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" /> 9:16 Shorts & Reels
               </span>
             </div>
           </div>
