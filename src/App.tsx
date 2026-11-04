@@ -13,8 +13,9 @@ import { PdfStudio } from './components/PdfStudio/PdfStudio';
 import { FilesManagerView } from './components/FilesManagerView';
 import { QrStudio } from './components/QrStudio/QrStudio';
 import { HomePage } from './components/HomePage';
+import { BatchConvertView } from './components/BatchConvertView';
 import { trackEvent } from './utils/analytics';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
 import type {
   ExportedClip,
   ProcessingProgress,
@@ -30,6 +31,8 @@ import { ffmpegService } from './services/ffmpegService';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>('home');
+  const [cutterMode, setCutterMode] = useState<'single' | 'batch'>('single');
+  const [batchFiles, setBatchFiles] = useState<File[]>([]);
   const [video, setVideo] = useState<VideoMetadata | null>(null);
   const [seekTime, setSeekTime] = useState<number | null>(null);
   const [currentVideoTime, setCurrentVideoTime] = useState<number>(0);
@@ -226,53 +229,100 @@ export function App() {
         {/* TAB 1: Video Cutter & Splitter */}
         {activeTab === 'video-cutter' && (
           <>
-            {/* State 1: No video selected yet */}
-            {!video && (
-              <div className="space-y-10 animate-in fade-in duration-300">
-                {/* Hero Heading with Unique App Icon */}
-                <div className="text-center max-w-3xl mx-auto space-y-4">
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="relative group mb-3">
-                      <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
-                      <img
-                        src="./app-icon.png"
-                        alt="SplitStream App Icon"
-                        className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
-                      />
-                    </div>
-                    <a
-                      href="https://www.reeyanshtech.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
-                      title="Visit Reeyansh Tech Solutions Official Website"
-                    >
-                      <img
-                        src="./reeyansh-logo.png"
-                        alt="Reeyansh"
-                        className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
-                      />
-                      <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
-                      <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-                    </a>
-                  </div>
-
-                  <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-                    Split Any Video Into Clips In Seconds
-                  </h1>
-                  <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-                    Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
-                    All processing happens 100% locally in your browser using FFmpeg WebAssembly.
-                  </p>
-                </div>
-
-                {/* Video Upload Dropzone */}
-                <VideoUploader onVideoSelected={handleVideoSelected} />
-
-                {/* Full SEO & Educational Content Section */}
-                <SeoContentSection />
+            {/* Mode Selector Switcher */}
+            <div className="flex items-center justify-center mb-6">
+              <div className="flex items-center p-1 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
+                <button
+                  type="button"
+                  onClick={() => setCutterMode('single')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                    cutterMode === 'single'
+                      ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Scissors className="w-3.5 h-3.5" />
+                  <span>Video Splitter &amp; Cutter</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCutterMode('batch')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
+                    cutterMode === 'batch'
+                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-pink-400" />
+                  <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
+                </button>
               </div>
-            )}
+            </div>
+
+            {cutterMode === 'batch' ? (
+              <BatchConvertView
+                initialFiles={batchFiles}
+                onBackToSingle={() => {
+                  setCutterMode('single');
+                  setBatchFiles([]);
+                }}
+              />
+            ) : (
+              <>
+                {/* State 1: No video selected yet */}
+                {!video && (
+                  <div className="space-y-10 animate-in fade-in duration-300">
+                    {/* Hero Heading with Unique App Icon */}
+                    <div className="text-center max-w-3xl mx-auto space-y-4">
+                      <div className="flex flex-col items-center justify-center">
+                        <div className="relative group mb-3">
+                          <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
+                          <img
+                            src="./app-icon.png"
+                            alt="SplitStream App Icon"
+                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
+                          />
+                        </div>
+                        <a
+                          href="https://www.reeyanshtech.in/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
+                          title="Visit Reeyansh Tech Solutions Official Website"
+                        >
+                          <img
+                            src="./reeyansh-logo.png"
+                            alt="Reeyansh"
+                            className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
+                          />
+                          <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
+                          <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                        </a>
+                      </div>
+
+                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                        Split Any Video Into Clips In Seconds
+                      </h1>
+                      <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                        Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
+                        All processing happens 100% locally in your browser using FFmpeg WebAssembly.
+                      </p>
+                    </div>
+
+                    {/* Video Upload Dropzone */}
+                    <VideoUploader
+                      onVideoSelected={handleVideoSelected}
+                      onMultipleVideosSelected={(files) => {
+                        setBatchFiles(files);
+                        setCutterMode('batch');
+                      }}
+                      onOpenBatchConverter={() => setCutterMode('batch')}
+                    />
+
+                    {/* Full SEO & Educational Content Section */}
+                    <SeoContentSection />
+                  </div>
+                )}
 
             {/* State 2: Video loaded & ready to configure / preview */}
             {video && exportedClips.length === 0 && (
@@ -326,6 +376,8 @@ export function App() {
                 onReset={handleReset}
                 onUpdateClips={setExportedClips}
               />
+            )}
+              </>
             )}
           </>
         )}

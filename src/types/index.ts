@@ -24,6 +24,7 @@ export interface CardAdjustments {
   videoPadding: number; // in px (0 - 30)
   topZoom: number; // scale factor (0.8 - 1.5)
   bottomZoom: number; // scale factor (0.8 - 1.5)
+  cancelMiddle?: boolean; // When true, hide/cancel middle video area
 }
 
 export interface CustomRange {
@@ -50,6 +51,8 @@ export interface TimedBannerSlot {
 
 export type BannerMode = 'static' | 'timeline';
 
+export type OgGenerationOption = 'both' | 'banners_only' | 'og_only';
+
 export interface PromoCardsConfig {
   enabled: boolean;
   bannerMode?: BannerMode; // 'static' (1 top, 1 bottom) | 'timeline' (multiple timed banners)
@@ -58,6 +61,8 @@ export interface PromoCardsConfig {
   topSlots?: TimedBannerSlot[]; // Array of timed top banners
   bottomSlots?: TimedBannerSlot[]; // Array of timed bottom banners
   adjustments: CardAdjustments;
+  cancelMiddle?: boolean; // Cancel / hide middle video footage
+  ogGenerationOption?: OgGenerationOption; // 'both' | 'banners_only' | 'og_only'
 }
 
 export interface SplitConfig {
@@ -70,6 +75,7 @@ export interface SplitConfig {
   targetAspectRatio: AspectRatioOption;
   verticalFitMode: VerticalFitMode;
   promoCards?: PromoCardsConfig;
+  ogGenerationOption?: OgGenerationOption;
 }
 
 export interface VideoSegment {
@@ -115,4 +121,39 @@ export interface ExportedClip {
   end: number;
   aspectRatio?: AspectRatioOption;
   hasPromoCards?: boolean;
+  isOgClip?: boolean;
 }
+
+export interface BatchVideoItem {
+  id: string;
+  file: File;
+  name: string;
+  size: number;
+  duration: number;
+  width?: number;
+  height?: number;
+  previewUrl: string;
+  status: 'pending' | 'processing' | 'completed' | 'error';
+  progress: number;
+  resultClip?: ExportedClip;
+  ogResultClip?: ExportedClip;
+  errorMessage?: string;
+}
+
+export interface BatchConvertOptions {
+  targetAspectRatio: AspectRatioOption;
+  verticalFitMode: VerticalFitMode;
+  promoCards?: PromoCardsConfig;
+  cancelMiddle?: boolean;
+  ogGenerationOption: OgGenerationOption;
+}
+
+export interface BatchConvertProgress {
+  currentFileIndex: number;
+  totalFiles: number;
+  currentFileName: string;
+  currentFileProgress: number;
+  overallProgress: number;
+  statusMessage: string;
+}
+

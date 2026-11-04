@@ -138,9 +138,15 @@ export const CompletionView: React.FC<CompletionViewProps> = ({
         (pct) => setConvertProgress(pct)
       );
 
-      const updated = clips.map((c) => (c.id === clip.id ? converted : c));
-      setClips(updated);
-      onUpdateClips?.(updated);
+      if (promoCardsConfig.ogGenerationOption === 'both') {
+        const combined = [...clips, converted];
+        setClips(combined);
+        onUpdateClips?.(combined);
+      } else {
+        const updated = clips.map((c) => (c.id === clip.id ? converted : c));
+        setClips(updated);
+        onUpdateClips?.(updated);
+      }
       setActiveClipPreview(converted);
       setConvertStatusMessage(`Converted "${converted.filename}" to 9:16!`);
       setTimeout(() => setConvertStatusMessage(null), 3000);
@@ -178,8 +184,14 @@ export const CompletionView: React.FC<CompletionViewProps> = ({
         updated.push(converted);
       }
 
-      setClips(updated);
-      onUpdateClips?.(updated);
+      if (promoCardsConfig.ogGenerationOption === 'both') {
+        const combined = [...clips, ...updated];
+        setClips(combined);
+        onUpdateClips?.(combined);
+      } else {
+        setClips(updated);
+        onUpdateClips?.(updated);
+      }
       if (updated.length > 0) {
         setActiveClipPreview(updated[0]);
       }

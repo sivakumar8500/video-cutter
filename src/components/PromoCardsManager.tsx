@@ -16,8 +16,11 @@ import {
   Link2,
   Unlink,
   CheckCircle2,
+  Video,
+  Ban,
+  Film,
 } from 'lucide-react';
-import type { CardAdjustments, PromoCardsConfig, TimedBannerSlot } from '../types';
+import type { CardAdjustments, PromoCardsConfig, TimedBannerSlot, OgGenerationOption } from '../types';
 import {
   createPromoCardFromFile,
   generateTextPromoCard,
@@ -32,6 +35,7 @@ export const DEFAULT_CARD_ADJUSTMENTS: CardAdjustments = {
   videoPadding: 0,
   topZoom: 1,
   bottomZoom: 1,
+  cancelMiddle: false,
 };
 
 interface PromoCardsManagerProps {
@@ -126,6 +130,27 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
 
   const resetAdjustments = () => {
     updateAdjustments(DEFAULT_CARD_ADJUSTMENTS);
+  };
+
+  const isMiddleCancelled = config.cancelMiddle ?? adjustments.cancelMiddle ?? false;
+  const ogGenOption: OgGenerationOption = config.ogGenerationOption || 'both';
+
+  const toggleCancelMiddle = (cancelled: boolean) => {
+    onChange({
+      ...config,
+      cancelMiddle: cancelled,
+      adjustments: {
+        ...adjustments,
+        cancelMiddle: cancelled,
+      },
+    });
+  };
+
+  const handleOgGenOptionChange = (option: OgGenerationOption) => {
+    onChange({
+      ...config,
+      ogGenerationOption: option,
+    });
   };
 
   // Single card uploads
@@ -565,12 +590,52 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                     )}
                   </div>
 
+                  {/* 2. Middle Section (Video Area) with Cancel Option */}
+                  <div className={`p-3.5 rounded-2xl border transition-all ${
+                    isMiddleCancelled 
+                      ? 'bg-rose-950/20 border-rose-500/40' 
+                      : 'bg-slate-900/60 border-slate-800'
+                  }`}>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Video className="w-3.5 h-3.5" />
+                        <span>2. Middle Section (16:9 Video Footage)</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleCancelMiddle(!isMiddleCancelled)}
+                        className={`px-2.5 py-1 rounded-lg text-xs font-semibold border transition flex items-center gap-1.5 cursor-pointer ${
+                          isMiddleCancelled
+                            ? 'bg-emerald-600/20 border-emerald-500/40 text-emerald-300 hover:bg-emerald-600/30'
+                            : 'bg-rose-950/50 border-rose-700/60 text-rose-300 hover:bg-rose-900/60 hover:text-white'
+                        }`}
+                      >
+                        {isMiddleCancelled ? (
+                          <>
+                            <RotateCcw className="w-3 h-3" />
+                            <span>Restore Middle Video</span>
+                          </>
+                        ) : (
+                          <>
+                            <Ban className="w-3 h-3" />
+                            <span>Cancel Middle Option</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      {isMiddleCancelled
+                        ? '⚠️ Middle video footage is cancelled (hidden with background color). Only top & bottom banners will be rendered.'
+                        : 'Active: Main 16:9 video content is positioned in the center between the top and bottom promotional banners.'}
+                    </p>
+                  </div>
+
                   {/* Bottom Card */}
                   <div className="p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-1.5">
                         <ImageIcon className="w-3.5 h-3.5" />
-                        <span>2. Bottom Promotional Card</span>
+                        <span>3. Bottom Promotional Card</span>
                       </span>
                       {config.bottomCard && (
                         <button
@@ -624,6 +689,79 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                         </button>
                       </div>
                     )}
+                  </div>
+
+                  {/* OG (Original) Generation Option */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-indigo-950/40 via-slate-900/80 to-purple-950/40 border border-indigo-500/30 space-y-2.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div>
+                        <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                          <Film className="w-3.5 h-3.5 text-indigo-400" />
+                          <span>OG (Original) Generation Option</span>
+                        </span>
+                        <p className="text-[11px] text-slate-400">
+                          Choose whether to export both the 9:16 vertical banners and the unaltered original (OG) 16:9 video clips.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => handleOgGenOptionChange('both')}
+                        className={`p-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between gap-1 ${
+                          ogGenOption === 'both'
+                            ? 'bg-gradient-to-br from-indigo-600/30 to-purple-600/20 border-indigo-500 text-white shadow-md'
+                            : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-bold text-white flex items-center gap-1">
+                            <span>Both (OG + 9:16)</span>
+                          </span>
+                          <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">
+                            Recommended
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-slate-400">
+                          Generate 9:16 with banners AND preserve original 16:9 cut
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOgGenOptionChange('banners_only')}
+                        className={`p-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between gap-1 ${
+                          ogGenOption === 'banners_only'
+                            ? 'bg-gradient-to-br from-pink-600/30 to-rose-600/20 border-pink-500 text-white shadow-md'
+                            : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-bold text-white">9:16 Banners Only</span>
+                        </div>
+                        <span className="text-[10px] text-slate-400">
+                          Only export vertical 9:16 video with top & bottom banners
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOgGenOptionChange('og_only')}
+                        className={`p-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between gap-1 ${
+                          ogGenOption === 'og_only'
+                            ? 'bg-gradient-to-br from-cyan-600/30 to-blue-600/20 border-cyan-500 text-white shadow-md'
+                            : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:text-slate-200'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between w-full">
+                          <span className="text-xs font-bold text-white">OG Original Only</span>
+                        </div>
+                        <span className="text-[10px] text-slate-400">
+                          Bypass banners and export original 16:9 cuts directly
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -1085,19 +1223,46 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                 {/* Center 16:9 Video Footage */}
                 <div
                   style={{ height: `${midPct}%` }}
-                  className="w-full relative flex items-center justify-center overflow-hidden bg-black/60"
+                  className="w-full relative flex items-center justify-center overflow-hidden bg-black/60 group"
                 >
-                  {videoPreviewUrl ? (
-                    <video
-                      src={videoPreviewUrl}
-                      className="w-full h-full object-contain pointer-events-none"
-                      muted
-                      loop
-                    />
-                  ) : (
-                    <div className="text-center p-2">
-                      <span className="text-[9px] text-slate-400 font-medium">16:9 Video Middle</span>
+                  {isMiddleCancelled ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-2 text-center bg-slate-950/90 border border-dashed border-rose-500/40">
+                      <span className="text-[10px] text-rose-300 font-bold flex items-center gap-1">
+                        <Ban className="w-3 h-3 text-rose-400" />
+                        <span>Middle Cancelled</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => toggleCancelMiddle(false)}
+                        className="mt-1 px-2 py-0.5 rounded bg-rose-500/20 hover:bg-rose-500/40 text-rose-200 text-[9px] font-semibold border border-rose-500/30 cursor-pointer"
+                      >
+                        Restore Middle
+                      </button>
                     </div>
+                  ) : (
+                    <>
+                      {videoPreviewUrl ? (
+                        <video
+                          src={videoPreviewUrl}
+                          className="w-full h-full object-contain pointer-events-none"
+                          muted
+                          loop
+                        />
+                      ) : (
+                        <div className="text-center p-2">
+                          <span className="text-[9px] text-slate-400 font-medium">16:9 Video Middle</span>
+                        </div>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => toggleCancelMiddle(true)}
+                        title="Cancel Middle Video"
+                        className="absolute top-1 right-1 px-1.5 py-0.5 rounded bg-black/80 hover:bg-rose-950/80 text-[8px] text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-700 transition opacity-0 group-hover:opacity-100 flex items-center gap-1 cursor-pointer"
+                      >
+                        <Ban className="w-2.5 h-2.5 text-rose-400" />
+                        <span>Cancel Middle</span>
+                      </button>
+                    </>
                   )}
                 </div>
 

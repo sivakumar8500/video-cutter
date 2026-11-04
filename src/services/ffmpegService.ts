@@ -62,7 +62,8 @@ export function getPromoCardsFilterArgs(
   topInputIndex: number | null,
   botInputIndex: number | null,
   adjustments?: import('../types').CardAdjustments,
-  timedBanners?: TimedBannerInput[]
+  timedBanners?: TimedBannerInput[],
+  cancelMiddleOverride?: boolean
 ): string[] {
   const topH = Math.max(200, Math.min(800, adjustments?.topHeight ?? 656));
   const botH = Math.max(200, Math.min(800, adjustments?.bottomHeight ?? 656));
@@ -71,6 +72,7 @@ export function getPromoCardsFilterArgs(
   const padding = adjustments?.videoPadding ?? 0;
   const topZoom = adjustments?.topZoom ?? 1;
   const botZoom = adjustments?.bottomZoom ?? 1;
+  const cancelMiddle = cancelMiddleOverride ?? adjustments?.cancelMiddle ?? false;
 
   const availH = 1920 - topH - botH;
   const videoH = Math.round((1080 * 9) / 16); // ~608px
@@ -78,7 +80,10 @@ export function getPromoCardsFilterArgs(
     topH + padding + Math.max(0, (availH - padding * 2 - videoH) / 2)
   );
 
-  let filter = `[0:v]scale=1080:${videoH}:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:${videoY}:${bgColor}[base]`;
+  // If cancelMiddle is enabled, mask out the middle 16:9 video footage with solid background
+  let filter = cancelMiddle
+    ? `[0:v]scale=1080:${videoH}:force_original_aspect_ratio=decrease,drawbox=x=0:y=0:w=1080:h=${videoH}:color=${bgColor}:t=fill,pad=1080:1920:(ow-iw)/2:${videoY}:${bgColor}[base]`
+    : `[0:v]scale=1080:${videoH}:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:${videoY}:${bgColor}[base]`;
   let currentBase = 'base';
 
   if (timedBanners && timedBanners.length > 0) {
@@ -294,11 +299,13 @@ export class FFmpegService {
 
     let filterArgs: string[] = [];
 
+    const cancelMid = promoCards?.cancelMiddle ?? promoCards?.adjustments?.cancelMiddle ?? false;
+
     // If promo cards are attached, use promo card overlay
     if (targetRatio === '9:16' && timedBanners.length > 0) {
-      filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, timedBanners);
+      filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, timedBanners, cancelMid);
     } else if (targetRatio === '9:16' && (topIndex !== null || botIndex !== null)) {
-      filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments);
+      filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments, undefined, cancelMid);
     } else {
       filterArgs = getFilterArgs(targetRatio, fitMode);
     }
@@ -564,11 +571,12 @@ export class FFmpegService {
           ];
         } else {
           // Re-encoding with aspect ratio or promo cards
+          const cancelMid = promoCards?.cancelMiddle ?? promoCards?.adjustments?.cancelMiddle ?? false;
           let filterArgs: string[] = [];
           if (hasTimelineCards && segTimedBanners.length > 0) {
-            filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, segTimedBanners);
+            filterArgs = getPromoCardsFilterArgs(null, null, promoCards?.adjustments, segTimedBanners, cancelMid);
           } else if (hasStaticCards && (topIndex !== null || botIndex !== null)) {
-            filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments);
+            filterArgs = getPromoCardsFilterArgs(topIndex, botIndex, promoCards?.adjustments, undefined, cancelMid);
           } else {
             filterArgs = getFilterArgs(targetAspectRatio, verticalFitMode);
           }
@@ -661,6 +669,75 @@ export class FFmpegService {
           hasPromoCards: hasCards,
         });
 
+        // If OG generation option is 'both', also export original 16:9 clip for this segment
+        if (hasCards && promoCards?.ogGenerationOption === 'both') {
+          const ogOutVirtual = `og_out_${clipNum}_${Date.now()}.${inputExt}`;
+          try {
+            const ogArgs = [
+              '-ss',
+              segment.start.toFixed(3),
+              '-i',
+              inputVirtualName,
+              '-t',
+              segment.duration.toFixed(3),
+              '-c',
+              'copy',
+              '-avoid_negative_ts',
+              'make_zero',
+              ogOutVirtual,
+            ];
+            let ogExit = await this.ffmpeg.exec(ogArgs);
+            if (ogExit !== 0) {
+              const ogFallback = [
+                '-ss',
+                segment.start.toFixed(3),
+                '-i',
+                inputVirtualName,
+                '-t',
+                segment.duration.toFixed(3),
+                '-c:v',
+                'libx264',
+                '-preset',
+                'ultrafast',
+                '-crf',
+                '23',
+                '-c:a',
+                'aac',
+                '-b:a',
+                '192k',
+                '-avoid_negative_ts',
+                'make_zero',
+                ogOutVirtual,
+              ];
+              ogExit = await this.ffmpeg.exec(ogFallback);
+            }
+            if (ogExit === 0) {
+              const ogData = (await this.ffmpeg.readFile(ogOutVirtual)) as Uint8Array;
+              const ogCopy = new Uint8Array(ogData.length);
+              ogCopy.set(ogData);
+              const ogBlob = new Blob([ogCopy], { type: mimeType });
+              const ogUrl = URL.createObjectURL(ogBlob);
+              exportedClips.push({
+                id: `clip-${segment.index}-og-${Date.now()}`,
+                index: segment.index,
+                filename: segment.outputFilename.replace(/\.([^.]+)$/, '_OG.$1'),
+                blob: ogBlob,
+                url: ogUrl,
+                duration: segment.duration,
+                size: ogBlob.size,
+                start: segment.start,
+                end: segment.end,
+                aspectRatio: 'original',
+                hasPromoCards: false,
+                isOgClip: true,
+              });
+              await this.ffmpeg.deleteFile(ogOutVirtual);
+            }
+          } catch (ogErr) {
+            console.warn('OG clip generation warning:', ogErr);
+          }
+        }
+
         try {
           await this.ffmpeg.deleteFile(outVirtualName);
           for (const f of segFilesToClean) {
@@ -687,6 +764,218 @@ export class FFmpegService {
           if (botVirtualName) await this.ffmpeg.deleteFile(botVirtualName);
         } catch {
           // ignore
+        }
+      }
+    }
+  }
+
+  /**
+   * Batch convert multiple 16:9 video files to 9:16 vertical at a time
+   * with optional top & bottom banners, middle cancel option, and OG generation option
+   */
+  async batchConvertVideos(
+    files: File[],
+    options: import('../types').BatchConvertOptions,
+    onProgress?: (progress: import('../types').BatchConvertProgress) => void
+  ): Promise<import('../types').ExportedClip[]> {
+    this.isCancelled = false;
+    if (!this.isLoaded || !this.ffmpeg) {
+      await this.load();
+    }
+    if (!this.ffmpeg) {
+      throw new Error('FFmpeg failed to initialize');
+    }
+
+    const {
+      targetAspectRatio = '9:16',
+      verticalFitMode = 'blur',
+      promoCards,
+      cancelMiddle,
+      ogGenerationOption = 'banners_only',
+    } = options;
+
+    const exportedClips: import('../types').ExportedClip[] = [];
+    const totalFiles = files.length;
+
+    let topVirtualName: string | null = null;
+    let botVirtualName: string | null = null;
+    let topIndex: number | null = null;
+    let botIndex: number | null = null;
+    const bannerInputs: string[] = [];
+    const bannerVirtualsToClean: string[] = [];
+    let nextBannerIdx = 1;
+
+    const hasCards =
+      promoCards?.enabled && (!!promoCards.topCard || !!promoCards.bottomCard);
+    const effectiveCancelMiddle =
+      cancelMiddle ?? promoCards?.cancelMiddle ?? promoCards?.adjustments?.cancelMiddle ?? false;
+
+    if (hasCards) {
+      if (promoCards.topCard) {
+        topVirtualName = `batch_top_${Date.now()}.png`;
+        await this.ffmpeg.writeFile(topVirtualName, await fetchFile(promoCards.topCard.blob));
+        bannerInputs.push('-i', topVirtualName);
+        bannerVirtualsToClean.push(topVirtualName);
+        topIndex = nextBannerIdx++;
+      }
+      if (promoCards.bottomCard) {
+        botVirtualName = `batch_bot_${Date.now()}.png`;
+        await this.ffmpeg.writeFile(botVirtualName, await fetchFile(promoCards.bottomCard.blob));
+        bannerInputs.push('-i', botVirtualName);
+        bannerVirtualsToClean.push(botVirtualName);
+        botIndex = nextBannerIdx++;
+      }
+    }
+
+    try {
+      for (let i = 0; i < totalFiles; i++) {
+        if (this.isCancelled) throw new Error('Operation cancelled by user');
+
+        const file = files[i];
+        const fileNum = i + 1;
+        const ext = file.name.split('.').pop() || 'mp4';
+        const inVirtual = `batch_in_${fileNum}_${Date.now()}.${ext}`;
+        const outVirtual = `batch_out_${fileNum}_${Date.now()}.mp4`;
+
+        onProgress?.({
+          currentFileIndex: fileNum,
+          totalFiles,
+          currentFileName: file.name,
+          currentFileProgress: 5,
+          overallProgress: Math.round((i / totalFiles) * 100),
+          statusMessage: `Converting (${fileNum}/${totalFiles}): ${file.name}...`,
+        });
+
+        const fileData = await fetchFile(file);
+        await this.ffmpeg.writeFile(inVirtual, fileData);
+
+        const progressHandler = ({ progress }: { progress: number }) => {
+          if (this.isCancelled) return;
+          const pct = Math.min(100, Math.max(0, Math.round(progress * 100)));
+          const overall = Math.round(((i + progress) / totalFiles) * 100);
+          onProgress?.({
+            currentFileIndex: fileNum,
+            totalFiles,
+            currentFileName: file.name,
+            currentFileProgress: pct,
+            overallProgress: overall,
+            statusMessage: `Converting (${fileNum}/${totalFiles}): ${file.name} (${pct}%)...`,
+          });
+        };
+
+        this.ffmpeg.on('progress', progressHandler);
+
+        let filterArgs: string[] = [];
+        if (targetAspectRatio === '9:16' && (topIndex !== null || botIndex !== null)) {
+          filterArgs = getPromoCardsFilterArgs(
+            topIndex,
+            botIndex,
+            promoCards?.adjustments,
+            undefined,
+            effectiveCancelMiddle
+          );
+        } else {
+          filterArgs = getFilterArgs(targetAspectRatio, verticalFitMode);
+        }
+
+        const args = [
+          '-i', inVirtual,
+          ...bannerInputs,
+          ...filterArgs,
+          '-c:v', 'libx264',
+          '-preset', 'ultrafast',
+          '-crf', '23',
+          '-c:a', 'aac',
+          '-b:a', '192k',
+          '-avoid_negative_ts', 'make_zero',
+          outVirtual,
+        ];
+
+        let exitCode = await this.ffmpeg.exec(args);
+
+        if (exitCode !== 0) {
+          const fallbackArgs = [
+            '-i', inVirtual,
+            '-vf', 'scale=1080:1920:force_original_aspect_ratio=decrease,pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black',
+            '-c:v', 'libx264',
+            '-preset', 'ultrafast',
+            '-crf', '23',
+            '-c:a', 'copy',
+            outVirtual,
+          ];
+          exitCode = await this.ffmpeg.exec(fallbackArgs);
+        }
+
+        if (exitCode !== 0) {
+          throw new Error(`Batch conversion failed for "${file.name}" (exit code ${exitCode})`);
+        }
+
+        const outData = (await this.ffmpeg.readFile(outVirtual)) as Uint8Array;
+        const copyBuf = new Uint8Array(outData.length);
+        copyBuf.set(outData);
+        const outBlob = new Blob([copyBuf], { type: 'video/mp4' });
+        const outUrl = URL.createObjectURL(outBlob);
+
+        const baseCleanName = file.name.replace(/\.[^/.]+$/, '');
+        const convertedFilename = `${baseCleanName}_9x16${hasCards ? '_banners' : ''}.mp4`;
+
+        exportedClips.push({
+          id: `batch-${fileNum}-9x16-${Date.now()}`,
+          index: fileNum,
+          filename: convertedFilename,
+          blob: outBlob,
+          url: outUrl,
+          duration: 0,
+          size: outBlob.size,
+          start: 0,
+          end: 0,
+          aspectRatio: '9:16',
+          hasPromoCards: hasCards,
+        });
+
+        if (ogGenerationOption === 'both') {
+          const ogBlob = file;
+          const ogUrl = URL.createObjectURL(ogBlob);
+          exportedClips.push({
+            id: `batch-${fileNum}-og-${Date.now()}`,
+            index: fileNum,
+            filename: `${baseCleanName}_OG.${ext}`,
+            blob: ogBlob,
+            url: ogUrl,
+            duration: 0,
+            size: ogBlob.size,
+            start: 0,
+            end: 0,
+            aspectRatio: 'original',
+            hasPromoCards: false,
+            isOgClip: true,
+          });
+        }
+
+        try {
+          await this.ffmpeg.deleteFile(inVirtual);
+          await this.ffmpeg.deleteFile(outVirtual);
+        } catch {
+          // ignore
+        }
+      }
+
+      onProgress?.({
+        currentFileIndex: totalFiles,
+        totalFiles,
+        currentFileName: 'Complete',
+        currentFileProgress: 100,
+        overallProgress: 100,
+        statusMessage: `Successfully batch-converted all ${totalFiles} videos!`,
+      });
+
+      return exportedClips;
+    } finally {
+      if (this.ffmpeg) {
+        for (const vName of bannerVirtualsToClean) {
+          try {
+            await this.ffmpeg.deleteFile(vName);
+          } catch {}
         }
       }
     }

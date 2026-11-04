@@ -6,9 +6,15 @@ import { generateSampleVideo } from '../utils/sampleVideo';
 
 interface VideoUploaderProps {
   onVideoSelected: (metadata: VideoMetadata) => void;
+  onMultipleVideosSelected?: (files: File[]) => void;
+  onOpenBatchConverter?: () => void;
 }
 
-export const VideoUploader: React.FC<VideoUploaderProps> = ({ onVideoSelected }) => {
+export const VideoUploader: React.FC<VideoUploaderProps> = ({
+  onVideoSelected,
+  onMultipleVideosSelected,
+  onOpenBatchConverter,
+}) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isGeneratingDemo, setIsGeneratingDemo] = useState(false);
   const [demoProgress, setDemoProgress] = useState(0);
@@ -82,18 +88,32 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({ onVideoSelected })
     setIsDragging(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const file = e.dataTransfer.files[0];
-      if (file.type.startsWith('video/') || /\.(mp4|mov|mkv|avi|webm|m4v|wmv|flv)$/i.test(file.name)) {
-        processSelectedFile(file);
+      const files = Array.from(e.dataTransfer.files).filter(
+        (f) => f.type.startsWith('video/') || /\.(mp4|mov|mkv|avi|webm|m4v|wmv|flv)$/i.test(f.name)
+      );
+
+      if (files.length > 1 && onMultipleVideosSelected) {
+        onMultipleVideosSelected(files);
+      } else if (files.length === 1) {
+        processSelectedFile(files[0]);
       } else {
-        alert('Please select a valid video file (MP4, MOV, MKV, AVI, WebM).');
+        alert('Please select valid video file(s) (MP4, MOV, MKV, AVI, WebM).');
       }
     }
   };
 
   const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      processSelectedFile(e.target.files[0]);
+      const files = Array.from(e.target.files).filter(
+        (f) => f.type.startsWith('video/') || /\.(mp4|mov|mkv|avi|webm|m4v|wmv|flv)$/i.test(f.name)
+      );
+
+      if (files.length > 1 && onMultipleVideosSelected) {
+        onMultipleVideosSelected(files);
+      } else if (files.length === 1) {
+        processSelectedFile(files[0]);
+      }
+      e.target.value = '';
     }
   };
 
@@ -131,6 +151,7 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({ onVideoSelected })
         <input
           ref={fileInputRef}
           type="file"
+          multiple
           accept="video/*,.mp4,.mov,.mkv,.avi,.webm,.m4v,.wmv"
           onChange={handleFileInputChange}
           className="hidden"
@@ -152,25 +173,41 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({ onVideoSelected })
         </div>
 
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-          {isDragging ? 'Drop video here to load' : 'Choose a video or drag & drop'}
+          {isDragging ? 'Drop video(s) here to load' : 'Choose video(s) or drag & drop'}
         </h3>
         <p className="text-sm sm:text-base text-slate-400 max-w-md mb-6">
-          High-speed in-browser cutting. Supported formats include{' '}
-          <span className="text-slate-200 font-medium">MP4, MOV, MKV, AVI, WebM</span>.
+          Single video trimming &amp; splitting, or{' '}
+          <strong className="text-pink-400">select multiple videos at a time</strong> to batch-convert 16:9 to 9:16.
         </p>
 
-        {/* CTA Button */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            fileInputRef.current?.click();
-          }}
-          className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center gap-2 cursor-pointer"
-        >
-          <Film className="w-4 h-4" />
-          <span>Browse Local Video</span>
-        </button>
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center gap-3">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              fileInputRef.current?.click();
+            }}
+            className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+          >
+            <Film className="w-4 h-4" />
+            <span>Browse Video File(s)</span>
+          </button>
+
+          {onOpenBatchConverter && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenBatchConverter();
+              }}
+              className="px-5 py-3 rounded-xl bg-gradient-to-r from-pink-600/30 to-purple-600/20 hover:from-pink-600/50 hover:to-purple-600/40 text-pink-300 hover:text-white border border-pink-500/40 font-semibold shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-pink-400" />
+              <span>Batch 16:9 → 9:16 Mode</span>
+            </button>
+          )}
+        </div>
 
         {/* Supported Format Pills */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
