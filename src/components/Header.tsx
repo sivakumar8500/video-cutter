@@ -5,7 +5,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
-export type ActiveTab = 'home' | 'video-cutter' | 'image-studio' | 'pdf-studio' | 'qr' | 'files';
+export type ActiveTab = 'home' | 'video-cutter' | 'media-tools' | 'image-studio' | 'pdf-studio' | 'qr' | 'files';
 
 interface HeaderProps {
   hasVideo: boolean;
@@ -91,6 +91,18 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span className="hidden sm:inline">Video Cutter</span>
               <span className="sm:hidden">Video</span>
+            </button>
+
+            <button
+              onClick={() => onTabChange('media-tools')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+                activeTab === 'media-tools'
+                  ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
+                  : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
+              }`}
+            >
+              <span className="hidden sm:inline">Media Tools</span>
+              <span className="sm:hidden">Tools</span>
             </button>
 
             <button

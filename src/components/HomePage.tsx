@@ -9,6 +9,7 @@ import {
   Pause,
   Scissors,
   RotateCw,
+  Music,
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
 
@@ -21,7 +22,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
   // Video Scrubber Simulation State
   const [isPlayingSim, setIsPlayingSim] = useState(true);
   const [playheadPos, setPlayheadPos] = useState(38);
-  const [activeStudioTab, setActiveStudioTab] = useState<'video' | 'image' | 'pdf' | 'qr'>('video');
+  const [activeStudioTab, setActiveStudioTab] = useState<'video' | 'media' | 'image' | 'pdf' | 'qr'>('video');
 
   // Thermodynamic / Precision Temperature Slider State (Oryzo.ai T=0.1, T=1, T=10)
   const [tempMode, setTempMode] = useState<'deterministic' | 'balanced' | 'extreme'>('deterministic');
@@ -114,6 +115,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-2">
               {[
                 { id: 'video' as const, label: 'Video Slicer', icon: Film },
+                { id: 'media' as const, label: 'Media & Audio Tools', icon: Music },
                 { id: 'image' as const, label: 'Image Studio', icon: ImageIcon },
                 { id: 'pdf' as const, label: '32 PDF Tools', icon: FileText },
                 { id: 'qr' as const, label: 'QR Vector Matrix', icon: QrCode },
@@ -195,6 +197,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               </span>
               <h3 className="text-xl sm:text-2xl font-black text-[#ffedd6] uppercase tracking-wide">
                 {activeStudioTab === 'video' && 'Lossless 4K Keyframe Slicing'}
+                {activeStudioTab === 'media' && 'URL Video Downloader, Audio Extractor & Muter'}
                 {activeStudioTab === 'image' && 'Shape Mask & 1:1 Aspect Crop'}
                 {activeStudioTab === 'pdf' && '32 PDF Engine with AES-256 Lock'}
                 {activeStudioTab === 'qr' && 'Vector QR Matrix with 9-Pos Logo'}
@@ -206,6 +209,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <button
                   onClick={() => {
                     if (activeStudioTab === 'video') onNavigate('video-cutter');
+                    else if (activeStudioTab === 'media') onNavigate('media-tools');
                     else if (activeStudioTab === 'image') onNavigate('image-studio');
                     else if (activeStudioTab === 'pdf') onNavigate('pdf-studio');
                     else if (activeStudioTab === 'qr') onNavigate('qr');

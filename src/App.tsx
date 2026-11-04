@@ -14,6 +14,7 @@ import { FilesManagerView } from './components/FilesManagerView';
 import { QrStudio } from './components/QrStudio/QrStudio';
 import { HomePage } from './components/HomePage';
 import { BatchConvertView } from './components/BatchConvertView';
+import { MediaToolsStudio } from './components/MediaTools/MediaToolsStudio';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
 import type {
@@ -380,6 +381,17 @@ export function App() {
               </>
             )}
           </>
+        )}
+
+        {/* TAB: Media Tools (URL Downloader, Video to Audio, Audio Remover) */}
+        {activeTab === 'media-tools' && (
+          <MediaToolsStudio
+            onSendToVideoCutter={(metadata) => {
+              handleVideoSelected(metadata);
+              setActiveTab('video-cutter');
+              setCutterMode('single');
+            }}
+          />
         )}
 
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}

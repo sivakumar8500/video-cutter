@@ -980,6 +980,170 @@ export class FFmpegService {
       }
     }
   }
+
+  /**
+   * Extract audio from video into MP3, WAV, AAC, M4A, or OGG
+   */
+  async extractAudio(
+    videoFile: File | Blob,
+    outputFormat: 'mp3' | 'wav' | 'aac' | 'm4a' | 'ogg' = 'mp3',
+    bitrate: string = '320k',
+    customFilename?: string,
+    onProgress?: (progress: number) => void
+  ): Promise<{ blob: Blob; url: string; filename: string; size: number }> {
+    this.isCancelled = false;
+    if (!this.isLoaded || !this.ffmpeg) {
+      await this.load();
+    }
+    if (!this.ffmpeg) {
+      throw new Error('FFmpeg failed to initialize');
+    }
+
+    const inName = `audio_in_${Date.now()}.mp4`;
+    const outName = `audio_out_${Date.now()}.${outputFormat}`;
+
+    await this.ffmpeg.writeFile(inName, await fetchFile(videoFile));
+
+    if (onProgress) {
+      this.ffmpeg.on('progress', ({ progress }: { progress: number }) => {
+        onProgress(Math.min(100, Math.round(progress * 100)));
+      });
+    }
+
+    let codecArgs: string[] = [];
+    let mimeType = 'audio/mpeg';
+
+    switch (outputFormat) {
+      case 'mp3':
+        codecArgs = ['-vn', '-c:a', 'libmp3lame', '-b:a', bitrate];
+        mimeType = 'audio/mpeg';
+        break;
+      case 'wav':
+        codecArgs = ['-vn', '-c:a', 'pcm_s16le'];
+        mimeType = 'audio/wav';
+        break;
+      case 'aac':
+      case 'm4a':
+        codecArgs = ['-vn', '-c:a', 'aac', '-b:a', bitrate];
+        mimeType = 'audio/mp4';
+        break;
+      case 'ogg':
+        codecArgs = ['-vn', '-c:a', 'libvorbis', '-b:a', bitrate];
+        mimeType = 'audio/ogg';
+        break;
+      default:
+        codecArgs = ['-vn', '-c:a', 'libmp3lame', '-b:a', '320k'];
+        mimeType = 'audio/mpeg';
+    }
+
+    const args = ['-i', inName, ...codecArgs, outName];
+    const exitCode = await this.ffmpeg.exec(args);
+
+    if (exitCode !== 0) {
+      throw new Error(`Audio extraction failed with exit code ${exitCode}`);
+    }
+
+    const outData = (await this.ffmpeg.readFile(outName)) as Uint8Array;
+    const copyBuf = new Uint8Array(outData.length);
+    copyBuf.set(outData);
+    const blob = new Blob([copyBuf], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+
+    try {
+      await this.ffmpeg.deleteFile(inName);
+      await this.ffmpeg.deleteFile(outName);
+    } catch {
+      // ignore
+    }
+
+    const originalName = videoFile instanceof File ? videoFile.name : 'audio_extracted';
+    const baseName = originalName.replace(/\.[^/.]+$/, '');
+    const filename = customFilename || `${baseName}.${outputFormat}`;
+
+    return {
+      blob,
+      url,
+      filename,
+      size: blob.size,
+    };
+  }
+
+  /**
+   * Remove / mute audio from video (Fast Lossless Stream Copy)
+   */
+  async removeAudio(
+    videoFile: File | Blob,
+    customFilename?: string,
+    onProgress?: (progress: number) => void
+  ): Promise<{ blob: Blob; url: string; filename: string; size: number }> {
+    this.isCancelled = false;
+    if (!this.isLoaded || !this.ffmpeg) {
+      await this.load();
+    }
+    if (!this.ffmpeg) {
+      throw new Error('FFmpeg failed to initialize');
+    }
+
+    const inName = `mute_in_${Date.now()}.mp4`;
+    const outName = `mute_out_${Date.now()}.mp4`;
+
+    await this.ffmpeg.writeFile(inName, await fetchFile(videoFile));
+
+    if (onProgress) {
+      this.ffmpeg.on('progress', ({ progress }: { progress: number }) => {
+        onProgress(Math.min(100, Math.round(progress * 100)));
+      });
+    }
+
+    // -c:v copy -an drops audio track without re-encoding video (lightning fast, lossless)
+    const args = ['-i', inName, '-c:v', 'copy', '-an', outName];
+    let exitCode = await this.ffmpeg.exec(args);
+
+    if (exitCode !== 0) {
+      // Fallback with re-encoding if stream copy fails on exotic container
+      const fallbackArgs = [
+        '-i',
+        inName,
+        '-c:v',
+        'libx264',
+        '-preset',
+        'ultrafast',
+        '-crf',
+        '23',
+        '-an',
+        outName,
+      ];
+      exitCode = await this.ffmpeg.exec(fallbackArgs);
+    }
+
+    if (exitCode !== 0) {
+      throw new Error(`Audio removal failed with exit code ${exitCode}`);
+    }
+
+    const outData = (await this.ffmpeg.readFile(outName)) as Uint8Array;
+    const copyBuf = new Uint8Array(outData.length);
+    copyBuf.set(outData);
+    const blob = new Blob([copyBuf], { type: 'video/mp4' });
+    const url = URL.createObjectURL(blob);
+
+    try {
+      await this.ffmpeg.deleteFile(inName);
+      await this.ffmpeg.deleteFile(outName);
+    } catch {
+      // ignore
+    }
+
+    const originalName = videoFile instanceof File ? videoFile.name : 'video_muted';
+    const baseName = originalName.replace(/\.[^/.]+$/, '');
+    const filename = customFilename || `${baseName}_muted.mp4`;
+
+    return {
+      blob,
+      url,
+      filename,
+      size: blob.size,
+    };
+  }
 }
 
 export const ffmpegService = new FFmpegService();
