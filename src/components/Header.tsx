@@ -26,24 +26,35 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Brand Logo & Name */}
           <div className="flex items-center gap-3">
-            <div
-              onClick={() => onTabChange('home')}
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('home');
+              }}
               className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-lg shadow-[#ff7a00]/10 border border-white/20 shrink-0 cursor-pointer"
+              title="VidCuts - In-Browser Media Suite Home"
+              aria-label="VidCuts Home"
             >
               <img
                 src="./app-icon.png"
                 alt="VidCuts App Icon"
                 className="w-full h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
               />
-            </div>
+            </a>
             <div>
               <div className="flex items-center gap-2">
-                <span
-                  onClick={() => onTabChange('home')}
+                <a
+                  href="#home"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onTabChange('home');
+                  }}
                   className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent cursor-pointer hover:opacity-90 transition-opacity"
+                  title="VidCuts Home"
                 >
                   VidCuts
-                </span>
+                </a>
                 <a
                   href="https://www.reeyanshtech.in/"
                   target="_blank"
@@ -63,84 +74,120 @@ export const Header: React.FC<HeaderProps> = ({
                 </a>
               </div>
               <p className="text-[11px] text-slate-400 hidden md:block">
-                100% In-Browser Video, Image, PDF & QR Suite
+                100% In-Browser Video, Image, PDF &amp; QR Suite
               </p>
             </div>
           </div>
 
-          {/* Sub-Navigation Tabs Menu (Clean text-only navigation, no icons) */}
-          <nav className="flex items-center gap-1 sm:gap-2">
-            <button
-              onClick={() => onTabChange('home')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+          {/* Sub-Navigation Tabs Menu (Crawlable SEO link-based navigation) */}
+          <nav aria-label="Main Navigation" className="flex items-center gap-1 sm:gap-2">
+            <a
+              href="#home"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('home');
+              }}
+              aria-current={activeTab === 'home' ? 'page' : undefined}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'home'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="VidCuts Home Overview"
             >
               <span>Home</span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onTabChange('video-cutter')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            <a
+              href="#video-cutter"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('video-cutter');
+              }}
+              aria-current={activeTab === 'video-cutter' ? 'page' : undefined}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'video-cutter'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="Video Cutter &amp; Splitter Tool"
             >
               <span className="hidden sm:inline">Video Cutter</span>
               <span className="sm:hidden">Video</span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onTabChange('media-tools')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            <a
+              href="#media-tools"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('media-tools');
+              }}
+              aria-current={activeTab === 'media-tools' ? 'page' : undefined}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'media-tools'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="Media Tools - URL Downloader, Audio Extractor &amp; Remover"
             >
               <span className="hidden sm:inline">Media Tools</span>
               <span className="sm:hidden">Tools</span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onTabChange('image-studio')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            <a
+              href="#image-studio"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('image-studio');
+              }}
+              aria-current={activeTab === 'image-studio' ? 'page' : undefined}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'image-studio'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="Image Studio - Aspect Crop &amp; Shape Mask Editor"
             >
               <span className="hidden sm:inline">Image Studio</span>
               <span className="sm:hidden">Image</span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onTabChange('pdf-studio')}
+            <a
+              href="#pdf-studio"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('pdf-studio');
+              }}
+              aria-current={activeTab === 'pdf-studio' ? 'page' : undefined}
               className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
                 activeTab === 'pdf-studio'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="32 Client-Side PDF Tools Suite"
             >
               <span>PDF Tools</span>
               <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-[#ff7a00]/20 text-[#ffedd6] border border-[#ff7a00]/30">
                 32
               </span>
-            </button>
+            </a>
 
-            <button
-              onClick={() => onTabChange('qr')}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+            <a
+              href="#qr"
+              onClick={(e) => {
+                e.preventDefault();
+                onTabChange('qr');
+              }}
+              aria-current={activeTab === 'qr' ? 'page' : undefined}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'qr'
                   ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
                   : 'text-[#ffedd6]/70 hover:text-[#ffedd6] hover:bg-white/5'
               }`}
+              title="Custom Vector QR Code Studio &amp; Scanner"
             >
               <span>QR Code</span>
-            </button>
+            </a>
           </nav>
 
           {/* Right Status Badges & Controls */}

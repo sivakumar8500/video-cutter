@@ -1,24 +1,47 @@
 import React from 'react';
-import { ShieldCheck, Zap, Scissors, Smartphone, Heart, Sparkles, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Zap, Scissors, Smartphone, Heart, Sparkles, ExternalLink, Film, Music, Image as ImageIcon, FileText, QrCode } from 'lucide-react';
+import type { ActiveTab } from './Header';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigate?: (tab: ActiveTab) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+  const handleNav = (tab: ActiveTab, e: React.MouseEvent) => {
+    if (onNavigate) {
+      e.preventDefault();
+      onNavigate(tab);
+    }
+  };
+
   return (
-    <footer className="w-full border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-xl mt-16 text-slate-400">
+    <footer aria-label="Site Footer" className="w-full border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-xl mt-16 text-slate-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Brand & Logo */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 shadow-lg shadow-[#ff7a00]/10">
+              <a
+                href="#home"
+                onClick={(e) => handleNav('home', e)}
+                className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 shadow-lg shadow-[#ff7a00]/10 shrink-0"
+                title="VidCuts Home"
+              >
                 <img
                   src="./app-icon.png"
                   alt="VidCuts App Icon"
                   className="w-full h-full object-contain rounded-xl drop-shadow"
                 />
-              </div>
+              </a>
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                  <span>VidCuts</span>
+                  <a
+                    href="#home"
+                    onClick={(e) => handleNav('home', e)}
+                    className="hover:text-orange-400 transition-colors"
+                  >
+                    VidCuts
+                  </a>
                   <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#ff7a00]/15 text-[#ff7a00] border border-[#ff7a00]/30">
                     v2.0
                   </span>
@@ -44,7 +67,7 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-lg">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
               VidCuts is engineered by{' '}
               <a
                 href="https://www.reeyanshtech.in/"
@@ -56,50 +79,157 @@ export const Footer: React.FC = () => {
                 Reeyansh Tech Solutions
                 <ExternalLink className="w-3 h-3 inline-block" />
               </a>{' '}
-              to give content creators, video editors, and social media managers total control over their video slicing without sacrificing privacy or uploading large media files to third-party servers.
+              to give creators full multimedia sovereignty. Process 4K videos, images, 32 PDF workflows, and vector QR codes locally without external servers.
             </p>
 
             <div className="flex flex-wrap gap-2 pt-1">
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#ff7a00]" /> 100% In-Browser Privacy
+                <ShieldCheck className="w-3.5 h-3.5 text-[#ff7a00]" /> 100% In-Browser
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <Zap className="w-3.5 h-3.5 text-[#ffedd6]" /> Lossless Stream Copy
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900 border border-slate-800 text-[11px] text-slate-300">
-                <Smartphone className="w-3.5 h-3.5 text-[#ff7a00]" /> 9:16 Shorts & Reels
+                <Zap className="w-3.5 h-3.5 text-[#ffedd6]" /> Zero Lossless Copy
               </span>
             </div>
           </div>
 
-          {/* Quick Features */}
-          <div className="space-y-3">
+          {/* Crawlable Navigation: Creative Studio Tools */}
+          <nav aria-label="Studio Tools" className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
-              Core Capabilities
+              Studio Tools
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
-              <li className="flex items-center gap-2">
-                <Scissors className="w-3.5 h-3.5 text-orange-400" />
-                <span>Split by Piece Count (Equal Slices)</span>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a
+                  href="#video-cutter"
+                  onClick={(e) => handleNav('video-cutter', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Video Cutter &amp; Splitter Tool"
+                >
+                  <Film className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Video Cutter &amp; 9:16 Shorts</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Zap className="w-3.5 h-3.5 text-orange-400" />
-                <span>Split by Clip Duration (Fixed Sec/Min)</span>
+              <li>
+                <a
+                  href="#media-tools"
+                  onClick={(e) => handleNav('media-tools', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="URL Video Downloader, Audio Extractor &amp; Remover"
+                >
+                  <Music className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Media Tools &amp; Audio Extractor</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Sparkles className="w-3.5 h-3.5 text-orange-400" />
-                <span>Cut Exact Minute-to-Minute Ranges</span>
+              <li>
+                <a
+                  href="#image-studio"
+                  onClick={(e) => handleNav('image-studio', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Image Studio - Aspect Ratio Crop &amp; Shape Mask"
+                >
+                  <ImageIcon className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Image Studio &amp; Shape Crop</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Smartphone className="w-3.5 h-3.5 text-orange-400" />
-                <span>16:9 to 9:16 Vertical Converter</span>
+              <li>
+                <a
+                  href="#pdf-studio"
+                  onClick={(e) => handleNav('pdf-studio', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="32 Client-Side PDF Tools: Merge, Split, Compress &amp; Protect"
+                >
+                  <FileText className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>32 Client-Side PDF Tools</span>
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
-                <span>Top & Bottom Promotional Cards</span>
+              <li>
+                <a
+                  href="#qr"
+                  onClick={(e) => handleNav('qr', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Custom Vector QR Code Studio with Logo"
+                >
+                  <QrCode className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Vector QR Matrix Generator</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#files"
+                  onClick={(e) => handleNav('files', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Local Media &amp; Clips Manager"
+                >
+                  <Zap className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Files &amp; Export Manager</span>
+                </a>
               </li>
             </ul>
-          </div>
+          </nav>
+
+          {/* Crawlable Navigation: Core Capabilities & Guides */}
+          <nav aria-label="Core Capabilities" className="space-y-3">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+              Capabilities &amp; Sections
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a
+                  href="#home"
+                  onClick={(e) => handleNav('home', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="VidCuts Home Suite Overview"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Suite Overview &amp; Motion Hero</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#features"
+                  onClick={(e) => handleNav('home', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Feature Breakdown &amp; Performance"
+                >
+                  <Scissors className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Split by Pieces &amp; Duration</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#editions"
+                  onClick={(e) => handleNav('home', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Suite Editions &amp; Capability Comparison"
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>16:9 to 9:16 Shorts Stack</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#technical-paper"
+                  onClick={(e) => handleNav('home', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Technical Specifications &amp; Research"
+                >
+                  <FileText className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>WASM Architecture Specs</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#faq"
+                  onClick={(e) => handleNav('home', e)}
+                  className="flex items-center gap-2 text-slate-400 hover:text-orange-400 transition-colors"
+                  title="Frequently Asked Questions"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5 text-orange-400 shrink-0" />
+                  <span>Privacy &amp; Technical FAQ</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
 
           {/* Technology & Privacy */}
           <div className="space-y-3">
@@ -109,10 +239,10 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs text-slate-400">
               <li>WebAssembly (WASM) Video Engine</li>
               <li>Single-threaded FFmpeg Core 0.12</li>
-              <li>React 19 + TypeScript 7</li>
-              <li>Tailwind CSS v4 Engine</li>
+              <li>Client-Side pdf-lib Engine (AES-256)</li>
+              <li>Vector QR Code Canvas Generator</li>
+              <li>React 19 + TypeScript 7 + Vite 8</li>
               <li>Direct Folder Export (File System API)</li>
-              <li>Client-Side JSZip Archiver</li>
             </ul>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { Header, type ActiveTab } from './components/Header';
 import { VideoUploader } from './components/VideoUploader';
 import { VideoPlayerPreview } from './components/VideoPlayerPreview';
@@ -30,8 +30,53 @@ import {
 } from './utils/formatters';
 import { ffmpegService } from './services/ffmpegService';
 
+// Synchronous URL Hash to Tab Resolver for SEO and deep-linking
+const parseHashToTab = (): ActiveTab => {
+  if (typeof window === 'undefined') return 'home';
+  const h = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+  if (h === 'video-cutter' || h === 'video' || h === 'cutter' || h === 'splitter') return 'video-cutter';
+  if (h === 'media-tools' || h === 'tools' || h === 'downloader' || h === 'audio') return 'media-tools';
+  if (h === 'image-studio' || h === 'image' || h === 'photo') return 'image-studio';
+  if (h === 'pdf-studio' || h === 'pdf' || h === 'pdf-tools') return 'pdf-studio';
+  if (h === 'qr' || h === 'qr-studio' || h === 'qrcode') return 'qr';
+  if (h === 'files' || h === 'manager' || h === 'downloads') return 'files';
+  return 'home';
+};
+
+// Dynamic per-section SEO Titles & Meta Descriptions for Search Engines
+const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
+  home: {
+    title: 'VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools & QR Generator | Reeyansh Tech Solutions',
+    desc: '100% private in-browser multimedia and document suite. Split videos, edit photos, process 32 PDF tools & create vector QR codes with zero server uploads.',
+  },
+  'video-cutter': {
+    title: 'Online Video Cutter & Splitter (Free, Lossless & 9:16 Shorts) — VidCuts',
+    desc: 'Split video files by pieces, duration, or custom minute ranges. Convert 16:9 to 9:16 vertical Shorts with blurred padding. 100% private in-browser FFmpeg.',
+  },
+  'media-tools': {
+    title: 'Media Tools — URL Video Downloader, Audio Extractor & Remover — VidCuts',
+    desc: 'Download videos directly from URL, extract clean audio to MP3/AAC, and mute video audio tracks directly in your browser.',
+  },
+  'image-studio': {
+    title: 'Image Studio — Free Online Photo Cropper, Aspect Ratios & Shape Masks — VidCuts',
+    desc: 'Crop photos to exact social aspect ratios (1:1, 4:5, 16:9, 9:16) or mask into geometric shapes (circle, heart, hexagon, star) with instant transparent PNG export.',
+  },
+  'pdf-studio': {
+    title: '32 PDF Tools — Free Client-Side PDF Merge, Split, Compress & Protect — VidCuts',
+    desc: 'Complete client-side PDF suite: Merge, split, compress, watermark, rotate, page number, and AES-256 encrypt confidential PDF files without uploading.',
+  },
+  qr: {
+    title: 'Custom Vector QR Code Studio — Free QR Generator with Logo & Scanner — VidCuts',
+    desc: 'Generate branded vector QR codes with embedded logos, 15 protocols, custom colors, and built-in camera scanner. 100% private.',
+  },
+  files: {
+    title: 'Files & Local Clip Manager — VidCuts',
+    desc: 'Manage, preview, and batch export your generated video clips, images, and document files.',
+  },
+};
+
 export function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>('home');
+  const [activeTab, setActiveTab] = useState<ActiveTab>(parseHashToTab);
   const [cutterMode, setCutterMode] = useState<'single' | 'batch'>('single');
   const [batchFiles, setBatchFiles] = useState<File[]>([]);
   const [video, setVideo] = useState<VideoMetadata | null>(null);
@@ -207,6 +252,50 @@ export function App() {
     }));
   };
 
+  // Two-way URL Hash navigation for Google crawling and back/forward browser history
+  useEffect(() => {
+    const handleHashChange = () => {
+      const tab = parseHashToTab();
+      setActiveTab(tab);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleHashChange);
+    };
+  }, []);
+
+  // Synchronize document title and meta description dynamically for Google Crawlers
+  useEffect(() => {
+    const seo = TAB_SEO_CONFIG[activeTab];
+    if (seo) {
+      document.title = seo.title;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', seo.desc);
+      }
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) {
+        ogTitle.setAttribute('content', seo.title);
+      }
+      const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twitterTitle) {
+        twitterTitle.setAttribute('content', seo.title);
+      }
+    }
+  }, [activeTab]);
+
+  const handleTabChange = useCallback((tab: ActiveTab) => {
+    setActiveTab(tab);
+    const targetHash = `#${tab}`;
+    if (window.location.hash !== targetHash) {
+      window.location.hash = targetHash;
+    }
+    trackEvent('navigate_tab', { tab });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#020202] text-[#ffedd6] flex flex-col font-sans selection:bg-[#ff7a00] selection:text-black">
       {/* Top Navigation Bar with Sub-Navigation Tabs */}
@@ -214,22 +303,24 @@ export function App() {
         hasVideo={!!video}
         onReset={handleReset}
         activeTab={activeTab}
-        onTabChange={setActiveTab}
+        onTabChange={handleTabChange}
       />
 
       {/* Main Container */}
       <main className={`flex-1 w-full mx-auto ${activeTab === 'home' ? 'max-w-full p-0' : 'max-w-7xl px-4 sm:px-6 lg:px-8 py-8 sm:py-10'}`}>
         {/* TAB 0: Home Overview Page (Explains All Features Professionally) */}
         {activeTab === 'home' && (
-          <HomePage
-            onNavigate={setActiveTab}
-            filesCount={exportedClips.length}
-          />
+          <section id="home" aria-label="VidCuts Suite Home Overview">
+            <HomePage
+              onNavigate={handleTabChange}
+              filesCount={exportedClips.length}
+            />
+          </section>
         )}
 
         {/* TAB 1: Video Cutter & Splitter */}
         {activeTab === 'video-cutter' && (
-          <>
+          <section id="video-cutter" aria-label="Video Cutter and Splitter">
             {/* Mode Selector Switcher */}
             <div className="flex items-center justify-center mb-6">
               <div className="flex items-center p-1 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
@@ -380,43 +471,57 @@ export function App() {
             )}
               </>
             )}
-          </>
+          </section>
         )}
 
         {/* TAB: Media Tools (URL Downloader, Video to Audio, Audio Remover) */}
         {activeTab === 'media-tools' && (
-          <MediaToolsStudio
-            onSendToVideoCutter={(metadata) => {
-              handleVideoSelected(metadata);
-              setActiveTab('video-cutter');
-              setCutterMode('single');
-            }}
-          />
+          <section id="media-tools" aria-label="Media Tools &amp; Audio Studio">
+            <MediaToolsStudio
+              onSendToVideoCutter={(metadata) => {
+                handleVideoSelected(metadata);
+                handleTabChange('video-cutter');
+                setCutterMode('single');
+              }}
+            />
+          </section>
         )}
 
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
-        {activeTab === 'image-studio' && <ImageStudio />}
+        {activeTab === 'image-studio' && (
+          <section id="image-studio" aria-label="Image Studio Photo Cropper">
+            <ImageStudio />
+          </section>
+        )}
 
         {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
-        {activeTab === 'pdf-studio' && <PdfStudio />}
+        {activeTab === 'pdf-studio' && (
+          <section id="pdf-studio" aria-label="32 Client-Side PDF Tools">
+            <PdfStudio />
+          </section>
+        )}
 
         {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
         {activeTab === 'qr' && (
-          <QrStudio
-            onSendToImageStudio={() => {
-              setActiveTab('image-studio');
-            }}
-          />
+          <section id="qr" aria-label="Custom Vector QR Code Studio">
+            <QrStudio
+              onSendToImageStudio={() => {
+                handleTabChange('image-studio');
+              }}
+            />
+          </section>
         )}
 
         {/* TAB 5: Media & Files Manager */}
         {activeTab === 'files' && (
-          <FilesManagerView
-            activeVideo={video}
-            exportedClips={exportedClips}
-            onSelectVideoForCutter={handleVideoSelected}
-            onSwitchTab={setActiveTab}
-          />
+          <section id="files" aria-label="Local Media and Export Manager">
+            <FilesManagerView
+              activeVideo={video}
+              exportedClips={exportedClips}
+              onSelectVideoForCutter={handleVideoSelected}
+              onSwitchTab={handleTabChange}
+            />
+          </section>
         )}
       </main>
 
@@ -436,8 +541,8 @@ export function App() {
         />
       )}
 
-      {/* Reeyansh Tech Solutions Footer & Copyright */}
-      <Footer />
+      {/* Reeyansh Tech Solutions Footer & Copyright with Crawlable Link Navigation */}
+      <Footer onNavigate={handleTabChange} />
     </div>
   );
 }

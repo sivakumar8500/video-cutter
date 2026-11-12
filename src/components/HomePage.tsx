@@ -55,7 +55,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-[#ff7a00]/10 via-[#ffedd6]/5 to-transparent blur-3xl pointer-events-none z-0" />
 
       {/* ================= 1. ORYZO.AI HERO SECTION (#hero) ================= */}
-      <section className="relative z-10 pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
+      <section id="hero" className="relative z-10 pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
         {/* Top Tagline Row with Logo Reference */}
         <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-widest text-[#ffedd6]/60 border-b border-[#ffedd6]/15 pb-4">
           <div className="flex items-center gap-2">
@@ -97,13 +97,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               The world&apos;s most unnecessarily sophisticated in-browser media suite.
             </p>
             <div className="pt-2 flex items-center gap-2">
-              <button
-                onClick={() => onNavigate('video-cutter')}
+              <a
+                href="#video-cutter"
+                onClick={(e) => {
+                  e.preventDefault();
+                  onNavigate('video-cutter');
+                }}
                 className="w-full py-2.5 rounded-full bg-[#ffedd6] hover:bg-[#ff7a00] text-black font-black text-xs uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 shadow-lg"
+                title="Launch Video Cutter &amp; Splitter Tool"
               >
                 <span>Open Video Cutter</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -206,26 +211,29 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 Playhead: 00:{playheadPos < 10 ? `0${playheadPos}` : playheadPos} / 01:30 • 60.0 FPS Local
               </p>
               <div className="pt-2">
-                <button
-                  onClick={() => {
+                <a
+                  href={`#${activeStudioTab === 'video' ? 'video-cutter' : activeStudioTab === 'media' ? 'media-tools' : activeStudioTab === 'image' ? 'image-studio' : activeStudioTab === 'pdf' ? 'pdf-studio' : 'qr'}`}
+                  onClick={(e) => {
+                    e.preventDefault();
                     if (activeStudioTab === 'video') onNavigate('video-cutter');
                     else if (activeStudioTab === 'media') onNavigate('media-tools');
                     else if (activeStudioTab === 'image') onNavigate('image-studio');
                     else if (activeStudioTab === 'pdf') onNavigate('pdf-studio');
                     else if (activeStudioTab === 'qr') onNavigate('qr');
                   }}
-                  className="px-5 py-2 rounded-full bg-[#ff7a00] hover:bg-[#ff8f26] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#ff7a00] hover:bg-[#ff8f26] text-black font-extrabold text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105"
+                  title="Launch selected studio tool"
                 >
-                  Launch Full Studio →
-                </button>
+                  <span>Launch Full Studio →</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ================= 2. ORYZO.AI AI CORE BREAKTHROUGH (#ai) ================= */}
-      <section className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#ffedd6]/15 space-y-12">
+      {/* ================= 2. VIDCUTS CORE ARCHITECTURE (#architecture) ================= */}
+      <section id="architecture" className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#ffedd6]/15 space-y-12">
         <div className="space-y-4">
           <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
             VIDCUTS-1 ARCHITECTURE
@@ -521,8 +529,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ================= 8. ORYZO.AI PRODUCT TIERS & COMPARE (#product) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#ffedd6]/15 space-y-10">
+      {/* ================= 8. ORYZO.AI PRODUCT TIERS & COMPARE (#editions) ================= */}
+      <section id="editions" className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#ffedd6]/15 space-y-10">
         <div className="text-center space-y-2">
           <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
             CHOOSE YOUR OWN
@@ -594,8 +602,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ================= 9. ORYZO.AI OPEN-WEIGHT BIBTEX ABSTRACT (#open-weight) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-[#ffedd6]/15 space-y-8">
+      {/* ================= 9. BIBTEX ABSTRACT (#technical-paper) ================= */}
+      <section id="technical-paper" className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-[#ffedd6]/15 space-y-8">
         <div className="space-y-2">
           <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
             OUR SOTA IN-BROWSER ARCHITECTURE
@@ -626,8 +634,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* ================= 10. REAL FAQ SECTION ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-[#ffedd6]/15 space-y-8">
+      {/* ================= 10. REAL FAQ SECTION (#faq) ================= */}
+      <section id="faq" className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-[#ffedd6]/15 space-y-8">
         <div className="space-y-2">
           <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
             DIRECT ANSWERS
@@ -715,30 +723,50 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <button
-            onClick={() => onNavigate('video-cutter')}
-            className="px-6 py-2.5 rounded-full bg-[#ff7a00] hover:bg-[#ff8f26] text-black font-black text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105 shadow-lg"
+          <a
+            href="#video-cutter"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('video-cutter');
+            }}
+            className="px-6 py-2.5 rounded-full bg-[#ff7a00] hover:bg-[#ff8f26] text-black font-black text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105 shadow-lg inline-flex items-center"
+            title="Launch Video Cutter &amp; Splitter Tool"
           >
             Launch Video Cutter
-          </button>
-          <button
-            onClick={() => onNavigate('image-studio')}
-            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer"
+          </a>
+          <a
+            href="#image-studio"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('image-studio');
+            }}
+            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer inline-flex items-center"
+            title="Launch Image Studio"
           >
             Image Studio
-          </button>
-          <button
-            onClick={() => onNavigate('pdf-studio')}
-            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer"
+          </a>
+          <a
+            href="#pdf-studio"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('pdf-studio');
+            }}
+            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer inline-flex items-center"
+            title="Launch 32 Client-Side PDF Tools"
           >
             32 PDF Tools
-          </button>
-          <button
-            onClick={() => onNavigate('qr')}
-            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer"
+          </a>
+          <a
+            href="#qr"
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate('qr');
+            }}
+            className="px-6 py-2.5 rounded-full bg-[#171717] hover:bg-[#252525] text-[#ffedd6] font-bold text-xs uppercase tracking-wider border border-[#ffedd6]/20 cursor-pointer inline-flex items-center"
+            title="Launch Vector QR Code Studio"
           >
             QR Studio
-          </button>
+          </a>
         </div>
 
         <div className="pt-8 text-xs font-mono text-[#ffedd6]/40 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-4xl mx-auto border-t border-[#ffedd6]/10">

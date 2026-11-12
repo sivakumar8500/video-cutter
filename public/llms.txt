@@ -1,9 +1,21 @@
-# VidCuts — In-Browser Video Cutter & 9:16 Shorts Engine
+# VidCuts — In-Browser Video Cutter, Media Studio, 32 PDF Tools & QR Generator
 > Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
 > Live Website: https://scuts.reeyanshtech.in/ (or https://sivakumar8500.github.io/video-cutter/)
 
 ## Overview
-VidCuts is a free, privacy-first, client-side web utility that cuts and splits video files directly inside the browser using WebAssembly (FFmpeg WASM). No video files are ever uploaded to cloud servers or third-party storage.
+VidCuts is a free, privacy-first, client-side web utility that processes video, audio, images, documents, and vector QR codes directly inside the browser using WebAssembly (FFmpeg WASM) and client hardware. No files are ever uploaded to cloud servers or third-party storage.
+
+## Section & Deep Tool URLs (Crawlable Navigation)
+1. **Home Suite Overview**: `https://scuts.reeyanshtech.in/#home`
+2. **Video Cutter & 9:16 Shorts Engine**: `https://scuts.reeyanshtech.in/#video-cutter`
+3. **Media Tools (URL Downloader & Audio)**: `https://scuts.reeyanshtech.in/#media-tools`
+4. **Image Studio (Aspect Crops & Masks)**: `https://scuts.reeyanshtech.in/#image-studio`
+5. **32 Client-Side PDF Tools**: `https://scuts.reeyanshtech.in/#pdf-studio`
+6. **Vector QR Code Matrix & Scanner**: `https://scuts.reeyanshtech.in/#qr`
+7. **Local Files & Clip Manager**: `https://scuts.reeyanshtech.in/#files`
+8. **Frequently Asked Questions**: `https://scuts.reeyanshtech.in/#faq`
+9. **Architecture & Performance**: `https://scuts.reeyanshtech.in/#architecture`
+10. **Capability Comparison Matrix**: `https://scuts.reeyanshtech.in/#editions`
 
 ## Core Capabilities
 1. **Split by Piece Count**: Divide any video evenly into N parts (e.g. 2, 4, 5, 10 clips) with exact timestamp boundaries.
@@ -13,13 +25,18 @@ VidCuts is a free, privacy-first, client-side web utility that cuts and splits v
 5. **Top & Bottom Promotional Cards & Multi-Banners**:
    - Attach branded cards at the top and bottom with adjustable height (200px-800px), fit modes (Cover/Contain), zoom, padding, and background colors.
    - Attach multiple timed banners across the timeline (e.g., 0-6s banner 1, 6-12s banner 2, up to 10+ banners across 1 minute) with an interactive timeline scrubber.
-6. **Lossless Stream Copy**: Ultra-fast cutting in milliseconds without re-encoding when slicing MP4 files.
-7. **Direct Folder Export**: Save all output clips directly to a designated folder on the user's hard drive using the File System Access API, or download as a single organized ZIP archive.
+6. **Media Tools**: Download video files from direct URLs, extract audio tracks to MP3/AAC, and mute/remove audio streams in one click.
+7. **Image Studio**: Crop images to social aspect ratios (1:1 Square, 4:5 Portrait, 16:9 Landscape, 9:16 Story) or shape cutouts (Circle, Heart, Star, Hexagon) with transparent PNG export.
+8. **32 PDF Tools**: Complete client-side PDF document manipulation: Merge, split, compress, watermark, rotate, page number, unlock, and AES-256 encrypt with zero cloud leakage.
+9. **Vector QR Code Matrix**: Generate vector QR codes with 15 input protocols, custom logo embedding with 9-position alignment, color gradients, and camera QR scanner.
+10. **Lossless Stream Copy**: Ultra-fast cutting in milliseconds without re-encoding when slicing MP4 files.
+11. **Direct Folder Export**: Save all output clips directly to a designated folder on the user's hard drive using the File System Access API, or download as a single organized ZIP archive.
 
 ## Technical Specifications
 - **Supported Containers**: MP4, MOV, MKV, AVI, WebM, M4V, FLV, TS
 - **Supported Video Codecs**: H.264 (AVC), H.265 (HEVC), VP8, VP9, ProRes
 - **Supported Audio Codecs**: AAC, MP3, Opus, PCM
+- **Document Engines**: pdf-lib, @pdfsmaller/pdf-encrypt, @pdfsmaller/pdf-decrypt
 - **Engine**: Single-threaded FFmpeg Core 0.12 running inside WebAssembly sandbox
 - **Privacy Model**: 100% Client-Side. Zero server uploads. Works completely offline after initial load.
 - **Price**: 100% Free Forever. No subscription, no account required, no watermark.
