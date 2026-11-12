@@ -1,4 +1,4 @@
-# robots.txt for SplitStream (https://sivakumar8500.github.io/video-cutter/)
+# robots.txt for VidCuts (https://sivakumar8500.github.io/video-cutter/)
 # Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
 
 User-agent: *

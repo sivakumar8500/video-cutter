@@ -28,12 +28,12 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-3">
             <div
               onClick={() => onTabChange('home')}
-              className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-[#ff7a00]/30 via-slate-900 to-[#ffedd6]/10 p-0.5 shadow-lg shadow-[#ff7a00]/10 border border-[#ff7a00]/30 shrink-0 cursor-pointer"
+              className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-lg shadow-[#ff7a00]/10 border border-white/20 shrink-0 cursor-pointer"
             >
               <img
                 src="./app-icon.png"
-                alt="SplitStream App Icon"
-                className="w-full h-full object-cover rounded-[10px] shadow-sm transition-transform duration-200 group-hover:scale-105"
+                alt="VidCuts App Icon"
+                className="w-full h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
               />
             </div>
             <div>
@@ -42,7 +42,7 @@ export const Header: React.FC<HeaderProps> = ({
                   onClick={() => onTabChange('home')}
                   className="font-extrabold text-base sm:text-lg tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent cursor-pointer hover:opacity-90 transition-opacity"
                 >
-                  SplitStream
+                  VidCuts
                 </span>
                 <a
                   href="https://www.reeyanshtech.in/"

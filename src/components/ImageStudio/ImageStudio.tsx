@@ -68,7 +68,7 @@ export const ImageStudio: React.FC = () => {
     },
     watermark: {
       enabled: false,
-      text: 'SplitStream Studio',
+      text: 'VidCuts Studio',
       fontSize: 24,
       color: '#ffffff',
       position: 'bottom-right',
@@ -207,7 +207,7 @@ export const ImageStudio: React.FC = () => {
                   },
                   watermark: {
                     enabled: false,
-                    text: 'SplitStream Studio',
+                    text: 'VidCuts Studio',
                     fontSize: 24,
                     color: '#ffffff',
                     position: 'bottom-right',

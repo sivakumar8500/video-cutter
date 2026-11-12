@@ -26,7 +26,7 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'How do I split a video into multiple equal parts?',
     answer:
-      'Upload your video, click the "Split by Pieces" tab, and select how many parts you want (e.g., 4 or 5 pieces). SplitStream will automatically calculate the exact timestamp boundaries and divide the entire video timeline equally without missing a single frame.',
+      'Upload your video, click the "Split by Pieces" tab, and select how many parts you want (e.g., 4 or 5 pieces). VidCuts will automatically calculate the exact timestamp boundaries and divide the entire video timeline equally without missing a single frame.',
   },
   {
     question: 'Can I cut a specific minute-to-minute part of a video?',
@@ -51,84 +51,84 @@ const FAQ_ITEMS: FaqItem[] = [
   {
     question: 'Are my videos uploaded to any external server or cloud?',
     answer:
-      'No! SplitStream operates 100% locally in your web browser using WebAssembly (FFmpeg WASM). Your video data never leaves your computer, ensuring absolute privacy, zero bandwidth usage, and complete confidentiality for proprietary, sensitive, or personal content.',
+      'No! VidCuts operates 100% locally in your web browser using WebAssembly (FFmpeg WASM). Your video data never leaves your computer, ensuring absolute privacy, zero bandwidth usage, and complete confidentiality for proprietary, sensitive, or personal content.',
   },
   {
     question: 'What video file formats are supported?',
     answer:
-      'SplitStream supports MP4, MOV, MKV, AVI, WebM, M4V, FLV, and all common video containers and codecs (H.264, H.265, VP8, VP9, ProRes). Stream copy is available for MP4 containers, while universal re-encoding guarantees compatibility for all formats.',
+      'VidCuts supports MP4, MOV, MKV, AVI, WebM, M4V, FLV, and all common video containers and codecs (H.264, H.265, VP8, VP9, ProRes). Stream copy is available for MP4 containers, while universal re-encoding guarantees compatibility for all formats.',
   },
   {
     question: 'Can I save all split clips directly to a folder on my computer?',
     answer:
-      'Yes! By using the native File System Access API in modern browsers (Chrome, Edge), you can click "Save to New Folder" and SplitStream will create a dedicated timestamped folder on your computer and save each clip directly. You can also download all clips in a single ZIP file with one click.',
+      'Yes! By using the native File System Access API in modern browsers (Chrome, Edge), you can click "Save to New Folder" and VidCuts will create a dedicated timestamped folder on your computer and save each clip directly. You can also download all clips in a single ZIP file with one click.',
   },
   {
     question: 'Is there any watermark on exported videos?',
     answer:
-      'No, SplitStream does not add any watermarks, logos, or branding to your exported video clips. All outputs remain in pristine, 100% original quality.',
+      'No, VidCuts does not add any watermarks, logos, or branding to your exported video clips. All outputs remain in pristine, 100% original quality.',
   },
   {
-    question: 'Is SplitStream free to use?',
+    question: 'Is VidCuts free to use?',
     answer:
-      'Yes, SplitStream is 100% free and open to everyone with no subscriptions, paywalls, limits on file length, or registration required.',
+      'Yes, VidCuts is 100% free and open to everyone with no subscriptions, paywalls, limits on file length, or registration required.',
   },
 ];
 
 const COMPARISON_DATA = [
   {
     feature: 'Cloud Upload Required',
-    splitstream: 'No (100% In-Browser)',
-    splitstreamGood: true,
+    vidcuts: 'No (100% In-Browser)',
+    vidcutsGood: true,
     cloud: 'Yes (Must upload entire file)',
     cloudGood: false,
   },
   {
     feature: 'File Size & Duration Limits',
-    splitstream: 'Unlimited (Uses your device RAM)',
-    splitstreamGood: true,
+    vidcuts: 'Unlimited (Uses your device RAM)',
+    vidcutsGood: true,
     cloud: 'Capped at 250MB–500MB on free tiers',
     cloudGood: false,
   },
   {
     feature: 'Data Privacy & Security',
-    splitstream: '100% Private (Never leaves device)',
-    splitstreamGood: true,
+    vidcuts: '100% Private (Never leaves device)',
+    vidcutsGood: true,
     cloud: 'Stored on 3rd-party servers',
     cloudGood: false,
   },
   {
     feature: 'Watermarks',
-    splitstream: 'Zero Watermark (100% Clean)',
-    splitstreamGood: true,
+    vidcuts: 'Zero Watermark (100% Clean)',
+    vidcutsGood: true,
     cloud: 'Large watermark on free exports',
     cloudGood: false,
   },
   {
     feature: 'Pricing & Subscriptions',
-    splitstream: '100% Free Forever',
-    splitstreamGood: true,
+    vidcuts: '100% Free Forever',
+    vidcutsGood: true,
     cloud: '$16 – $24 per month',
     cloudGood: false,
   },
   {
     feature: 'Cutting Speed (Stream Copy)',
-    splitstream: 'Instant (Milliseconds without re-encode)',
-    splitstreamGood: true,
+    vidcuts: 'Instant (Milliseconds without re-encode)',
+    vidcutsGood: true,
     cloud: 'Queue time + Slow re-encoding',
     cloudGood: false,
   },
   {
     feature: '16:9 to 9:16 Shorts with Banners',
-    splitstream: 'Included with live timeline sliders',
-    splitstreamGood: true,
+    vidcuts: 'Included with live timeline sliders',
+    vidcutsGood: true,
     cloud: 'Requires Pro / Paid tier',
     cloudGood: false,
   },
   {
     feature: 'Direct Folder Export',
-    splitstream: 'Direct save to PC folder (File System API)',
-    splitstreamGood: true,
+    vidcuts: 'Direct save to PC folder (File System API)',
+    vidcutsGood: true,
     cloud: 'Manual one-by-one web downloads',
     cloudGood: false,
   },
@@ -160,7 +160,7 @@ export const SeoContentSection: React.FC = () => {
           Complete In-Browser Video Cutting, Splitting & 9:16 Shorts Suite
         </h2>
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl mx-auto leading-relaxed">
-          SplitStream delivers studio-grade multimedia processing right in your browser. No file size limits imposed by cloud servers, no subscriptions, zero watermarks, and complete data sovereignty.
+          VidCuts delivers studio-grade multimedia processing right in your browser. No file size limits imposed by cloud servers, no subscriptions, zero watermarks, and complete data sovereignty.
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export const SeoContentSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">How do I split a video into parts for free?</h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Upload your file to SplitStream and select either <strong>Split by Pieces</strong> (equal slices), <strong>Split by Duration</strong> (e.g. 30s for WhatsApp / 60s for Shorts), or <strong>Cut Min to Min</strong>. SplitStream slices the file inside your browser without uploading to external servers, yielding instant zero-loss downloads.
+              Upload your file to VidCuts and select either <strong>Split by Pieces</strong> (equal slices), <strong>Split by Duration</strong> (e.g. 30s for WhatsApp / 60s for Shorts), or <strong>Cut Min to Min</strong>. VidCuts slices the file inside your browser without uploading to external servers, yielding instant zero-loss downloads.
             </p>
           </div>
 
@@ -185,7 +185,7 @@ export const SeoContentSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">How to convert 16:9 landscape to 9:16 vertical?</h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Select <strong>9:16 Vertical</strong> in SplitStream. Choose between <strong>Blurred Background</strong>, <strong>Center Crop</strong>, or <strong>Letterbox</strong>. Optionally attach top and bottom promotional banner cards with live height and zoom adjustment sliders for viral YouTube Shorts, TikTok, and Instagram Reels.
+              Select <strong>9:16 Vertical</strong> in VidCuts. Choose between <strong>Blurred Background</strong>, <strong>Center Crop</strong>, or <strong>Letterbox</strong>. Optionally attach top and bottom promotional banner cards with live height and zoom adjustment sliders for viral YouTube Shorts, TikTok, and Instagram Reels.
             </p>
           </div>
 
@@ -196,7 +196,7 @@ export const SeoContentSection: React.FC = () => {
             </div>
             <h3 className="text-base font-bold text-white">Is in-browser video cutting safe and private?</h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Yes, 100%. SplitStream runs FFmpeg directly inside your web browser via WebAssembly (WASM). Your media never touches third-party servers, guaranteeing zero data interception, complete privacy for confidential media, and no cloud file-size restrictions.
+              Yes, 100%. VidCuts runs FFmpeg directly inside your web browser via WebAssembly (WASM). Your media never touches third-party servers, guaranteeing zero data interception, complete privacy for confidential media, and no cloud file-size restrictions.
             </p>
           </div>
         </div>
@@ -284,7 +284,7 @@ export const SeoContentSection: React.FC = () => {
             <span>Comparison Matrix</span>
           </div>
           <h3 className="text-xl sm:text-3xl font-bold text-white">
-            SplitStream vs Traditional Cloud Video Cutters
+            VidCuts vs Traditional Cloud Video Cutters
           </h3>
           <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
             Why creators and privacy-conscious professionals prefer in-browser WebAssembly video processing over cloud-based editors.
@@ -296,7 +296,7 @@ export const SeoContentSection: React.FC = () => {
             <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-300 uppercase font-semibold tracking-wider text-[11px]">
               <tr>
                 <th className="py-4 px-5">Feature / Capability</th>
-                <th className="py-4 px-5 text-orange-400">SplitStream (In-Browser)</th>
+                <th className="py-4 px-5 text-orange-400">VidCuts (In-Browser)</th>
                 <th className="py-4 px-5 text-slate-400">Traditional Cloud Cutters</th>
               </tr>
             </thead>
@@ -310,7 +310,7 @@ export const SeoContentSection: React.FC = () => {
                   <td className="py-3.5 px-5 font-semibold text-emerald-400">
                     <span className="inline-flex items-center gap-1.5">
                       <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>{row.splitstream}</span>
+                      <span>{row.vidcuts}</span>
                     </span>
                   </td>
                   <td className="py-3.5 px-5 text-slate-400">
@@ -333,7 +333,7 @@ export const SeoContentSection: React.FC = () => {
             How to Cut and Split Videos in 3 Easy Steps
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">
-            SplitStream makes slicing long videos as simple as a few clicks.
+            VidCuts makes slicing long videos as simple as a few clicks.
           </p>
         </div>
 
@@ -415,7 +415,7 @@ export const SeoContentSection: React.FC = () => {
             Frequently Asked Questions
           </h3>
           <p className="text-xs sm:text-sm text-slate-400">
-            Everything you need to know about SplitStream by{' '}
+            Everything you need to know about VidCuts by{' '}
             <a
               href="https://www.reeyanshtech.in/"
               target="_blank"

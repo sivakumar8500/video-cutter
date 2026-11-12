@@ -280,8 +280,8 @@ export function App() {
                           <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
                           <img
                             src="./app-icon.png"
-                            alt="SplitStream App Icon"
-                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover shadow-2xl border border-cyan-400/30"
+                            alt="VidCuts App Icon"
+                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-2xl border border-white/20"
                           />
                         </div>
                         <a

@@ -846,7 +846,7 @@ export function generateSampleImage(): Promise<LoadedImageInfo> {
 
     ctx.font = 'bold 54px sans-serif';
     ctx.fillStyle = '#ffffff';
-    ctx.fillText('SplitStream Studio', 600, 340);
+    ctx.fillText('VidCuts Studio', 600, 340);
 
     ctx.font = '32px sans-serif';
     ctx.fillStyle = '#38bdf8';

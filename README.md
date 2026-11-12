@@ -1,4 +1,4 @@
-# SplitStream — Modern Video Cutter & Splitter Web Application
+# VidCuts — Modern Video Cutter & Splitter Web Application
 
 A modern, responsive, high-precision **Video Cutter & Splitter Web App** built with React, TypeScript, Tailwind CSS, and FFmpeg WebAssembly. Split any local video into multiple smaller clips by piece count or clip duration—**100% locally in your browser** without uploading files to any external server.
 

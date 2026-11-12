@@ -78,7 +78,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               the <span className="text-[#ff7a00] italic font-serif">right ways.</span>
             </h1>
             <p className="text-base sm:text-lg text-[#ffedd6]/80 max-w-2xl leading-relaxed font-light">
-              SplitStream makes the simplest media task feel considered. 4K lossless video cutting, shape-masked image avatars, 32 client-side PDF tools, and precision vector QR codes running entirely in your browser memory.
+              VidCuts makes the simplest media task feel considered. 4K lossless video cutting, shape-masked image avatars, 32 client-side PDF tools, and precision vector QR codes running entirely in your browser memory.
             </p>
           </div>
 
@@ -228,14 +228,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <section className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#ffedd6]/15 space-y-12">
         <div className="space-y-4">
           <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
-            SPLITSTREAM-1 ARCHITECTURE
+            VIDCUTS-1 ARCHITECTURE
           </span>
           <h2 className="text-3xl sm:text-6xl font-extrabold text-[#ffedd6] leading-tight">
             isn&apos;t just <br />
             a video cutter.
           </h2>
           <div className="text-base sm:text-xl text-[#ffedd6]/80 font-light max-w-2xl leading-relaxed">
-            SplitStream isn&apos;t just a simple trimmer. It&apos;s the result of unprecedented WebAssembly breakthroughs that shift heavy media decoding straight into your browser memory.
+            VidCuts isn&apos;t just a simple trimmer. It&apos;s the result of unprecedented WebAssembly breakthroughs that shift heavy media decoding straight into your browser memory.
           </div>
         </div>
 
@@ -262,7 +262,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               Thermodynamic Stability
             </h3>
             <p className="text-xs sm:text-sm text-[#ffedd6]/70 max-w-xl">
-              From heavy 4K 60fps recordings to 100-page scanned bank PDFs - SplitStream stays perfectly stable in RAM.
+              From heavy 4K 60fps recordings to 100-page scanned bank PDFs - VidCuts stays perfectly stable in RAM.
             </p>
           </div>
 
@@ -473,7 +473,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <span className="text-[#ffedd6] font-bold">Rating &amp; Reviews</span>
           <span>Community Reviews [ 364 ]</span>
           <span className="text-[#ff7a00] font-bold">[ 4.9 / 5 ] ★★★★★</span>
-          <span className="text-[#ffedd6]">SplitStream in use</span>
+          <span className="text-[#ffedd6]">VidCuts in use</span>
         </div>
 
         <div className="divide-y divide-[#ffedd6]/15">
@@ -528,10 +528,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             CHOOSE YOUR OWN
           </span>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-[#ffedd6]">
-            SplitStream Suite Editions
+            VidCuts Suite Editions
           </h2>
           <div className="flex justify-center gap-3 pt-4">
-            {['SplitStream', 'SplitStream Pro', 'SplitStream Studio'].map((tier, idx) => (
+            {['VidCuts', 'VidCuts Pro', 'VidCuts Studio'].map((tier, idx) => (
               <button
                 key={tier}
                 onClick={() => setSelectedProductTier(idx as 0 | 1 | 2)}
@@ -553,9 +553,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <thead>
               <tr className="border-b border-[#ffedd6]/20 text-[#ff7a00]">
                 <th className="pb-4">Feature Metric</th>
-                <th className="pb-4">SplitStream</th>
-                <th className="pb-4">SplitStream Pro</th>
-                <th className="pb-4">SplitStream Studio</th>
+                <th className="pb-4">VidCuts</th>
+                <th className="pb-4">VidCuts Pro</th>
+                <th className="pb-4">VidCuts Studio</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#ffedd6]/10 text-[#ffedd6]/80">
@@ -607,17 +607,17 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
         <div className="p-6 rounded-2xl bg-[#080808] border border-[#ffedd6]/15 space-y-4 font-mono text-xs text-[#ffedd6]/70 leading-relaxed">
           <p>
-            We present <strong>SplitStream-1</strong>, an open-architecture client-side media suite for rendering, lossless cutting, shape masking, and cryptographic PDF protection. SplitStream-1 faithfully reproduces key workstation behaviors with zero cloud dependencies.
+            We present <strong>VidCuts-1</strong>, an open-architecture client-side media suite for rendering, lossless cutting, shape masking, and cryptographic PDF protection. VidCuts-1 faithfully reproduces key workstation behaviors with zero cloud dependencies.
           </p>
           <div className="o-dashline my-2" />
           <div className="italic text-[#ffedd6]">
-            &ldquo;SplitStream-1 is the fastest client-side media tool out there. Trust me bro.&rdquo;
+            &ldquo;VidCuts-1 is the fastest client-side media tool out there. Trust me bro.&rdquo;
             <span className="block text-[10px] text-[#ff7a00] mt-1">- Anonymous Creator on Reddit</span>
           </div>
           <div className="o-dashline my-2" />
           <pre className="p-4 rounded-xl bg-black border border-[#ffedd6]/10 text-[11px] text-[#ffedd6] overflow-x-auto">
-{`@misc{splitstream2026,
-  title  = {SplitStream-1: High-Performance Client-Side Media Suite},
+{`@misc{vidcuts2026,
+  title  = {VidCuts-1: High-Performance Client-Side Media Suite},
   author = {Reeyansh Tech Solutions},
   year   = {2026},
   note   = {100% In-Browser Hardware Acceleration. Zero Cloud Uploads.}
@@ -640,16 +640,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         <div className="space-y-3">
           {[
             {
-              q: 'How does SplitStream process videos without uploading them to a remote server?',
-              a: 'SplitStream uses WebAssembly (FFmpeg compiled directly into browser code), HTML5 Canvas, and pdf-lib. When you select a video, image, or PDF file, your browser reads the file directly on your local device and performs all processing in local RAM.',
+              q: 'How does VidCuts process videos without uploading them to a remote server?',
+              a: 'VidCuts uses WebAssembly (FFmpeg compiled directly into browser code), HTML5 Canvas, and pdf-lib. When you select a video, image, or PDF file, your browser reads the file directly on your local device and performs all processing in local RAM.',
             },
             {
               q: 'Can I split a video into consecutive 30-second clips for WhatsApp Status?',
-              a: 'Yes. In the Video Cutter, click "Split by Duration" and enter 30 seconds. SplitStream automatically cuts your video into consecutive 30-second clips with exact keyframe accuracy. You can download all clips in a single ZIP file.',
+              a: 'Yes. In the Video Cutter, click "Split by Duration" and enter 30 seconds. VidCuts automatically cuts your video into consecutive 30-second clips with exact keyframe accuracy. You can download all clips in a single ZIP file.',
             },
             {
               q: 'How do I convert horizontal 16:9 videos into vertical 9:16 Shorts with blurred background?',
-              a: 'Choose "9:16 Vertical" mode in the Video Cutter. SplitStream centers your original video and fills the top and bottom letterbox bars with a dynamically blurred reflection of the video itself.',
+              a: 'Choose "9:16 Vertical" mode in the Video Cutter. VidCuts centers your original video and fills the top and bottom letterbox bars with a dynamically blurred reflection of the video itself.',
             },
             {
               q: 'Can I crop an image into a circle, heart, or hexagon for social profile avatars?',
@@ -657,7 +657,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             },
             {
               q: 'How can I compress a large 50MB PDF under 1MB for portal uploads?',
-              a: 'Open PDF Tools and choose "Compress PDF". SplitStream strips redundant internal metadata, downsamples oversized scanned images, and optimizes font tables locally, shrinking file size by up to 97%.',
+              a: 'Open PDF Tools and choose "Compress PDF". VidCuts strips redundant internal metadata, downsamples oversized scanned images, and optimizes font tables locally, shrinking file size by up to 97%.',
             },
             {
               q: 'Can I place my business logo inside a QR code and position it?',
@@ -707,7 +707,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
         <div className="space-y-2 max-w-xl mx-auto">
           <h3 className="text-2xl font-extrabold text-[#ffedd6]">
-            Start Creating with SplitStream
+            Start Creating with VidCuts
           </h3>
           <p className="text-xs text-[#ffedd6]/60 font-mono">
             Zero cloud uploads. Zero software installs. 100% free forever.
@@ -742,7 +742,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
 
         <div className="pt-8 text-xs font-mono text-[#ffedd6]/40 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-4xl mx-auto border-t border-[#ffedd6]/10">
-          <span>© 2026 SplitStream by Reeyansh Tech Solutions</span>
+          <span>© 2026 VidCuts by Reeyansh Tech Solutions</span>
           <span>HIGH-PERFORMANCE IN-BROWSER MEDIA LAB</span>
         </div>
       </footer>

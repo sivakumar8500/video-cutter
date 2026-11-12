@@ -9,16 +9,16 @@ export const Footer: React.FC = () => {
           {/* Company Brand & Logo */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#ff7a00]/30 via-slate-900 to-[#ffedd6]/10 p-1 border border-[#ff7a00]/30 shadow-lg shadow-[#ff7a00]/10">
+              <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 shadow-lg shadow-[#ff7a00]/10">
                 <img
                   src="./app-icon.png"
-                  alt="SplitStream App Icon"
-                  className="w-10 h-10 object-cover rounded-xl drop-shadow"
+                  alt="VidCuts App Icon"
+                  className="w-full h-full object-contain rounded-xl drop-shadow"
                 />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white tracking-tight flex items-center gap-2">
-                  <span>SplitStream</span>
+                  <span>VidCuts</span>
                   <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#ff7a00]/15 text-[#ff7a00] border border-[#ff7a00]/30">
                     v2.0
                   </span>
@@ -45,7 +45,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-lg">
-              SplitStream is engineered by{' '}
+              VidCuts is engineered by{' '}
               <a
                 href="https://www.reeyanshtech.in/"
                 target="_blank"

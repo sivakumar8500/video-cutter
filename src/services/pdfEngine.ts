@@ -398,8 +398,8 @@ export class PdfEngine {
     });
 
     // Strip unneeded info dictionary entries to save space
-    doc.setProducer('SplitStream PDF Studio');
-    doc.setCreator('SplitStream PDF Studio (Reeyansh Tech)');
+    doc.setProducer('VidCuts PDF Studio');
+    doc.setCreator('VidCuts PDF Studio (Reeyansh Tech)');
 
     const bytes = await doc.save({
       useObjectStreams: true,
@@ -770,7 +770,7 @@ export class PdfEngine {
         <ul style="font-size: 14pt; color: #334155; line-height: 1.6; margin-top: 24px;">
           ${bullets || `<li style="margin-bottom: 8px;">${para}</li>`}
         </ul>
-        <div style="margin-top: 40px; font-size: 10pt; color: #94a3b8; text-align: right;">Slide ${idx + 1} • SplitStream PDF Converter</div>
+        <div style="margin-top: 40px; font-size: 10pt; color: #94a3b8; text-align: right;">Slide ${idx + 1} • VidCuts PDF Converter</div>
       </div>
       `;
     });
@@ -823,7 +823,7 @@ export class PdfEngine {
 </head>
 <body>
   <div class="container">
-    <div class="badge">Converted with SplitStream</div>
+    <div class="badge">Converted with VidCuts</div>
     <h1>${title}</h1>
     ${contentHtml}
   </div>

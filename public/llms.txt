@@ -1,9 +1,9 @@
-# SplitStream — In-Browser Video Cutter & 9:16 Shorts Engine
+# VidCuts — In-Browser Video Cutter & 9:16 Shorts Engine
 > Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
 > Live Website: https://scuts.reeyanshtech.in/ (or https://sivakumar8500.github.io/video-cutter/)
 
 ## Overview
-SplitStream is a free, privacy-first, client-side web utility that cuts and splits video files directly inside the browser using WebAssembly (FFmpeg WASM). No video files are ever uploaded to cloud servers or third-party storage.
+VidCuts is a free, privacy-first, client-side web utility that cuts and splits video files directly inside the browser using WebAssembly (FFmpeg WASM). No video files are ever uploaded to cloud servers or third-party storage.
 
 ## Core Capabilities
 1. **Split by Piece Count**: Divide any video evenly into N parts (e.g. 2, 4, 5, 10 clips) with exact timestamp boundaries.
