@@ -141,12 +141,12 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
         onClick={() => fileInputRef.current?.click()}
         className={`relative group rounded-3xl p-10 sm:p-14 border-2 border-dashed transition-all duration-300 cursor-pointer flex flex-col items-center justify-center text-center overflow-hidden ${
           isDragging
-            ? 'border-indigo-400 bg-indigo-950/30 scale-[1.01] shadow-2xl shadow-indigo-500/20'
-            : 'border-slate-700/80 hover:border-indigo-500/60 bg-slate-900/40 hover:bg-slate-900/70 backdrop-blur-sm'
+            ? 'border-[#F59E0B] bg-[#FEF3C7]/40 scale-[1.01] shadow-xl'
+            : 'border-[#E8E2D9] hover:border-[#F59E0B] bg-white hover:bg-[#FAF9F6] shadow-xs'
         }`}
       >
         {/* Glow backdrop */}
-        <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+        <div className="absolute inset-0 bg-[#F59E0B]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
 
         <input
           ref={fileInputRef}
@@ -159,25 +159,25 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
 
         {/* Big Animated Icon */}
         <div className="relative mb-6">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-500 p-0.5 shadow-xl shadow-indigo-500/25 group-hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+          <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#F59E0B] to-[#FBAE17] p-0.5 shadow-md shadow-[#F59E0B]/20 group-hover:scale-105 transition-transform duration-300 flex items-center justify-center">
+            <div className="w-full h-full bg-[#2B140D] rounded-[14px] flex items-center justify-center">
               {isExtractingMeta ? (
-                <Loader2 className="w-9 h-9 text-indigo-400 animate-spin" />
+                <Loader2 className="w-9 h-9 text-[#F59E0B] animate-spin" />
               ) : isDragging ? (
                 <CheckCircle2 className="w-9 h-9 text-emerald-400" />
               ) : (
-                <Upload className="w-9 h-9 text-indigo-400 group-hover:text-cyan-400 transition-colors" />
+                <Upload className="w-9 h-9 text-[#F59E0B] group-hover:text-amber-300 transition-colors" />
               )}
             </div>
           </div>
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+        <h3 className="text-xl sm:text-2xl font-bold text-[#2B140D] mb-2">
           {isDragging ? 'Drop video(s) here to load' : 'Choose video(s) or drag & drop'}
         </h3>
-        <p className="text-sm sm:text-base text-slate-400 max-w-md mb-6">
+        <p className="text-sm sm:text-base text-[#6B4E44] max-w-md mb-6">
           Single video trimming &amp; splitting, or{' '}
-          <strong className="text-pink-400">select multiple videos at a time</strong> to batch-convert 16:9 to 9:16.
+          <strong className="text-[#D97706]">select multiple videos at a time</strong> to batch-convert 16:9 to 9:16.
         </p>
 
         {/* Action Buttons */}
@@ -188,9 +188,9 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
               e.stopPropagation();
               fileInputRef.current?.click();
             }}
-            className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center gap-2 cursor-pointer"
+            className="px-6 py-3 rounded-xl bg-[#2B140D] hover:bg-[#3D1E14] text-white font-semibold shadow-sm transition-all duration-200 flex items-center gap-2 cursor-pointer"
           >
-            <Film className="w-4 h-4" />
+            <Film className="w-4 h-4 text-[#F59E0B]" />
             <span>Browse Video File(s)</span>
           </button>
 
@@ -201,29 +201,29 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
                 e.stopPropagation();
                 onOpenBatchConverter();
               }}
-              className="px-5 py-3 rounded-xl bg-gradient-to-r from-pink-600/30 to-purple-600/20 hover:from-pink-600/50 hover:to-purple-600/40 text-pink-300 hover:text-white border border-pink-500/40 font-semibold shadow-md transition-all duration-200 flex items-center gap-2 cursor-pointer"
+              className="px-5 py-3 rounded-xl bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#B45309] border border-[#FDE68A] font-semibold shadow-xs transition-all duration-200 flex items-center gap-2 cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-pink-400" />
+              <Sparkles className="w-4 h-4 text-[#D97706]" />
               <span>Batch 16:9 → 9:16 Mode</span>
             </button>
           )}
         </div>
 
         {/* Supported Format Pills */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-400">
-          <span className="px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 font-mono">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 text-xs text-[#6B4E44]">
+          <span className="px-2.5 py-1 rounded-md bg-[#FAF9F6] border border-[#E8E2D9] font-mono font-medium">
             .MP4
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-[#FAF9F6] border border-[#E8E2D9] font-mono font-medium">
             .MOV
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-[#FAF9F6] border border-[#E8E2D9] font-mono font-medium">
             .MKV
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-[#FAF9F6] border border-[#E8E2D9] font-mono font-medium">
             .AVI
           </span>
-          <span className="px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-[#FAF9F6] border border-[#E8E2D9] font-mono font-medium">
             .WEBM
           </span>
         </div>
@@ -231,21 +231,21 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
 
       {/* Warning if any */}
       {warningMessage && (
-        <div className="flex items-start gap-3 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-200 text-sm">
-          <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+        <div className="flex items-start gap-3 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-[#B45309] text-sm">
+          <AlertTriangle className="w-5 h-5 text-[#F59E0B] shrink-0 mt-0.5" />
           <p>{warningMessage}</p>
         </div>
       )}
 
       {/* Quick Demo Section */}
-      <div className="rounded-2xl p-6 bg-slate-900/40 border border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="rounded-2xl p-6 bg-white border border-[#E8E2D9] shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
-            <Sparkles className="w-5 h-5 text-cyan-400" />
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+            <Sparkles className="w-5 h-5 text-[#D97706]" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-white">Don't have a video file ready?</h4>
-            <p className="text-xs text-slate-400">
+            <h4 className="text-sm font-semibold text-[#2B140D]">Don't have a video file ready?</h4>
+            <p className="text-xs text-[#6B4E44]">
               Generate an instant 30-second synthetic video clip with countdown timer to test splitting.
             </p>
           </div>
@@ -255,16 +255,16 @@ export const VideoUploader: React.FC<VideoUploaderProps> = ({
           type="button"
           onClick={handleCreateDemo}
           disabled={isGeneratingDemo}
-          className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700/90 text-cyan-300 hover:text-cyan-200 border border-cyan-500/30 text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#FAF9F6] hover:bg-[#F5EFE6] text-[#2B140D] border border-[#E8E2D9] text-xs font-semibold transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shadow-xs"
         >
           {isGeneratingDemo ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin text-cyan-400" />
+              <Loader2 className="w-4 h-4 animate-spin text-[#F59E0B]" />
               <span>Generating ({demoProgress}%)...</span>
             </>
           ) : (
             <>
-              <Play className="w-3.5 h-3.5 fill-current" />
+              <Play className="w-3.5 h-3.5 fill-[#2B140D] text-[#2B140D]" />
               <span>Generate Test Video (30s)</span>
             </>
           )}

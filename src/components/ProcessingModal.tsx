@@ -34,45 +34,45 @@ export const ProcessingModal: React.FC<ProcessingModalProps> = ({ progress, onCa
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg rounded-3xl bg-slate-900 border border-slate-700/80 p-6 sm:p-8 shadow-2xl shadow-indigo-500/10 space-y-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg rounded-3xl bg-white border border-[#E8E2D9] p-6 sm:p-8 shadow-2xl space-y-6">
         {/* Glow behind modal */}
-        <div className="absolute -top-20 -left-20 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 -left-20 w-48 h-48 bg-[#F59E0B]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-[#FBAE17]/10 rounded-full blur-3xl pointer-events-none" />
 
         {/* Header with spinner */}
         <div className="flex items-center gap-4">
-          <div className="relative w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-            <Loader2 className="w-6 h-6 text-indigo-400 animate-spin" />
-            <div className="absolute inset-0 rounded-2xl animate-ping opacity-20 bg-indigo-400" />
+          <div className="relative w-12 h-12 rounded-2xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+            <Loader2 className="w-6 h-6 text-[#D97706] animate-spin" />
+            <div className="absolute inset-0 rounded-2xl animate-ping opacity-20 bg-[#F59E0B]" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+            <h3 className="text-lg font-bold text-[#2B140D] flex items-center gap-2">
               <span>Splitting In Progress</span>
-              <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <Sparkles className="w-4 h-4 text-[#F59E0B] animate-pulse" />
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[#6B4E44]">
               Processing with FFmpeg WebAssembly in your browser
             </p>
           </div>
         </div>
 
         {/* Status Message */}
-        <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300 font-medium">
-          <span className="text-indigo-400 font-semibold mr-1">Status:</span>
+        <div className="p-3.5 rounded-2xl bg-[#FAF9F6] border border-[#E8E2D9] text-xs text-[#2B140D] font-medium">
+          <span className="text-[#D97706] font-semibold mr-1">Status:</span>
           {progress.statusMessage || 'Preparing video streams...'}
         </div>
 
         {/* Overall Progress Bar */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs">
-            <span className="font-semibold text-slate-200">Overall Progress</span>
-            <span className="font-mono font-bold text-indigo-400">{progress.overallProgress}%</span>
+            <span className="font-semibold text-[#2B140D]">Overall Progress</span>
+            <span className="font-mono font-bold text-[#D97706]">{progress.overallProgress}%</span>
           </div>
-          <div className="w-full h-3 rounded-full bg-slate-950 border border-slate-800 overflow-hidden p-0.5">
+          <div className="w-full h-3 rounded-full bg-[#FAF9F6] border border-[#E8E2D9] overflow-hidden p-0.5">
             <div
               style={{ width: `${progress.overallProgress}%` }}
-              className="h-full rounded-full bg-gradient-to-r from-indigo-500 via-cyan-400 to-emerald-400 transition-all duration-300 shadow-sm"
+              className="h-full rounded-full bg-gradient-to-r from-[#F59E0B] to-[#FBAE17] transition-all duration-300 shadow-xs"
             />
           </div>
         </div>
@@ -80,16 +80,16 @@ export const ProcessingModal: React.FC<ProcessingModalProps> = ({ progress, onCa
         {/* Current Clip Progress (if multiple clips) */}
         {progress.totalClips > 1 && (
           <div className="space-y-2">
-            <div className="flex justify-between text-xs text-slate-400">
+            <div className="flex justify-between text-xs text-[#6B4E44]">
               <span>
                 Clip {progress.currentClipIndex || 1} of {progress.totalClips}
               </span>
-              <span className="font-mono text-cyan-400">{progress.currentClipProgress}%</span>
+              <span className="font-mono text-[#D97706]">{progress.currentClipProgress}%</span>
             </div>
-            <div className="w-full h-1.5 rounded-full bg-slate-950 border border-slate-800 overflow-hidden">
+            <div className="w-full h-1.5 rounded-full bg-[#FAF9F6] border border-[#E8E2D9] overflow-hidden">
               <div
                 style={{ width: `${progress.currentClipProgress}%` }}
-                className="h-full rounded-full bg-cyan-400 transition-all duration-150"
+                className="h-full rounded-full bg-[#F59E0B] transition-all duration-150"
               />
             </div>
           </div>
@@ -97,13 +97,13 @@ export const ProcessingModal: React.FC<ProcessingModalProps> = ({ progress, onCa
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 gap-3 text-center">
-          <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-            <div className="text-[10px] uppercase font-bold text-slate-400">Time Elapsed</div>
-            <div className="text-xs font-mono font-bold text-white mt-0.5">{formatElapsed(elapsedSec)}</div>
+          <div className="p-2.5 rounded-xl bg-[#FAF9F6] border border-[#E8E2D9]">
+            <div className="text-[10px] uppercase font-bold text-[#6B4E44]">Time Elapsed</div>
+            <div className="text-xs font-mono font-bold text-[#2B140D] mt-0.5">{formatElapsed(elapsedSec)}</div>
           </div>
-          <div className="p-2.5 rounded-xl bg-slate-950/60 border border-slate-800">
-            <div className="text-[10px] uppercase font-bold text-slate-400">Clips Finished</div>
-            <div className="text-xs font-mono font-bold text-emerald-400 mt-0.5">
+          <div className="p-2.5 rounded-xl bg-[#FAF9F6] border border-[#E8E2D9]">
+            <div className="text-[10px] uppercase font-bold text-[#6B4E44]">Clips Finished</div>
+            <div className="text-xs font-mono font-bold text-emerald-600 mt-0.5">
               {Math.max(0, (progress.currentClipIndex || 1) - 1)} / {progress.totalClips}
             </div>
           </div>

@@ -32,18 +32,18 @@ export const TimelinePreview: React.FC<TimelinePreviewProps> = ({
   isRangeMode = false,
 }) => {
   return (
-    <div className="w-full rounded-3xl bg-slate-900/60 border border-slate-800/80 p-5 sm:p-6 backdrop-blur-md shadow-2xl space-y-6">
+    <div className="w-full rounded-3xl bg-white border border-[#E8E2D9] p-5 sm:p-6 shadow-sm space-y-6">
       {/* Title & Stats */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+      <div className="flex items-center justify-between pb-3 border-b border-[#E8E2D9]">
         <div className="flex items-center gap-2">
-          <Film className="w-5 h-5 text-cyan-400" />
-          <h3 className="text-base font-bold text-white">Segment Cuts & Timeline</h3>
+          <Film className="w-5 h-5 text-[#F59E0B]" />
+          <h3 className="text-base font-bold text-[#2B140D]">Segment Cuts &amp; Timeline</h3>
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <span className="px-2.5 py-1 rounded-full bg-slate-800 text-slate-300 font-semibold border border-slate-700">
+          <span className="px-2.5 py-1 rounded-full bg-[#FEF3C7] text-[#B45309] font-semibold border border-[#FDE68A]">
             {segments.length} {segments.length === 1 ? 'Clip' : 'Clips'} Planned
           </span>
-          <span className="text-slate-400 font-mono">
+          <span className="text-[#6B4E44] font-mono">
             Total: {formatTime(totalDuration, true)}
           </span>
         </div>
@@ -171,9 +171,9 @@ export const TimelinePreview: React.FC<TimelinePreviewProps> = ({
           type="button"
           onClick={onStartProcess}
           disabled={isProcessing || segments.length === 0}
-          className="w-full py-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-base shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          className="w-full py-4 rounded-2xl bg-[#2B140D] hover:bg-[#3D1E14] text-white font-bold text-base shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
         >
-          <Scissors className="w-5 h-5 -rotate-45" />
+          <Scissors className="w-5 h-5 -rotate-45 text-[#F59E0B]" />
           <span>
             {isRangeMode ? 'Cut & Export Selected Minute Range(s)' : `Cut & Export ${segments.length} Video Clips Now`}
           </span>

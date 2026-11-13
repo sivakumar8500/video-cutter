@@ -297,7 +297,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#020202] text-[#ffedd6] flex flex-col font-sans selection:bg-[#ff7a00] selection:text-black">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#2B140D] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-white">
       {/* Top Navigation Bar with Sub-Navigation Tabs */}
       <Header
         hasVideo={!!video}
@@ -323,17 +323,17 @@ export function App() {
           <section id="video-cutter" aria-label="Video Cutter and Splitter">
             {/* Mode Selector Switcher */}
             <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center p-1 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl">
+              <div className="flex items-center p-1 rounded-2xl bg-white border border-[#E8E2D9] shadow-sm">
                 <button
                   type="button"
                   onClick={() => setCutterMode('single')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'single'
-                      ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#2B140D] text-white shadow-xs'
+                      : 'text-[#6B4E44] hover:text-[#2B140D]'
                   }`}
                 >
-                  <Scissors className="w-3.5 h-3.5" />
+                  <Scissors className="w-3.5 h-3.5 text-[#F59E0B]" />
                   <span>Video Splitter &amp; Cutter</span>
                 </button>
                 <button
@@ -341,11 +341,11 @@ export function App() {
                   onClick={() => setCutterMode('batch')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'batch'
-                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-[#F59E0B] text-[#2B140D] shadow-xs'
+                      : 'text-[#6B4E44] hover:text-[#2B140D]'
                   }`}
                 >
-                  <Smartphone className="w-3.5 h-3.5 text-pink-400" />
+                  <Smartphone className="w-3.5 h-3.5 text-[#2B140D]" />
                   <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
                 </button>
               </div>
@@ -368,18 +368,18 @@ export function App() {
                     <div className="text-center max-w-3xl mx-auto space-y-4">
                       <div className="flex flex-col items-center justify-center">
                         <div className="relative group mb-3">
-                          <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-orange-500 rounded-3xl blur-lg opacity-40 group-hover:opacity-70 transition duration-500"></div>
+                          <div className="absolute -inset-1.5 bg-[#F59E0B]/25 rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition duration-500"></div>
                           <img
                             src="./app-icon.png"
                             alt="VidCuts App Icon"
-                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-2xl border border-white/20"
+                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-[#E8E2D9]"
                           />
                         </div>
                         <a
                           href="https://www.reeyanshtech.in/"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 hover:border-orange-500/40 text-orange-400 hover:text-orange-300 text-xs font-semibold transition-all cursor-pointer group shadow-sm"
+                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] text-[#B45309] text-xs font-semibold transition-all cursor-pointer group shadow-xs"
                           title="Visit Reeyansh Tech Solutions Official Website"
                         >
                           <img
@@ -387,16 +387,16 @@ export function App() {
                             alt="Reeyansh"
                             className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                           />
-                          <span>By Reeyansh Tech Solutions • 100% In-Browser & Private</span>
+                          <span>By Reeyansh Tech Solutions • 100% In-Browser &amp; Private</span>
                           <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
                         </a>
                       </div>
 
-                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#2B140D] leading-tight">
                         Split Any Video Into Clips In Seconds
                       </h1>
-                      <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
-                        Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion & promotional cards.
+                      <p className="text-sm sm:text-base text-[#6B4E44] max-w-2xl mx-auto">
+                        Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion &amp; promotional cards.
                         All processing happens 100% locally in your browser using FFmpeg WebAssembly.
                       </p>
                     </div>

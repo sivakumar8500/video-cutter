@@ -209,23 +209,23 @@ export const CompletionView: React.FC<CompletionViewProps> = ({
   return (
     <div className="w-full max-w-5xl mx-auto space-y-6 animate-in fade-in duration-300">
       {/* Success Celebration Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-indigo-950/40 border border-emerald-500/30 p-6 sm:p-8 backdrop-blur-xl shadow-2xl">
+      <div className="relative overflow-hidden rounded-3xl bg-white border border-[#E8E2D9] p-6 sm:p-8 shadow-sm">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4 text-center sm:text-left">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-cyan-500 p-0.5 shadow-xl shadow-emerald-500/20 shrink-0">
-              <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                <CheckCircle className="w-7 h-7 text-emerald-400" />
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#F59E0B] to-[#FBAE17] p-0.5 shadow-md shadow-[#F59E0B]/20 shrink-0">
+              <div className="w-full h-full bg-[#2B140D] rounded-[14px] flex items-center justify-center">
+                <CheckCircle className="w-7 h-7 text-[#F59E0B]" />
               </div>
             </div>
             <div>
               <div className="flex items-center justify-center sm:justify-start gap-2">
-                <h2 className="text-xl sm:text-2xl font-extrabold text-white">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-[#2B140D]">
                   Splitting Completed Successfully!
                 </h2>
-                <Sparkles className="w-5 h-5 text-amber-400 animate-bounce" />
+                <Sparkles className="w-5 h-5 text-[#F59E0B] animate-bounce" />
               </div>
-              <p className="text-xs sm:text-sm text-slate-300 mt-1">
-                Generated <span className="text-emerald-400 font-semibold">{clips.length} video clips</span>{' '}
+              <p className="text-xs sm:text-sm text-[#6B4E44] mt-1">
+                Generated <span className="text-[#D97706] font-semibold">{clips.length} video clips</span>{' '}
                 ({formatFileSize(totalBytes)}) ready to download, save to folder, or convert to 9:16 Shorts/Reels.
               </p>
             </div>
@@ -234,9 +234,9 @@ export const CompletionView: React.FC<CompletionViewProps> = ({
           <button
             type="button"
             onClick={onReset}
-            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition flex items-center gap-2 shrink-0 cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-[#FAF9F6] hover:bg-[#F5EFE6] text-[#2B140D] text-xs font-semibold border border-[#E8E2D9] transition flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-4 h-4 text-[#F59E0B]" />
             <span>Split Another Video</span>
           </button>
         </div>

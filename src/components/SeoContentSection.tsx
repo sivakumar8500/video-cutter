@@ -204,68 +204,68 @@ export const SeoContentSection: React.FC = () => {
 
       {/* 3. Core Feature Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <Scissors className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">Three Precise Splitting Modes</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">Three Precise Splitting Modes</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Split by equal piece count, fixed clip duration (e.g. 30s or 60s), or exact minute-to-minute timestamps. Never lose a single frame with zero-loss remainder preservation.
           </p>
         </article>
 
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <Smartphone className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">16:9 to 9:16 Shorts & Reels</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">16:9 to 9:16 Shorts &amp; Reels</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Repurpose horizontal widescreen footage into high-engagement vertical content for YouTube Shorts, Instagram Reels, and TikTok with blurred backgrounds or center cropping.
           </p>
         </article>
 
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <Layers className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">Promotional Cards & Multi-Banners</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">Promotional Cards &amp; Multi-Banners</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Attach branded promotional cards to the top and bottom of your vertical videos with full control over heights, scaling, zoom, padding, and background color styling. Add multiple timed banners across the timeline.
           </p>
         </article>
 
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <Zap className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">Lossless Stream Copy Engine</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">Lossless Stream Copy Engine</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Fast stream copy cuts files in milliseconds without re-encoding, preserving 100% of the original video and audio bitrates without any compression artifacts.
           </p>
         </article>
 
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <FolderDown className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">Direct Folder & ZIP Export</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">Direct Folder &amp; ZIP Export</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Save all exported clips directly into a timestamped folder on your computer with the File System Access API, or bundle all clips into an organized ZIP archive.
           </p>
         </article>
 
-        <article className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-slate-700/80 transition-all duration-200 space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+        <article className="p-6 rounded-2xl bg-white border border-[#E8E2D9] hover:border-[#F59E0B] shadow-xs transition-all duration-200 space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center text-[#D97706]">
             <ShieldCheck className="w-5 h-5" />
           </div>
-          <h3 className="text-base font-bold text-white">100% Confidential & Secure</h3>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <h3 className="text-base font-bold text-[#2B140D]">100% Confidential &amp; Secure</h3>
+          <p className="text-xs sm:text-sm text-[#6B4E44] leading-relaxed">
             Designed with a strict privacy-first architecture by{' '}
             <a
               href="https://www.reeyanshtech.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-orange-400 hover:text-orange-300 font-semibold underline decoration-orange-500/40 hover:decoration-orange-400 transition-colors inline-flex items-center gap-0.5"
+              className="text-[#D97706] hover:text-[#B45309] font-semibold underline decoration-[#F59E0B]/40 hover:decoration-[#D97706] transition-colors inline-flex items-center gap-0.5"
               title="Visit Reeyansh Tech Solutions Official Website"
             >
               <span>Reeyansh Tech Solutions</span>
@@ -279,43 +279,43 @@ export const SeoContentSection: React.FC = () => {
       {/* 4. Comparison Matrix Table (AEO / High-Intent Search Anchor) */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 text-orange-400 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 text-[#D97706] text-xs font-semibold uppercase tracking-wider">
             <SlidersHorizontal className="w-4 h-4" />
             <span>Comparison Matrix</span>
           </div>
-          <h3 className="text-xl sm:text-3xl font-bold text-white">
+          <h3 className="text-xl sm:text-3xl font-bold text-[#2B140D]">
             VidCuts vs Traditional Cloud Video Cutters
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-[#6B4E44] max-w-2xl mx-auto">
             Why creators and privacy-conscious professionals prefer in-browser WebAssembly video processing over cloud-based editors.
           </p>
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border border-slate-800/90 bg-slate-900/40 shadow-2xl backdrop-blur-sm">
+        <div className="overflow-x-auto rounded-2xl border border-[#E8E2D9] bg-white shadow-xs">
           <table className="w-full text-left text-xs sm:text-sm">
-            <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-300 uppercase font-semibold tracking-wider text-[11px]">
+            <thead className="bg-[#FAF9F6] border-b border-[#E8E2D9] text-[#2B140D] uppercase font-semibold tracking-wider text-[11px]">
               <tr>
                 <th className="py-4 px-5">Feature / Capability</th>
-                <th className="py-4 px-5 text-orange-400">VidCuts (In-Browser)</th>
-                <th className="py-4 px-5 text-slate-400">Traditional Cloud Cutters</th>
+                <th className="py-4 px-5 text-[#D97706]">VidCuts (In-Browser)</th>
+                <th className="py-4 px-5 text-[#6B4E44]">Traditional Cloud Cutters</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-[#E8E2D9]">
               {COMPARISON_DATA.map((row, idx) => (
-                <tr key={idx} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="py-3.5 px-5 font-medium text-white flex items-center gap-2">
-                    <FileText className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <tr key={idx} className="hover:bg-[#FAF9F6] transition-colors">
+                  <td className="py-3.5 px-5 font-medium text-[#2B140D] flex items-center gap-2">
+                    <FileText className="w-3.5 h-3.5 text-[#6B4E44] shrink-0" />
                     <span>{row.feature}</span>
                   </td>
-                  <td className="py-3.5 px-5 font-semibold text-emerald-400">
+                  <td className="py-3.5 px-5 font-semibold text-emerald-600">
                     <span className="inline-flex items-center gap-1.5">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <Check className="w-4 h-4 text-emerald-600 shrink-0" />
                       <span>{row.vidcuts}</span>
                     </span>
                   </td>
-                  <td className="py-3.5 px-5 text-slate-400">
+                  <td className="py-3.5 px-5 text-[#6B4E44]">
                     <span className="inline-flex items-center gap-1.5">
-                      <X className="w-4 h-4 text-rose-400 shrink-0" />
+                      <X className="w-4 h-4 text-rose-500 shrink-0" />
                       <span>{row.cloud}</span>
                     </span>
                   </td>
@@ -329,47 +329,47 @@ export const SeoContentSection: React.FC = () => {
       {/* 5. Step-by-Step How To Guide (Schema.org HowTo Entity) */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
-          <h3 className="text-xl sm:text-2xl font-bold text-white">
+          <h3 className="text-xl sm:text-2xl font-bold text-[#2B140D]">
             How to Cut and Split Videos in 3 Easy Steps
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-[#6B4E44]">
             VidCuts makes slicing long videos as simple as a few clicks.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-5 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+          <div className="p-5 rounded-xl bg-white border border-[#E8E2D9] space-y-3 shadow-xs">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold border border-orange-500/30">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#FEF3C7] text-[#B45309] text-xs font-bold border border-[#FDE68A]">
                 1
               </span>
-              <h4 className="text-sm font-semibold text-white">Select Your Video</h4>
+              <h4 className="text-sm font-semibold text-[#2B140D]">Select Your Video</h4>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-[#6B4E44] leading-relaxed">
               Drag and drop any local video file (MP4, MOV, MKV, AVI, etc.) into the dropzone or click to browse. You can also generate an instant test video clip to experiment.
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+          <div className="p-5 rounded-xl bg-white border border-[#E8E2D9] space-y-3 shadow-xs">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold border border-orange-500/30">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#FEF3C7] text-[#B45309] text-xs font-bold border border-[#FDE68A]">
                 2
               </span>
-              <h4 className="text-sm font-semibold text-white">Configure Your Split</h4>
+              <h4 className="text-sm font-semibold text-[#2B140D]">Configure Your Split</h4>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-[#6B4E44] leading-relaxed">
               Choose your mode: Piece Count, Duration, or Custom Minute Ranges. Preview segments on the visual timeline ribbon and optionally select 9:16 vertical conversion.
             </p>
           </div>
 
-          <div className="p-5 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-3">
+          <div className="p-5 rounded-xl bg-white border border-[#E8E2D9] space-y-3 shadow-xs">
             <div className="flex items-center gap-3">
-              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold border border-orange-500/30">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full bg-[#FEF3C7] text-[#B45309] text-xs font-bold border border-[#FDE68A]">
                 3
               </span>
-              <h4 className="text-sm font-semibold text-white">Export & Download</h4>
+              <h4 className="text-sm font-semibold text-[#2B140D]">Export &amp; Download</h4>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-[#6B4E44] leading-relaxed">
               Click "Start Splitting". Preview each cut clip with the built-in player, save all clips directly to a local folder, or download as a ZIP archive.
             </p>
           </div>
@@ -378,27 +378,27 @@ export const SeoContentSection: React.FC = () => {
 
       {/* 6. Technical Specifications Summary */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        <div className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800/90 space-y-4">
-          <h3 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-            <FileText className="w-4 h-4 text-orange-400" />
-            <span>Technical Specifications & Supported Formats</span>
+        <div className="p-6 rounded-2xl bg-white border border-[#E8E2D9] space-y-4 shadow-xs">
+          <h3 className="text-base sm:text-lg font-bold text-[#2B140D] flex items-center gap-2">
+            <FileText className="w-4 h-4 text-[#F59E0B]" />
+            <span>Technical Specifications &amp; Supported Formats</span>
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <p className="text-slate-500 uppercase text-[10px] font-semibold">Video Containers</p>
-              <p className="font-semibold text-slate-200 mt-1">MP4, MOV, MKV, AVI, WebM, M4V, FLV, TS</p>
+            <div className="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E2D9]">
+              <p className="text-[#6B4E44] uppercase text-[10px] font-semibold">Video Containers</p>
+              <p className="font-semibold text-[#2B140D] mt-1">MP4, MOV, MKV, AVI, WebM, M4V, FLV, TS</p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <p className="text-slate-500 uppercase text-[10px] font-semibold">Video Codecs</p>
-              <p className="font-semibold text-slate-200 mt-1">H.264 (AVC), H.265 (HEVC), VP8, VP9, ProRes</p>
+            <div className="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E2D9]">
+              <p className="text-[#6B4E44] uppercase text-[10px] font-semibold">Video Codecs</p>
+              <p className="font-semibold text-[#2B140D] mt-1">H.264 (AVC), H.265 (HEVC), VP8, VP9, ProRes</p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <p className="text-slate-500 uppercase text-[10px] font-semibold">Processing Engine</p>
-              <p className="font-semibold text-slate-200 mt-1">FFmpeg 0.12 WebAssembly (WASM)</p>
+            <div className="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E2D9]">
+              <p className="text-[#6B4E44] uppercase text-[10px] font-semibold">Processing Engine</p>
+              <p className="font-semibold text-[#2B140D] mt-1">FFmpeg 0.12 WebAssembly (WASM)</p>
             </div>
-            <div className="p-3 rounded-lg bg-slate-950/60 border border-slate-800/60">
-              <p className="text-slate-500 uppercase text-[10px] font-semibold">Export Methods</p>
-              <p className="font-semibold text-slate-200 mt-1">Direct Folder, ZIP Archive, MP4 Single</p>
+            <div className="p-3 rounded-lg bg-[#FAF9F6] border border-[#E8E2D9]">
+              <p className="text-[#6B4E44] uppercase text-[10px] font-semibold">Export Methods</p>
+              <p className="font-semibold text-[#2B140D] mt-1">Direct Folder, ZIP Archive, MP4 Single</p>
             </div>
           </div>
         </div>
@@ -407,20 +407,20 @@ export const SeoContentSection: React.FC = () => {
       {/* 7. SEO FAQ Accordion Section */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center gap-1.5 text-orange-400 text-xs font-semibold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-1.5 text-[#D97706] text-xs font-semibold uppercase tracking-wider">
             <HelpCircle className="w-4 h-4" />
             <span>Common Questions</span>
           </div>
-          <h3 className="text-xl sm:text-3xl font-bold text-white">
+          <h3 className="text-xl sm:text-3xl font-bold text-[#2B140D]">
             Frequently Asked Questions
           </h3>
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-[#6B4E44]">
             Everything you need to know about VidCuts by{' '}
             <a
               href="https://www.reeyanshtech.in/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-orange-400 hover:text-orange-300 font-semibold underline decoration-orange-500/40 hover:decoration-orange-400 transition-colors inline-flex items-center gap-0.5"
+              className="text-[#D97706] hover:text-[#B45309] font-semibold underline decoration-[#F59E0B]/40 hover:decoration-[#D97706] transition-colors inline-flex items-center gap-0.5"
               title="Visit Reeyansh Tech Solutions Official Website"
             >
               <span>Reeyansh Tech Solutions</span>
@@ -436,25 +436,25 @@ export const SeoContentSection: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-slate-800/90 bg-slate-900/40 overflow-hidden transition-all duration-200"
+                className="rounded-xl border border-[#E8E2D9] bg-white overflow-hidden transition-all duration-200 shadow-xs"
               >
                 <button
                   type="button"
                   onClick={() => toggleFaq(idx)}
-                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 hover:bg-slate-800/30 transition-colors cursor-pointer"
+                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 hover:bg-[#FAF9F6] transition-colors cursor-pointer"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm font-semibold text-white">
+                  <span className="text-sm font-semibold text-[#2B140D]">
                     {item.question}
                   </span>
                   <ChevronDown
-                    className={`w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0 ${
-                      isOpen ? 'rotate-180 text-orange-400' : ''
+                    className={`w-4 h-4 text-[#6B4E44] transition-transform duration-200 shrink-0 ${
+                      isOpen ? 'rotate-180 text-[#D97706]' : ''
                     }`}
                   />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-4 pt-1 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/50 bg-slate-950/20">
+                  <div className="px-5 pb-4 pt-1 text-xs sm:text-sm text-[#6B4E44] leading-relaxed border-t border-[#E8E2D9] bg-[#FAF9F6]">
                     {item.answer}
                   </div>
                 )}

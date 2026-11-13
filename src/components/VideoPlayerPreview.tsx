@@ -102,18 +102,18 @@ export const VideoPlayerPreview: React.FC<VideoPlayerPreviewProps> = ({
   };
 
   return (
-    <div className="w-full rounded-3xl bg-slate-900/60 border border-slate-800/80 p-5 sm:p-6 backdrop-blur-md shadow-2xl space-y-4">
+    <div className="w-full rounded-3xl bg-white border border-[#E8E2D9] p-5 sm:p-6 shadow-sm space-y-4">
       {/* Top Header with Filename & Actions */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-[#E8E2D9]">
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-            <FileVideo className="w-5 h-5 text-indigo-400" />
+          <div className="w-10 h-10 rounded-xl bg-[#FEF3C7] border border-[#FDE68A] flex items-center justify-center shrink-0">
+            <FileVideo className="w-5 h-5 text-[#D97706]" />
           </div>
           <div className="overflow-hidden">
-            <h3 className="text-base font-bold text-white truncate max-w-md sm:max-w-lg" title={metadata.name}>
+            <h3 className="text-base font-bold text-[#2B140D] truncate max-w-md sm:max-w-lg" title={metadata.name}>
               {metadata.name}
             </h3>
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+            <div className="flex items-center gap-2 text-xs text-[#6B4E44]">
               <span>{metadata.format}</span>
               <span>•</span>
               <span>{formatFileSize(metadata.size)}</span>
@@ -125,15 +125,15 @@ export const VideoPlayerPreview: React.FC<VideoPlayerPreviewProps> = ({
           <button
             type="button"
             onClick={onChangeVideo}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium border border-slate-700 transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FAF9F6] hover:bg-[#F5EFE6] text-[#2B140D] text-xs font-medium border border-[#E8E2D9] transition cursor-pointer shadow-xs"
           >
-            <RotateCcw className="w-3.5 h-3.5" />
+            <RotateCcw className="w-3.5 h-3.5 text-[#F59E0B]" />
             <span>Change</span>
           </button>
           <button
             type="button"
             onClick={onRemove}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 hover:text-rose-300 text-xs font-medium border border-rose-500/20 transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-medium border border-rose-200 transition cursor-pointer shadow-xs"
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span>Remove</span>

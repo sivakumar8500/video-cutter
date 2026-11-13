@@ -167,31 +167,31 @@ export const SplitConfiguration: React.FC<SplitConfigurationProps> = ({
   }
 
   return (
-    <div className="w-full rounded-3xl bg-slate-900/60 border border-slate-800/80 p-5 sm:p-6 backdrop-blur-md shadow-2xl space-y-6">
+    <div className="w-full rounded-3xl bg-white border border-[#E8E2D9] p-5 sm:p-6 shadow-sm space-y-6">
       {/* Title & Mode Switcher */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-[#E8E2D9]">
         <div>
-          <h3 className="text-lg font-bold text-white flex items-center gap-2">
-            <Settings2 className="w-5 h-5 text-indigo-400" />
+          <h3 className="text-lg font-bold text-[#2B140D] flex items-center gap-2">
+            <Settings2 className="w-5 h-5 text-[#F59E0B]" />
             <span>Splitting Configuration</span>
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <p className="text-xs text-[#6B4E44] mt-0.5">
             Choose how you want to divide or trim your video.
           </p>
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="flex items-center p-1 rounded-xl bg-slate-950/80 border border-slate-800 flex-wrap gap-1">
+        <div className="flex items-center p-1 rounded-xl bg-[#FAF9F6] border border-[#E8E2D9] flex-wrap gap-1">
           <button
             type="button"
             onClick={() => handleModeChange('pieces')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               config.mode === 'pieces'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-500/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#2B140D] text-white shadow-xs'
+                : 'text-[#6B4E44] hover:text-[#2B140D]'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Layers className="w-3.5 h-3.5 text-[#F59E0B]" />
             <span>Mode A: Pieces</span>
           </button>
 
@@ -200,11 +200,11 @@ export const SplitConfiguration: React.FC<SplitConfigurationProps> = ({
             onClick={() => handleModeChange('duration')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               config.mode === 'duration'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-500/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#2B140D] text-white shadow-xs'
+                : 'text-[#6B4E44] hover:text-[#2B140D]'
             }`}
           >
-            <Clock className="w-3.5 h-3.5" />
+            <Clock className="w-3.5 h-3.5 text-[#F59E0B]" />
             <span>Mode B: Duration</span>
           </button>
 
@@ -213,11 +213,11 @@ export const SplitConfiguration: React.FC<SplitConfigurationProps> = ({
             onClick={() => handleModeChange('range')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               config.mode === 'range'
-                ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-500/20'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-[#2B140D] text-white shadow-xs'
+                : 'text-[#6B4E44] hover:text-[#2B140D]'
             }`}
           >
-            <Scissors className="w-3.5 h-3.5 -rotate-45" />
+            <Scissors className="w-3.5 h-3.5 text-[#F59E0B] -rotate-45" />
             <span>Mode C: Min to Min</span>
           </button>
         </div>
