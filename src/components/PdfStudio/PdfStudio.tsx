@@ -239,15 +239,15 @@ export const PdfStudio: React.FC = () => {
     <div className="space-y-10 animate-in fade-in duration-300">
       {/* Hero Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold shadow-sm">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold shadow-xs">
           <Files className="w-3.5 h-3.5" />
           <span>Complete In-Browser PDF Suite • 100% Client-Side & Private</span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
           Every Tool You Need To Work With PDFs In One Place
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
           Merge, split, compress, convert, edit, sign, redact, and analyze your PDF documents with ease.
           Everything processes locally in your browser memory for maximum privacy.
         </p>
@@ -261,7 +261,7 @@ export const PdfStudio: React.FC = () => {
               placeholder="Search PDF tools (merge, compress, sign, convert, etc.)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-900/80 border border-slate-800 focus:border-rose-500 text-xs text-white placeholder-slate-500 focus:outline-none transition-all shadow-inner"
+              className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-white border border-slate-200 focus:border-rose-500 text-xs text-slate-900 placeholder-slate-400 focus:outline-none transition-all shadow-xs"
             />
           </div>
         </div>
@@ -269,7 +269,7 @@ export const PdfStudio: React.FC = () => {
 
       {/* Category Tabs Menu with Dynamic Counts */}
       <div className="flex items-center justify-center">
-        <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-inner max-w-full">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm max-w-full">
           {PDF_CATEGORIES.map((cat) => (
             <button
               key={cat.id}
@@ -277,15 +277,15 @@ export const PdfStudio: React.FC = () => {
               className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-md shadow-rose-500/20'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
             >
               <span>{cat.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                   selectedCategory === cat.id
-                    ? 'bg-black/30 text-white'
-                    : 'bg-slate-800 text-slate-400'
+                    ? 'bg-black/20 text-white'
+                    : 'bg-slate-100 text-slate-600'
                 }`}
               >
                 {categoryCounts[cat.id] || 0}
@@ -297,17 +297,17 @@ export const PdfStudio: React.FC = () => {
 
       {/* 6-Column Quick Mega Directory (Matching iLovePDF Screenshot Layout) */}
       {(selectedCategory === 'all' || selectedCategory === 'organize' || selectedCategory === 'optimize' || selectedCategory === 'convert-to-pdf' || selectedCategory === 'convert-from-pdf' || selectedCategory === 'edit' || selectedCategory === 'security') && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/85 border border-slate-800 shadow-2xl backdrop-blur-md space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-lg space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+              <div className="w-8 h-8 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600">
                 <Files className="w-4 h-4" />
               </div>
               <div>
-                <h2 className="text-sm font-extrabold text-white tracking-wide uppercase">
+                <h2 className="text-sm font-extrabold text-slate-900 tracking-wide uppercase">
                   PDF Tools Navigation Menu
                 </h2>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-slate-500">
                   Quick access to all 6 PDF modules • Click any tool to launch immediately
                 </p>
               </div>
@@ -315,7 +315,7 @@ export const PdfStudio: React.FC = () => {
 
             <div className="flex items-center gap-2 text-xs">
               <span className="text-slate-500">Full Directory:</span>
-              <span className="text-rose-400 font-semibold">6 Modules • 31 Tools</span>
+              <span className="text-rose-600 font-semibold">6 Modules • 31 Tools</span>
             </div>
           </div>
 
@@ -323,8 +323,8 @@ export const PdfStudio: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 lg:gap-3 overflow-x-auto">
             {SCREENSHOT_COLUMNS.map((col) => (
               <div key={col.title} className="space-y-3">
-                <div className="border-b border-slate-800/60 pb-2">
-                  <span className="text-[11px] font-black tracking-wider text-slate-400 uppercase">
+                <div className="border-b border-slate-200 pb-2">
+                  <span className="text-[11px] font-black tracking-wider text-slate-600 uppercase">
                     {col.title}
                   </span>
                 </div>
@@ -335,8 +335,8 @@ export const PdfStudio: React.FC = () => {
                         onClick={() => setActiveToolId(item.id)}
                         className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-xl text-left text-xs font-semibold transition-all cursor-pointer group ${
                           item.isHighlighted
-                            ? 'bg-purple-500/15 text-purple-200 border border-purple-500/30 font-bold'
-                            : 'text-slate-300 hover:text-white hover:bg-slate-800/80'
+                            ? 'bg-purple-50 text-purple-700 border border-purple-200 font-bold'
+                            : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100'
                         }`}
                       >
                         <span className={`shrink-0 ${item.iconColor} group-hover:scale-110 transition-transform`}>
@@ -344,7 +344,7 @@ export const PdfStudio: React.FC = () => {
                         </span>
                         <span
                           className={`truncate ${
-                            item.id === 'compress' ? 'text-red-400 font-bold' : ''
+                            item.id === 'compress' ? 'text-red-600 font-bold' : ''
                           }`}
                         >
                           {item.name}
@@ -363,17 +363,17 @@ export const PdfStudio: React.FC = () => {
       {(selectedCategory === 'all' || selectedCategory === 'convert') && (
         <div
           onClick={() => setActiveToolId('pdf-to-all')}
-          className="p-6 rounded-3xl bg-gradient-to-r from-blue-950/60 via-indigo-950/40 to-slate-900 border border-blue-500/30 hover:border-blue-400/60 transition-all cursor-pointer flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl group"
+          className="p-6 rounded-3xl bg-gradient-to-r from-blue-50 via-indigo-50 to-white border border-blue-200 hover:border-blue-300 transition-all cursor-pointer flex flex-col md:flex-row items-center justify-between gap-6 shadow-md hover:shadow-lg group"
         >
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Universal Multi-Format Converter</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white group-hover:text-blue-300 transition-colors">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 group-hover:text-blue-700 transition-colors">
               Convert PDF to All Document Formats
             </h2>
-            <p className="text-xs sm:text-sm text-slate-300 max-w-xl">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
               Convert your PDF into <strong>Word (.doc/.docx)</strong>, <strong>Excel (.csv)</strong>, <strong>PowerPoint (.ppt)</strong>, <strong>JPG Images</strong>, <strong>Markdown (.md)</strong>, <strong>Text (.txt)</strong>, or <strong>HTML</strong> using interactive format tabs.
             </p>
           </div>
@@ -383,13 +383,13 @@ export const PdfStudio: React.FC = () => {
               {['Word', 'Excel', 'PPT', 'Images', 'Markdown', 'Text', 'HTML', 'PDF/A'].map((fmt) => (
                 <span
                   key={fmt}
-                  className="px-2 py-1 rounded-lg bg-slate-900/90 text-blue-300 border border-blue-500/20 text-[10px] font-mono font-bold"
+                  className="px-2 py-1 rounded-lg bg-white text-blue-700 border border-blue-200 text-[10px] font-mono font-bold shadow-xs"
                 >
                   {fmt}
                 </span>
               ))}
             </div>
-            <button className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center gap-2 shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform">
+            <button className="px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center gap-2 shadow-md shadow-blue-500/25 group-hover:scale-105 transition-transform">
               <span>Open Converter</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -403,12 +403,12 @@ export const PdfStudio: React.FC = () => {
           <div
             key={tool.id}
             onClick={() => setActiveToolId(tool.id)}
-            className="group relative p-5 rounded-3xl bg-slate-900/70 hover:bg-slate-900/95 border border-slate-800 hover:border-slate-700 transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-4 shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+            className="group relative p-5 rounded-3xl bg-white hover:bg-slate-50/80 border border-slate-200/90 hover:border-slate-300 transition-all duration-200 cursor-pointer flex flex-col justify-between space-y-4 shadow-sm hover:shadow-md hover:-translate-y-0.5"
           >
             {/* Top Icon & Badge */}
             <div className="flex items-center justify-between">
               <div
-                className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.colorGradient} flex items-center justify-center text-white shadow-lg transition-transform duration-200 group-hover:scale-110`}
+                className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.colorGradient} flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-110`}
               >
                 {renderToolIcon(tool.iconName, 'w-6 h-6')}
               </div>
@@ -417,10 +417,10 @@ export const PdfStudio: React.FC = () => {
                 <span
                   className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
                     tool.badge === 'POPULAR'
-                      ? 'bg-rose-500/10 text-rose-400 border-rose-500/30'
+                      ? 'bg-rose-50 text-rose-700 border-rose-200'
                       : tool.badge === 'AI'
-                      ? 'bg-purple-500/10 text-purple-400 border-purple-500/30'
-                      : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                      ? 'bg-purple-50 text-purple-700 border-purple-200'
+                      : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                   }`}
                 >
                   {tool.badge}
@@ -430,16 +430,16 @@ export const PdfStudio: React.FC = () => {
 
             {/* Title & Tagline */}
             <div className="space-y-1">
-              <h3 className="text-base font-bold text-white group-hover:text-rose-400 transition-colors">
+              <h3 className="text-base font-bold text-slate-900 group-hover:text-rose-600 transition-colors">
                 {tool.name}
               </h3>
-              <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
+              <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                 {tool.tagline}
               </p>
             </div>
 
             {/* Launch Action */}
-            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-slate-400 group-hover:text-white transition-colors">
+            <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500 group-hover:text-slate-900 transition-colors">
               <span>Open Tool</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -448,9 +448,9 @@ export const PdfStudio: React.FC = () => {
       </div>
 
       {filteredTools.length === 0 && (
-        <div className="p-12 text-center rounded-3xl bg-slate-900/40 border border-slate-800 space-y-2">
-          <p className="text-sm font-bold text-white">No tools found for "{searchQuery}"</p>
-          <p className="text-xs text-slate-400">Try searching for merge, split, compress, or convert.</p>
+        <div className="p-12 text-center rounded-3xl bg-white border border-slate-200 space-y-2 shadow-xs">
+          <p className="text-sm font-bold text-slate-900">No tools found for "{searchQuery}"</p>
+          <p className="text-xs text-slate-500">Try searching for merge, split, compress, or convert.</p>
         </div>
       )}
     </div>

@@ -263,19 +263,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       <section className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-[#E8E2D9] space-y-12">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div className="space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#ff7a00] font-bold block">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#D97706] font-bold block">
               PRECISION GRADING
             </span>
-            <h3 className="text-2xl sm:text-4xl font-extrabold text-[#ffedd6]">
+            <h3 className="text-2xl sm:text-4xl font-extrabold text-slate-900">
               Thermodynamic Stability
             </h3>
-            <p className="text-xs sm:text-sm text-[#ffedd6]/70 max-w-xl">
+            <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
               From heavy 4K 60fps recordings to 100-page scanned bank PDFs - VidCuts stays perfectly stable in RAM.
             </p>
           </div>
 
-          {/* Oryzo.ai Temperature Slider Bar (T=0.1, T=1, T=10) */}
-          <div className="p-2 rounded-2xl bg-[#0d0d0d] border border-[#ffedd6]/20 flex items-center gap-2">
+          {/* Precision Grading Slider Bar (T=0.1, T=1, T=10) */}
+          <div className="p-1.5 rounded-2xl bg-slate-100 border border-slate-200 flex items-center gap-1.5">
             {[
               { id: 'deterministic' as const, label: 'Lossless\nT = 0.1' },
               { id: 'balanced' as const, label: 'Balanced\nT = 1.0' },
@@ -286,8 +286,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 onClick={() => setTempMode(t.id)}
                 className={`px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer text-center leading-tight whitespace-pre-line ${
                   tempMode === t.id
-                    ? 'bg-[#ff7a00] text-black font-extrabold shadow-md'
-                    : 'text-[#ffedd6]/60 hover:text-[#ffedd6]'
+                    ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
                 }`}
               >
                 {t.label}
@@ -296,46 +296,46 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        {/* Mathematical Equations & Schematics (Oryzo.ai Signature Style) */}
+        {/* Mathematical Equations & Schematics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-[#ffedd6]/15 space-y-4">
-            <span className="text-[10px] font-mono text-[#ffedd6]/50 block uppercase tracking-wider">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
+            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
               Constant lift via geometry
             </span>
-            <div className="h-10 flex items-center text-xs font-mono text-[#ff7a00]">
+            <div className="h-10 flex items-center text-xs font-mono font-semibold text-amber-600">
               {'ΔS = ∫ (dQ / T) ≥ 0  [Lossless Stream]'}
             </div>
             <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-[#ffedd6]">Lossless Exact-Keyframe Cuts</h4>
-            <p className="text-xs text-[#ffedd6]/60 leading-relaxed">
+            <h4 className="text-sm font-bold text-slate-900">Lossless Exact-Keyframe Cuts</h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
               Never re-encodes untouched frames. Retains 100% original video bitrate and colors.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-[#ffedd6]/15 space-y-4">
-            <span className="text-[10px] font-mono text-[#ffedd6]/50 block uppercase tracking-wider">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
+            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
               Circularity (circle = 1.0)
             </span>
-            <div className="h-10 flex items-center text-xs font-mono text-[#ff7a00]">
+            <div className="h-10 flex items-center text-xs font-mono font-semibold text-amber-600">
               {'RoPE: Roundness Optimization & Perimeter Masking'}
             </div>
             <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-[#ffedd6]">Now 37.9% More Geometric</h4>
-            <p className="text-xs text-[#ffedd6]/60 leading-relaxed">
+            <h4 className="text-sm font-bold text-slate-900">Now 37.9% More Geometric</h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
               Shape masks for Heart, Hexagon, Star, and Circle with transparent PNG export for social avatars.
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-[#0a0a0a] border border-[#ffedd6]/15 space-y-4">
-            <span className="text-[10px] font-mono text-[#ffedd6]/50 block uppercase tracking-wider">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
+            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
               THERMAL DIFFUSION MODEL (TDM)
             </span>
-            <div className="h-10 flex items-center text-xs font-mono text-[#ff7a00]">
+            <div className="h-10 flex items-center text-xs font-mono font-semibold text-amber-600">
               {'AES-256 GCM ⊕ IndexedDB Local Vault'}
             </div>
             <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-[#ffedd6]">Client-Side Password Security</h4>
-            <p className="text-xs text-[#ffedd6]/60 leading-relaxed">
+            <h4 className="text-sm font-bold text-slate-900">Client-Side Password Security</h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
               Encrypt and compress sensitive contracts directly in RAM with zero cloud leakage.
             </p>
           </div>

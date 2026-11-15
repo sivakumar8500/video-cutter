@@ -297,7 +297,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#2B140D] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-white">
+    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-white">
       {/* Top Navigation Bar with Sub-Navigation Tabs */}
       <Header
         hasVideo={!!video}
@@ -323,14 +323,14 @@ export function App() {
           <section id="video-cutter" aria-label="Video Cutter and Splitter">
             {/* Mode Selector Switcher */}
             <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center p-1 rounded-2xl bg-white border border-[#E8E2D9] shadow-sm">
+              <div className="flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200 shadow-sm">
                 <button
                   type="button"
                   onClick={() => setCutterMode('single')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'single'
-                      ? 'bg-[#2B140D] text-white shadow-xs'
-                      : 'text-[#6B4E44] hover:text-[#2B140D]'
+                      ? 'bg-slate-900 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   <Scissors className="w-3.5 h-3.5 text-[#F59E0B]" />
@@ -341,11 +341,11 @@ export function App() {
                   onClick={() => setCutterMode('batch')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'batch'
-                      ? 'bg-[#F59E0B] text-[#2B140D] shadow-xs'
-                      : 'text-[#6B4E44] hover:text-[#2B140D]'
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <Smartphone className="w-3.5 h-3.5 text-[#2B140D]" />
+                  <Smartphone className="w-3.5 h-3.5 text-slate-900" />
                   <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
                 </button>
               </div>
@@ -372,7 +372,7 @@ export function App() {
                           <img
                             src="./app-icon.png"
                             alt="VidCuts App Icon"
-                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-[#E8E2D9]"
+                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-slate-200"
                           />
                         </div>
                         <a
@@ -392,10 +392,10 @@ export function App() {
                         </a>
                       </div>
 
-                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#2B140D] leading-tight">
+                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                         Split Any Video Into Clips In Seconds
                       </h1>
-                      <p className="text-sm sm:text-base text-[#6B4E44] max-w-2xl mx-auto">
+                      <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
                         Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion &amp; promotional cards.
                         All processing happens 100% locally in your browser using FFmpeg WebAssembly.
                       </p>

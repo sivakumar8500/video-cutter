@@ -127,8 +127,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         onClick={() => fileInputRef.current?.click()}
         className={`relative group cursor-pointer rounded-3xl border-2 border-dashed p-10 sm:p-14 text-center transition-all duration-300 ${
           isDragging
-            ? 'border-cyan-400 bg-cyan-950/20 scale-[1.01] shadow-2xl shadow-cyan-500/20'
-            : 'border-slate-700/80 hover:border-cyan-500/60 bg-slate-900/40 hover:bg-slate-900/70'
+            ? 'border-cyan-500 bg-cyan-50/50 scale-[1.01] shadow-xl'
+            : 'border-slate-300 hover:border-cyan-500 bg-white hover:bg-slate-50/70 shadow-sm'
         }`}
       >
         <input
@@ -141,35 +141,35 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
 
         <div className="flex flex-col items-center justify-center space-y-4">
           <div className="relative">
-            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-2xl blur-lg opacity-40 group-hover:opacity-75 transition duration-300"></div>
-            <div className="relative w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform duration-200">
+            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-300"></div>
+            <div className="relative w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform duration-200">
               <UploadCloud className="w-8 h-8" />
             </div>
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
               Drop your image here, or{' '}
-              <span className="text-cyan-400 underline decoration-cyan-500/40 underline-offset-4">
+              <span className="text-cyan-600 underline decoration-cyan-500/40 underline-offset-4">
                 browse
               </span>
             </h3>
-            <p className="text-sm text-slate-400 max-w-md mx-auto">
+            <p className="text-sm text-slate-600 max-w-md mx-auto">
               Supports PNG, JPG, WebP, SVG, and GIF. 100% private in-browser editing.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
               🔲 Custom Dimensions
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
               ⭕ Shape Cropping
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
               ⚡ KB Size Reducer
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-800/80 text-slate-300 border border-slate-700">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
               🎨 Color & Filters
             </span>
           </div>
@@ -177,20 +177,20 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
       </div>
 
       {/* Option 2: Paste Any Image URL */}
-      <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-4 shadow-xl">
+      <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600">
               <Globe className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
+              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <span>Load Image from Web URL</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 uppercase tracking-wider">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-50 text-cyan-700 border border-cyan-200 uppercase tracking-wider">
                   Any Link
                 </span>
               </h4>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600">
                 Paste any online image URL (Unsplash, Pexels, CDN, or web link) to preview & edit.
               </p>
             </div>
@@ -215,14 +215,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
                   }
                 }}
                 placeholder="Paste image link e.g. https://images.unsplash.com/photo-..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-800 focus:border-cyan-500 text-xs text-white placeholder-slate-500 focus:outline-none transition-all font-mono"
+                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 focus:border-cyan-500 text-xs text-slate-900 placeholder-slate-400 focus:outline-none transition-all font-mono"
               />
             </div>
             <button
               type="button"
               onClick={() => handleLoadFromUrl()}
               disabled={isLoadingUrl || !inputUrl.trim()}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-cyan-500/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
             >
               {isLoadingUrl ? (
                 <>
@@ -240,7 +240,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
 
           {/* Error Message */}
           {urlError && (
-            <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{urlError}</span>
             </div>
@@ -248,7 +248,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
 
           {/* Quick Preset URLs */}
           <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-            <span className="text-[11px] text-slate-400 font-medium">Quick Examples:</span>
+            <span className="text-[11px] text-slate-500 font-medium">Quick Examples:</span>
             {SAMPLE_URLS.map((sample) => (
               <button
                 key={sample.label}
@@ -258,7 +258,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
                   handleLoadFromUrl(sample.url);
                 }}
                 disabled={isLoadingUrl}
-                className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-cyan-500/15 hover:text-cyan-300 border border-slate-700/80 text-[11px] text-slate-300 transition-all cursor-pointer disabled:opacity-50"
+                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-cyan-50 hover:text-cyan-700 border border-slate-200 text-[11px] text-slate-700 transition-all cursor-pointer disabled:opacity-50"
               >
                 {sample.label}
               </button>
@@ -268,14 +268,14 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
       </div>
 
       {/* Or Try Sample Image Button */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-slate-900/50 border border-slate-800">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center text-orange-400">
+          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-white">Don't have an image ready?</h4>
-            <p className="text-xs text-slate-400">
+            <h4 className="text-sm font-semibold text-slate-900">Don't have an image ready?</h4>
+            <p className="text-xs text-slate-600">
               Generate a high-res sample artwork to explore resizing, shapes, and filters.
             </p>
           </div>
@@ -284,7 +284,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         <button
           onClick={handleLoadSample}
           disabled={isLoadingSample}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/20 transition-all cursor-pointer disabled:opacity-50"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white text-sm font-semibold shadow-md shadow-cyan-500/20 transition-all cursor-pointer disabled:opacity-50"
         >
           <Zap className="w-4 h-4" />
           <span>{isLoadingSample ? 'Generating Sample...' : 'Try Demo Sample Image'}</span>
@@ -293,29 +293,29 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
 
       {/* Features Overview Badges */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-        <div className="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 flex items-start gap-3">
-          <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
+          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
           <div>
-            <h5 className="text-xs font-bold text-slate-200">100% Local & Secure</h5>
-            <p className="text-[11px] text-slate-400">
+            <h5 className="text-xs font-bold text-slate-900">100% Local & Secure</h5>
+            <p className="text-[11px] text-slate-600">
               Images never leave your device. All resizing and masking happen client-side.
             </p>
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 flex items-start gap-3">
-          <ImageIcon className="w-5 h-5 text-cyan-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
+          <ImageIcon className="w-5 h-5 text-cyan-600 shrink-0 mt-0.5" />
           <div>
-            <h5 className="text-xs font-bold text-slate-200">9 Viral Shapes</h5>
-            <p className="text-[11px] text-slate-400">
+            <h5 className="text-xs font-bold text-slate-900">9 Viral Shapes</h5>
+            <p className="text-[11px] text-slate-600">
               Crop into Circle, Squircle, Heart, Star, Hexagon, Diamond, or Shield with borders.
             </p>
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-slate-900/30 border border-slate-800/60 flex items-start gap-3">
-          <Zap className="w-5 h-5 text-orange-400 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
+          <Zap className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <h5 className="text-xs font-bold text-slate-200">Target KB Reducer</h5>
-            <p className="text-[11px] text-slate-400">
+            <h5 className="text-xs font-bold text-slate-900">Target KB Reducer</h5>
+            <p className="text-[11px] text-slate-600">
               Specify your target file size in KB or drag the quality slider for instant shrinkage.
             </p>
           </div>

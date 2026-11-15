@@ -267,32 +267,32 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-300 text-[#ffedd6]">
+    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-300 text-slate-900">
       {/* Header Bar with Subtle Monospace Badge */}
-      <div className="border-b border-[#ffedd6]/15 pb-6">
+      <div className="border-b border-slate-200 pb-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff7a00]/10 border border-[#ff7a00]/25 text-[#ff7a00] text-xs font-mono mb-2">
               <QrIcon className="w-3.5 h-3.5" />
               <span>Vector QR Studio • 100% Client-Side</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#ffedd6]">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
               QR Code Generator & Styler
             </h2>
-            <p className="text-xs sm:text-sm text-[#ffedd6]/60 mt-1">
+            <p className="text-xs sm:text-sm text-slate-600 mt-1">
               Generate pixel-perfect static & dynamic QR codes with customizable shapes, frames, and local logo embedding.
             </p>
           </div>
 
           {/* Plain QR vs Custom Design Switcher */}
-          <div className="flex items-center gap-1.5 p-1 bg-white/5 rounded-full border border-[#ffedd6]/15">
+          <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200">
             <button
               type="button"
               onClick={applyPlainQr}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                 isPlainQr
-                  ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
-                  : 'text-[#ffedd6]/70 hover:text-[#ffedd6]'
+                  ? 'bg-slate-900 text-white font-bold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
               title="Standard clean black & white QR code with no logo or styling"
             >
@@ -314,8 +314,8 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               }}
               className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
                 !isPlainQr
-                  ? 'bg-[#ffedd6] text-black font-extrabold shadow-sm'
-                  : 'text-[#ffedd6]/70 hover:text-[#ffedd6]'
+                  ? 'bg-slate-900 text-white font-bold shadow-sm'
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
               <span>Custom Design</span>
@@ -328,7 +328,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
         {/* ================= LEFT COLUMN ================= */}
         <div className="lg:col-span-8 space-y-8">
           {/* Top Type Selector Grid (Clean hairline pills, no boxy cards) */}
-          <div className="border border-[#ffedd6]/15 rounded-2xl p-3 bg-black/40">
+          <div className="border border-slate-200 rounded-2xl p-3 bg-white">
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
               {[
                 { id: 'link' as QrContentType, label: 'Link', icon: Link2 },
@@ -359,7 +359,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-mono tracking-wider transition-all cursor-pointer ${
                       isSelected
                         ? 'bg-[#ff7a00] text-black font-bold shadow-md shadow-[#ff7a00]/20'
-                        : 'bg-transparent border border-[#ffedd6]/10 text-[#ffedd6]/70 hover:text-[#ffedd6] hover:border-[#ffedd6]/30 hover:bg-white/5'
+                        : 'bg-transparent border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-100'
                     }`}
                   >
                     <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-black' : 'text-[#ff7a00]'}`} />
@@ -376,14 +376,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 1
               </span>
-              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-[#ffedd6]">
+              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
                 Complete The Content
               </h3>
             </div>
 
             {/* URL or Content Input */}
             <div className="space-y-2 pl-7">
-              <label className="text-xs font-mono text-[#ffedd6]/70 block">
+              <label className="text-xs font-mono text-slate-600 block">
                 {config.type === 'link' && 'Enter your Website URL'}
                 {config.type === 'text' && 'Enter your Text Message'}
                 {config.type === 'email' && 'Enter your Email Address'}
@@ -406,7 +406,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                 value={config.content}
                 onChange={(e) => setConfig((prev) => ({ ...prev, content: e.target.value }))}
                 placeholder="https://example.com"
-                className="w-full px-4 py-3 bg-black/60 border border-[#ffedd6]/20 focus:border-[#ff7a00] rounded-xl text-sm text-[#ffedd6] placeholder-[#ffedd6]/30 focus:outline-none transition-all font-mono"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 focus:border-[#ff7a00] rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all font-mono"
               />
 
               {/* Wi-Fi Additional Inputs */}
@@ -422,7 +422,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       }))
                     }
                     placeholder="Network Name (SSID)"
-                    className="px-3 py-2 bg-black/60 border border-[#ffedd6]/20 rounded-xl text-xs text-[#ffedd6] font-mono focus:border-[#ff7a00] focus:outline-none"
+                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-mono focus:border-[#ff7a00] focus:outline-none"
                   />
                   <input
                     type="text"
@@ -434,7 +434,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       }))
                     }
                     placeholder="Password"
-                    className="px-3 py-2 bg-black/60 border border-[#ffedd6]/20 rounded-xl text-xs font-mono text-[#ffedd6] focus:border-[#ff7a00] focus:outline-none"
+                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
                   />
                 </div>
               )}
@@ -442,19 +442,19 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           </div>
 
           {/* Step 2: Design your QR Code */}
-          <div className="space-y-4 pt-4 border-t border-[#ffedd6]/15">
+          <div className="space-y-4 pt-4 border-t border-slate-200">
             <div className="flex items-center gap-2">
               <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 2
               </span>
-              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-[#ffedd6]">
+              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
                 Design & Styling
               </h3>
             </div>
 
             {/* Subtabs: Shape | Logo | Frame */}
             <div className="pl-7 space-y-5">
-              <div className="flex border-b border-[#ffedd6]/15 gap-4">
+              <div className="flex border-b border-slate-200 gap-4">
                 {[
                   { id: 'shape' as QrDesignTab, label: 'Shape & Color' },
                   { id: 'logo' as QrDesignTab, label: 'Logo Embedding' },
@@ -469,7 +469,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       className={`pb-3 text-xs font-mono tracking-wider uppercase transition-all cursor-pointer border-b-2 -mb-px ${
                         isSelected
                           ? 'border-[#ff7a00] text-[#ff7a00] font-bold'
-                          : 'border-transparent text-[#ffedd6]/60 hover:text-[#ffedd6]'
+                          : 'border-transparent text-slate-600 hover:text-slate-900'
                       }`}
                     >
                       {tab.label}
@@ -484,7 +484,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   {/* 1. Local Upload Section */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <label className="text-xs font-mono text-[#ffedd6] flex items-center gap-1.5 font-bold">
+                      <label className="text-xs font-mono text-slate-900 flex items-center gap-1.5 font-bold">
                         <Upload className="w-4 h-4 text-[#ff7a00]" />
                         <span>Local Logo Upload</span>
                       </label>
@@ -504,7 +504,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     {config.logoUrl ? (
                       <div className="p-3.5 rounded-xl border border-[#ff7a00]/30 bg-[#ff7a00]/10 flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-12 h-12 rounded-xl bg-black border border-[#ffedd6]/20 flex items-center justify-center p-1 shrink-0 overflow-hidden">
+                          <div className="w-12 h-12 rounded-xl bg-black border border-slate-300 flex items-center justify-center p-1 shrink-0 overflow-hidden">
                             <img
                               src={config.logoUrl}
                               alt="Uploaded Logo"
@@ -512,7 +512,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             />
                           </div>
                           <div className="min-w-0">
-                            <p className="text-xs font-mono font-bold text-[#ffedd6] truncate">
+                            <p className="text-xs font-mono font-bold text-slate-900 truncate">
                               {fileNameInput || 'Local Logo Image'}
                             </p>
                             <p className="text-[10px] text-[#ff7a00] font-mono flex items-center gap-1">
@@ -521,7 +521,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           </div>
                         </div>
 
-                        <label className="px-3 py-1.5 bg-black/60 hover:bg-black text-[#ffedd6] text-xs font-mono border border-[#ffedd6]/20 rounded-lg cursor-pointer transition-all shrink-0">
+                        <label className="px-3 py-1.5 bg-slate-50 hover:bg-black text-slate-900 text-xs font-mono border border-slate-300 rounded-lg cursor-pointer transition-all shrink-0">
                           Change File
                           <input
                             ref={fileInputRef}
@@ -541,7 +541,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         className={`p-6 rounded-2xl border border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 ${
                           isDragging
                             ? 'border-[#ff7a00] bg-[#ff7a00]/10 scale-[1.01]'
-                            : 'border-[#ffedd6]/25 hover:border-[#ff7a00] bg-black/40 hover:bg-[#ff7a00]/5'
+                            : 'border-slate-300 hover:border-[#ff7a00] bg-white hover:bg-[#ff7a00]/5'
                         }`}
                       >
                         <input
@@ -551,14 +551,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onChange={handleLogoUpload}
                           className="hidden"
                         />
-                        <div className="w-10 h-10 rounded-xl bg-black/80 border border-[#ffedd6]/20 flex items-center justify-center text-[#ff7a00]">
+                        <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-300 flex items-center justify-center text-[#ff7a00]">
                           <Upload className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="text-xs font-bold text-[#ffedd6] font-mono">
+                          <p className="text-xs font-bold text-slate-900 font-mono">
                             Upload local logo from your device
                           </p>
-                          <p className="text-[11px] text-[#ffedd6]/50">
+                          <p className="text-[11px] text-slate-500">
                             Drag & drop here or <span className="text-[#ff7a00] underline">browse files</span> (PNG, JPG, SVG, WebP)
                           </p>
                         </div>
@@ -567,14 +567,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   </div>
 
                   {/* 2. Logo Alignment & Position Provision */}
-                  <div className="pt-4 border-t border-[#ffedd6]/10 space-y-4">
+                  <div className="pt-4 border-t border-slate-200 space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <label className="text-xs font-mono font-bold text-[#ffedd6] flex items-center gap-1.5">
+                        <label className="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
                           <Move className="w-3.5 h-3.5 text-[#ff7a00]" />
                           <span>Logo Alignment & Positioning Provision</span>
                         </label>
-                        <p className="text-[11px] text-[#ffedd6]/60">
+                        <p className="text-[11px] text-slate-600">
                           Align the logo anywhere on the QR code (center or corner offsets)
                         </p>
                       </div>
@@ -626,7 +626,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             className={`py-2 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer flex items-center justify-center ${
                               isSelected
                                 ? 'bg-[#ff7a00]/15 border-[#ff7a00] text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
-                                : 'bg-black/40 border-[#ffedd6]/15 text-[#ffedd6]/70 hover:border-[#ffedd6]/30'
+                                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
                             }`}
                             title={pos.title}
                           >
@@ -639,7 +639,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     {/* Fine Shift Sliders (X and Y offsets) */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                       <div className="space-y-1.5">
-                        <div className="flex justify-between text-xs font-mono text-[#ffedd6]/70">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Horizontal Shift (X)</span>
                           <span className="font-mono text-[#ff7a00]">
                             {config.logoOffsetX || 0}%
@@ -662,7 +662,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       </div>
 
                       <div className="space-y-1.5">
-                        <div className="flex justify-between text-xs font-mono text-[#ffedd6]/70">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Vertical Shift (Y)</span>
                           <span className="font-mono text-[#ff7a00]">
                             {config.logoOffsetY || 0}%
@@ -687,7 +687,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
 
                     {/* Logo Size Scale Slider */}
                     <div className="space-y-1.5 pt-1">
-                      <div className="flex justify-between text-xs font-mono text-[#ffedd6]/70">
+                      <div className="flex justify-between text-xs font-mono text-slate-600">
                         <span>Logo Scale / Size</span>
                         <span className="font-mono font-bold text-[#ff7a00]">
                           {config.logoSizePercent || 22}%
@@ -707,14 +707,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         }
                         className="w-full accent-[#ff7a00] cursor-pointer"
                       />
-                      <p className="text-[10px] text-[#ffedd6]/50 font-mono">
+                      <p className="text-[10px] text-slate-500 font-mono">
                         Recommended: 18% - 24% for maximum camera scannability.
                       </p>
                     </div>
 
                     {/* Logo Plate Shape & Background */}
                     <div className="space-y-2 pt-1">
-                      <span className="text-xs font-mono text-[#ffedd6]/70 block">
+                      <span className="text-xs font-mono text-slate-600 block">
                         Logo Background Plate Shape
                       </span>
                       <div className="flex flex-wrap gap-2">
@@ -731,7 +731,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             className={`px-3 py-1.5 rounded-xl border text-xs font-mono cursor-pointer transition-all ${
                               (config.logoShape || 'circle') === sh.id
                                 ? 'bg-[#ff7a00]/15 border-[#ff7a00] text-[#ff7a00]'
-                                : 'bg-black/40 border-[#ffedd6]/15 text-[#ffedd6]/70 hover:border-[#ffedd6]/30'
+                                : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
                             }`}
                           >
                             {sh.label}
@@ -756,15 +756,15 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         />
                         <div className="w-10 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#ff7a00]" />
                       </label>
-                      <span className="text-xs font-mono text-[#ffedd6]/80">
+                      <span className="text-xs font-mono text-slate-700">
                         Remove background behind Logo
                       </span>
                     </div>
                   </div>
 
                   {/* 3. Preset Logos Grid */}
-                  <div className="pt-4 border-t border-[#ffedd6]/10 space-y-3">
-                    <label className="text-xs font-mono font-bold text-[#ffedd6] block">
+                  <div className="pt-4 border-t border-slate-200 space-y-3">
+                    <label className="text-xs font-mono font-bold text-slate-900 block">
                       Or choose preset icon / logo
                     </label>
                     <div className="flex flex-wrap gap-2.5">
@@ -782,7 +782,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         className={`w-11 h-11 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                           config.presetLogo === 'none' && !config.logoElement
                             ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00]'
-                            : 'border-[#ffedd6]/15 bg-black/40 text-[#ffedd6]/40 hover:border-[#ffedd6]/30'
+                            : 'border-slate-200 bg-white text-slate-400 hover:border-slate-300'
                         }`}
                         title="None"
                       >
@@ -819,7 +819,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             className={`w-11 h-11 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                               isSelected
                                 ? 'border-[#ff7a00] ring-1 ring-[#ff7a00]/40 bg-[#ff7a00]/10'
-                                : 'border-[#ffedd6]/15 bg-black/40 hover:border-[#ffedd6]/30'
+                                : 'border-slate-200 bg-white hover:border-slate-300'
                             }`}
                             title={logo.label}
                           >
@@ -854,7 +854,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           className={`h-11 px-3 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                             config.presetLogo === b.id
                               ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00]'
-                              : 'border-[#ffedd6]/15 bg-black/40 text-[#ffedd6]/70 hover:border-[#ffedd6]/30'
+                              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                           }`}
                         >
                           <span className="text-[11px] font-bold font-mono">{b.text}</span>
@@ -870,7 +870,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                 <div className="space-y-6 animate-in fade-in duration-200">
                   {/* Shape style grid (8 body module styles) */}
                   <div className="space-y-2">
-                    <span className="text-xs font-mono text-[#ffedd6]/70 block">Body Shape Style</span>
+                    <span className="text-xs font-mono text-slate-600 block">Body Shape Style</span>
                     <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                       {[
                         { id: 'square' as QrShapeStyle, label: 'Square' },
@@ -889,7 +889,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           className={`h-12 rounded-xl border flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${
                             config.shapeStyle === st.id
                               ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
-                              : 'border-[#ffedd6]/15 bg-black/40 text-[#ffedd6]/70 hover:border-[#ffedd6]/30 hover:text-[#ffedd6]'
+                              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
                           }`}
                         >
                           <span className="text-[10px] font-mono font-bold">{st.label}</span>
@@ -899,24 +899,24 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   </div>
 
                   {/* Colors & Toggles */}
-                  <div className="p-4 rounded-xl border border-[#ffedd6]/15 bg-black/40 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="p-4 rounded-xl border border-slate-200 bg-white grid grid-cols-1 sm:grid-cols-2 gap-4">
                     {/* Background Color */}
                     <div className="space-y-2">
-                      <span className="text-xs font-mono text-[#ffedd6]/70 block">Background Color</span>
+                      <span className="text-xs font-mono text-slate-600 block">Background Color</span>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
                           value={config.bgColor}
                           disabled={config.transparentBg}
                           onChange={(e) => setConfig((prev) => ({ ...prev, bgColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-black/60 border border-[#ffedd6]/20 rounded-lg text-xs font-mono text-[#ffedd6] focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
                         />
                         <input
                           type="color"
                           value={config.bgColor}
                           disabled={config.transparentBg}
                           onChange={(e) => setConfig((prev) => ({ ...prev, bgColor: e.target.value }))}
-                          className="w-8 h-8 rounded-lg cursor-pointer border border-[#ffedd6]/30 p-0.5 bg-black"
+                          className="w-8 h-8 rounded-lg cursor-pointer border border-slate-300 p-0.5 bg-black"
                         />
                       </div>
                       <label className="inline-flex items-center gap-2 cursor-pointer pt-1">
@@ -926,25 +926,25 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onChange={(e) => setConfig((prev) => ({ ...prev, transparentBg: e.target.checked }))}
                           className="accent-[#ff7a00] rounded"
                         />
-                        <span className="text-xs font-mono text-[#ffedd6]/60">Transparent Background</span>
+                        <span className="text-xs font-mono text-slate-600">Transparent Background</span>
                       </label>
                     </div>
 
                     {/* Shape Color */}
                     <div className="space-y-2">
-                      <span className="text-xs font-mono text-[#ffedd6]/70 block">Shape Color</span>
+                      <span className="text-xs font-mono text-slate-600 block">Shape Color</span>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
                           value={config.fgColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, fgColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-black/60 border border-[#ffedd6]/20 rounded-lg text-xs font-mono text-[#ffedd6] focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
                         />
                         <input
                           type="color"
                           value={config.fgColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, fgColor: e.target.value }))}
-                          className="w-8 h-8 rounded-lg cursor-pointer border border-[#ffedd6]/30 p-0.5 bg-black"
+                          className="w-8 h-8 rounded-lg cursor-pointer border border-slate-300 p-0.5 bg-black"
                         />
                       </div>
                       <label className="inline-flex items-center gap-2 cursor-pointer pt-1">
@@ -954,14 +954,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onChange={(e) => setConfig((prev) => ({ ...prev, gradientEnabled: e.target.checked }))}
                           className="accent-[#ff7a00] rounded"
                         />
-                        <span className="text-xs font-mono text-[#ffedd6]/60">Gradient Accents</span>
+                        <span className="text-xs font-mono text-slate-600">Gradient Accents</span>
                       </label>
                     </div>
                   </div>
 
                   {/* Border style (8 eye corner outer styles) */}
-                  <div className="space-y-2 pt-2 border-t border-[#ffedd6]/10">
-                    <span className="text-xs font-mono text-[#ffedd6]/70 block">Eye Corner Border Style</span>
+                  <div className="space-y-2 pt-2 border-t border-slate-200">
+                    <span className="text-xs font-mono text-slate-600 block">Eye Corner Border Style</span>
                     <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
                       {[
                         { id: 'square' as QrBorderStyle, label: 'Square' },
@@ -980,7 +980,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           className={`h-12 rounded-xl border flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${
                             config.borderStyle === b.id
                               ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
-                              : 'border-[#ffedd6]/15 bg-black/40 text-[#ffedd6]/70 hover:border-[#ffedd6]/30 hover:text-[#ffedd6]'
+                              : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
                           }`}
                         >
                           <span className="text-[10px] font-mono font-bold">{b.label}</span>
@@ -990,19 +990,19 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
 
                     {/* Border Color */}
                     <div className="pt-3">
-                      <span className="text-xs font-mono text-[#ffedd6]/70 block mb-1">Corner Eye Color</span>
+                      <span className="text-xs font-mono text-slate-600 block mb-1">Corner Eye Color</span>
                       <div className="flex items-center gap-2">
                         <input
                           type="text"
                           value={config.borderColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, borderColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-black/60 border border-[#ffedd6]/20 rounded-lg text-xs font-mono text-[#ffedd6] focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
                         />
                         <input
                           type="color"
                           value={config.borderColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, borderColor: e.target.value }))}
-                          className="w-8 h-8 rounded-lg cursor-pointer border border-[#ffedd6]/30 p-0.5 bg-black"
+                          className="w-8 h-8 rounded-lg cursor-pointer border border-slate-300 p-0.5 bg-black"
                         />
                       </div>
                     </div>
@@ -1013,7 +1013,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               {/* Subtab 3: FRAME */}
               {config.designTab === 'frame' && (
                 <div className="space-y-4 animate-in fade-in duration-200">
-                  <span className="text-xs font-mono font-bold text-[#ffedd6] block">
+                  <span className="text-xs font-mono font-bold text-slate-900 block">
                     Select Frame Wrapper
                   </span>
                   {/* Horizontal scrollable row of frames */}
@@ -1034,25 +1034,25 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         className={`w-28 h-28 rounded-xl border flex flex-col items-center justify-center p-2 shrink-0 cursor-pointer transition-all ${
                           config.frameType === fr.id
                             ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
-                            : 'border-[#ffedd6]/15 bg-black/40 text-[#ffedd6]/70 hover:border-[#ffedd6]/30'
+                            : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                         }`}
                       >
                         <span className="text-xs font-mono font-bold">{fr.label}</span>
-                        <span className="text-[10px] text-[#ffedd6]/50 mt-1 font-mono">{fr.desc}</span>
+                        <span className="text-[10px] text-slate-500 mt-1 font-mono">{fr.desc}</span>
                       </button>
                     ))}
                   </div>
 
                   {/* Frame text label input */}
                   {config.frameType !== 'none' && (
-                    <div className="space-y-1.5 pt-2 border-t border-[#ffedd6]/10">
-                      <label className="text-xs font-mono text-[#ffedd6]/70 block">Frame Text Label</label>
+                    <div className="space-y-1.5 pt-2 border-t border-slate-200">
+                      <label className="text-xs font-mono text-slate-600 block">Frame Text Label</label>
                       <input
                         type="text"
                         value={config.frameLabel}
                         onChange={(e) => setConfig((prev) => ({ ...prev, frameLabel: e.target.value }))}
                         placeholder="SCAN ME"
-                        className="w-full px-3 py-2 bg-black/60 border border-[#ffedd6]/20 rounded-xl text-xs font-mono text-[#ffedd6] focus:border-[#ff7a00] focus:outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
                       />
                     </div>
                   )}
@@ -1070,13 +1070,13 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 3
               </span>
-              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-[#ffedd6]">
+              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
                 Live QR Preview & Export
               </h3>
             </div>
 
             {/* Large Centered QR Canvas Frame (Sleek dark preview stand) */}
-            <div className="p-6 rounded-2xl bg-black/90 border border-[#ffedd6]/20 relative flex items-center justify-center overflow-hidden glow-oryzo-border">
+            <div className="p-6 rounded-2xl bg-white shadow-xl border border-slate-300 relative flex items-center justify-center overflow-hidden shadow-lg border border-slate-200">
               <canvas
                 ref={canvasRef}
                 className="max-w-full h-auto object-contain transition-all relative z-10 rounded-lg shadow-2xl"
@@ -1099,7 +1099,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               <button
                 type="button"
                 onClick={handleDownloadSvg}
-                className="py-2.5 px-3 rounded-xl border border-[#ffedd6]/20 hover:border-[#ffedd6]/40 bg-black/40 hover:bg-white/5 text-[#ffedd6] text-xs font-mono tracking-wide flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-900 text-xs font-mono tracking-wide flex items-center justify-center gap-1.5 transition-all cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
                 <span>Vector SVG</span>
@@ -1108,7 +1108,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="py-2.5 px-3 rounded-xl border border-[#ffedd6]/20 hover:border-[#ffedd6]/40 bg-black/40 hover:bg-white/5 text-[#ffedd6] text-xs font-mono tracking-wide flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                className="py-2.5 px-3 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-900 text-xs font-mono tracking-wide flex items-center justify-center gap-1.5 transition-all cursor-pointer"
               >
                 {isCopied ? (
                   <>
@@ -1128,7 +1128,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
       </div>
 
       {/* Bottom Features Strip (Clean dashed hairline features, zero boxy cards) */}
-      <div className="border-t border-[#ffedd6]/15 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-[#ffedd6]/80 text-center">
+      <div className="border-t border-slate-200 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-slate-700 text-center">
         <div className="flex flex-col items-center justify-center gap-2 p-2">
           <Smartphone className="w-5 h-5 text-[#ff7a00]" />
           <span className="text-xs font-mono tracking-wide">Fully Customized Landing Pages</span>

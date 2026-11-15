@@ -808,20 +808,20 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Breadcrumb & Title */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <button
           onClick={onBack}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition-all cursor-pointer shadow-sm"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-slate-900 text-xs font-semibold transition-all cursor-pointer shadow-xs"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>All PDF Tools</span>
         </button>
 
         <div className="flex items-center gap-2">
-          <div className="px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold uppercase tracking-wider">
+          <div className="px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold uppercase tracking-wider">
             {tool.category}
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-medium">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>100% Client-Side Privacy</span>
           </div>
@@ -830,10 +830,10 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
 
       {/* Hero Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           {tool.name}
         </h1>
-        <p className="text-sm text-slate-400">{tool.tagline}</p>
+        <p className="text-sm text-slate-600">{tool.tagline}</p>
       </div>
 
       {/* Main Workspace Layout */}
