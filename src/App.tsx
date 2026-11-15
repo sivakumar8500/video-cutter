@@ -416,59 +416,59 @@ export function App() {
                   </div>
                 )}
 
-            {/* State 2: Video loaded & ready to configure / preview */}
-            {video && exportedClips.length === 0 && (
-              <div className="space-y-8 animate-in fade-in duration-300">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  {/* Left Column: Video Preview Player & Split Controls */}
-                  <div className="lg:col-span-7 space-y-6">
-                    <VideoPlayerPreview
-                      metadata={video}
-                      seekTime={seekTime}
-                      onRemove={handleReset}
-                      onChangeVideo={handleReset}
-                      onCurrentTimeChange={setCurrentVideoTime}
-                    />
+                {/* State 2: Video loaded & ready to configure / preview */}
+                {video && exportedClips.length === 0 && (
+                  <div className="space-y-8 animate-in fade-in duration-300">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                      {/* Left Column: Video Preview Player & Split Controls */}
+                      <div className="lg:col-span-7 space-y-6">
+                        <VideoPlayerPreview
+                          metadata={video}
+                          seekTime={seekTime}
+                          onRemove={handleReset}
+                          onChangeVideo={handleReset}
+                          onCurrentTimeChange={setCurrentVideoTime}
+                        />
 
-                    <SplitConfiguration
-                      totalDuration={video.duration}
-                      config={config}
-                      onChangeConfig={setConfig}
-                      defaultBaseName={defaultBaseName}
-                      currentPlayheadTime={currentVideoTime}
-                      onSeek={(time) => setSeekTime(time)}
-                      videoPreviewUrl={video.previewUrl}
-                    />
+                        <SplitConfiguration
+                          totalDuration={video.duration}
+                          config={config}
+                          onChangeConfig={setConfig}
+                          defaultBaseName={defaultBaseName}
+                          currentPlayheadTime={currentVideoTime}
+                          onSeek={(time) => setSeekTime(time)}
+                          videoPreviewUrl={video.previewUrl}
+                        />
+                      </div>
+
+                      {/* Right Column: Timeline Visualization & Segment Cuts */}
+                      <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+                        <TimelinePreview
+                          totalDuration={video.duration}
+                          segments={segments}
+                          onSeek={(time) => setSeekTime(time)}
+                          onStartProcess={handleStartProcess}
+                          isProcessing={
+                            progress.status === 'processing' ||
+                            progress.status === 'loading-ffmpeg' ||
+                            progress.status === 'preparing-file'
+                          }
+                          isRangeMode={config.mode === 'range'}
+                        />
+                      </div>
+                    </div>
                   </div>
+                )}
 
-                  {/* Right Column: Timeline Visualization & Segment Cuts */}
-                  <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-                    <TimelinePreview
-                      totalDuration={video.duration}
-                      segments={segments}
-                      onSeek={(time) => setSeekTime(time)}
-                      onStartProcess={handleStartProcess}
-                      isProcessing={
-                        progress.status === 'processing' ||
-                        progress.status === 'loading-ffmpeg' ||
-                        progress.status === 'preparing-file'
-                      }
-                      isRangeMode={config.mode === 'range'}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* State 3: Completed splitting results */}
-            {exportedClips.length > 0 && (
-              <CompletionView
-                clips={exportedClips}
-                folderName={outputFolderName}
-                onReset={handleReset}
-                onUpdateClips={setExportedClips}
-              />
-            )}
+                {/* State 3: Completed splitting results */}
+                {exportedClips.length > 0 && (
+                  <CompletionView
+                    clips={exportedClips}
+                    folderName={outputFolderName}
+                    onReset={handleReset}
+                    onUpdateClips={setExportedClips}
+                  />
+                )}
               </>
             )}
           </section>
@@ -531,15 +531,15 @@ export function App() {
         progress.status === 'preparing-file' ||
         (progress.status === 'error' && exportedClips.length === 0) ||
         progress.status === 'cancelled') && (
-        <ProcessingModal
-          progress={progress}
-          onCancel={
-            progress.status === 'error' || progress.status === 'cancelled'
-              ? () => setProgress((p) => ({ ...p, status: 'idle' }))
-              : handleCancelProcess
-          }
-        />
-      )}
+          <ProcessingModal
+            progress={progress}
+            onCancel={
+              progress.status === 'error' || progress.status === 'cancelled'
+                ? () => setProgress((p) => ({ ...p, status: 'idle' }))
+                : handleCancelProcess
+            }
+          />
+        )}
 
       {/* Reeyansh Tech Solutions Footer & Copyright with Crawlable Link Navigation */}
       <Footer onNavigate={handleTabChange} />

@@ -18,7 +18,7 @@ export type QrContentType =
 
 export type QrErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
 
-export type QrDesignTab = 'frame' | 'shape' | 'logo';
+export type QrDesignTab = 'frame' | 'shape' | 'logo' | '3d';
 
 export type QrShapeStyle =
   | 'square'
@@ -162,4 +162,16 @@ export interface QrConfig {
   errorCorrectionLevel: QrErrorCorrectionLevel;
   size: number;
   margin: number;
+
+  // 3D Isometric & Voxel QR Configuration (Matches 3D block & artistic reference)
+  is3dEnabled?: boolean;
+  depth3d?: number; // 8 to 60, default 24
+  yaw3d?: number; // -45 to 45 deg, default 22
+  pitch3d?: number; // 0 to 40 deg, default 12
+  heightVariation3d?: boolean; // stepped heights for realistic voxel city look
+  shadow3d?: boolean; // soft ground plane shadow
+  color3dSide?: string;
+  color3dTop?: string;
+  artisticImageOverlay?: string; // AI / Artistic image blend
+  artisticOpacity?: number; // 0 to 1, default 0.65
 }

@@ -377,11 +377,10 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
           <button
             type="button"
             onClick={() => setActiveMode('video-to-audio')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-              activeMode === 'video-to-audio'
-                ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
-            }`}
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${activeMode === 'video-to-audio'
+              ? 'bg-gradient-to-r from-pink-600 to-rose-500 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+              }`}
           >
             <Music className="w-3.5 h-3.5" />
             <span>Video to Audio</span>
@@ -390,11 +389,10 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
           <button
             type="button"
             onClick={() => setActiveMode('audio-remover')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
-              activeMode === 'audio-remover'
-                ? 'bg-gradient-to-r from-cyan-600 to-blue-500 text-white shadow-sm'
-                : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
-            }`}
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${activeMode === 'audio-remover'
+              ? 'bg-gradient-to-r from-cyan-600 to-blue-500 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
+              }`}
           >
             <VolumeX className="w-3.5 h-3.5" />
             <span>Audio Remover</span>
@@ -683,11 +681,10 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
                           key={fmt}
                           type="button"
                           onClick={() => setAudioFormat(fmt)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
-                            audioFormat === fmt
-                              ? 'bg-pink-600 text-white shadow-sm'
-                              : 'bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200'
-                          }`}
+                          className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${audioFormat === fmt
+                            ? 'bg-pink-600 text-white shadow-sm'
+                            : 'bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200'
+                            }`}
                         >
                           .{fmt.toUpperCase()}
                         </button>
@@ -707,11 +704,10 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
                             key={br}
                             type="button"
                             onClick={() => setAudioBitrate(br)}
-                            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${
-                              audioBitrate === br
-                                ? 'bg-pink-600 text-white shadow-sm'
-                                : 'bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200'
-                            }`}
+                            className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition cursor-pointer ${audioBitrate === br
+                              ? 'bg-pink-600 text-white shadow-sm'
+                              : 'bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200'
+                              }`}
                           >
                             {br === '320k' ? '320k (Studio)' : br}
                           </button>

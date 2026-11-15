@@ -26,6 +26,9 @@ import {
   Palette,
   Folder,
   Search,
+  Box,
+  Sparkles,
+  Layers,
 } from 'lucide-react';
 import type {
   QrConfig,
@@ -693,25 +696,33 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
 
             {/* Subtabs: Shape | Logo | Frame */}
             <div className="pl-7 space-y-5">
-              <div className="flex border-b border-slate-200 gap-4">
+              <div className="flex border-b border-slate-200 gap-3 sm:gap-6 overflow-x-auto">
                 {[
-                  { id: 'shape' as QrDesignTab, label: 'Shape & Color' },
-                  { id: 'logo' as QrDesignTab, label: 'Logo Embedding' },
-                  { id: 'frame' as QrDesignTab, label: 'Frames & Label' },
+                  { id: 'shape' as QrDesignTab, label: 'Shape & Color', icon: Palette },
+                  { id: '3d' as QrDesignTab, label: '3D Voxel Blocks & AI', icon: Box, isNew: true },
+                  { id: 'logo' as QrDesignTab, label: 'Logo Embedding', icon: Upload },
+                  { id: 'frame' as QrDesignTab, label: 'Frames & Label', icon: Layers },
                 ].map((tab) => {
                   const isSelected = config.designTab === tab.id;
+                  const Icon = tab.icon;
                   return (
                     <button
                       key={tab.id}
                       type="button"
                       onClick={() => setConfig((prev) => ({ ...prev, designTab: tab.id }))}
-                      className={`pb-3 text-xs font-mono tracking-wider uppercase transition-all cursor-pointer border-b-2 -mb-px ${
+                      className={`pb-3 text-xs font-mono tracking-wider uppercase transition-all cursor-pointer border-b-2 -mb-px flex items-center gap-1.5 shrink-0 ${
                         isSelected
                           ? 'border-emerald-500 text-emerald-600 font-bold'
                           : 'border-transparent text-slate-600 hover:text-slate-900'
                       }`}
                     >
-                      {tab.label}
+                      <Icon className="w-3.5 h-3.5" />
+                      <span>{tab.label}</span>
+                      {tab.isNew && (
+                        <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-emerald-500 text-white animate-pulse">
+                          3D
+                        </span>
+                      )}
                     </button>
                   );
                 })}
@@ -1297,6 +1308,277 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   )}
                 </div>
               )}
+
+              {/* Subtab 4: 3D VOXEL BLOCKS & AI ARTISTIC ILLUSION */}
+              {config.designTab === '3d' && (
+                <div className="space-y-6 animate-in fade-in duration-200">
+                  {/* Master 3D Toggle */}
+                  <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2">
+                        <Box className="w-5 h-5 text-emerald-600" />
+                        <h4 className="text-sm font-bold text-slate-900">
+                          3D Extruded Voxel QR Engine
+                        </h4>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white">
+                          NEW
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-600">
+                        Turn standard 2D modules into standing 3D architectural voxel blocks with cast shadows.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setConfig((prev) => ({
+                          ...prev,
+                          is3dEnabled: !prev.is3dEnabled,
+                          fgColor: !prev.is3dEnabled && prev.fgColor === '#000000' ? '#5c67a3' : prev.fgColor,
+                        }))
+                      }
+                      className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-2 shadow-xs shrink-0 ${
+                        config.is3dEnabled
+                          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
+                          : 'bg-white border border-slate-300 text-slate-700 hover:bg-slate-100'
+                      }`}
+                    >
+                      <span className={`w-2.5 h-2.5 rounded-full ${config.is3dEnabled ? 'bg-white animate-pulse' : 'bg-slate-400'}`} />
+                      <span>{config.is3dEnabled ? '3D Active' : 'Enable 3D'}</span>
+                    </button>
+                  </div>
+
+                  {/* 3D Color & Material Presets */}
+                  <div className="space-y-2">
+                    <label className="text-xs font-mono text-slate-600 block">
+                      3D Block Color Themes
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                      {[
+                        { name: 'Reference Slate', base: '#5c67a3', top: '#7c88c7', side: '#444f85', desc: 'As in image' },
+                        { name: 'Emerald Voxel', base: '#10b981', top: '#34d399', side: '#059669', desc: 'Mint glow' },
+                        { name: 'Royal Indigo', base: '#6366f1', top: '#818cf8', side: '#4338ca', desc: 'Prism' },
+                        { name: 'Cyberpunk Cyan', base: '#06b6d4', top: '#67e8f9', side: '#0891b2', desc: 'Neon' },
+                        { name: 'Dark Obsidian', base: '#1e293b', top: '#334155', side: '#0f172a', desc: 'Matte' },
+                      ].map((preset) => (
+                        <button
+                          key={preset.name}
+                          type="button"
+                          onClick={() =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              fgColor: preset.base,
+                              color3dTop: preset.top,
+                              color3dSide: preset.side,
+                            }))
+                          }
+                          className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer space-y-1 ${
+                            config.fgColor === preset.base && config.is3dEnabled
+                              ? 'border-emerald-500 bg-emerald-50/50 ring-2 ring-emerald-500/20'
+                              : 'border-slate-200 bg-white hover:border-slate-300'
+                          }`}
+                        >
+                          <div className="flex items-center gap-1.5">
+                            <span className="w-3.5 h-3.5 rounded-md shrink-0 shadow-xs" style={{ backgroundColor: preset.base }} />
+                            <span className="w-2.5 h-2.5 rounded-md shrink-0" style={{ backgroundColor: preset.top }} />
+                            <span className="w-2.5 h-2.5 rounded-md shrink-0" style={{ backgroundColor: preset.side }} />
+                          </div>
+                          <p className="text-xs font-bold text-slate-900 truncate">{preset.name}</p>
+                          <p className="text-[10px] text-slate-500 font-mono">{preset.desc}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 3D Sliders & Geometry Settings */}
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+                    <span className="text-xs font-mono font-bold text-slate-900 block">
+                      3D Perspective &amp; Extrusion Geometry
+                    </span>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      {/* Depth / Extrusion Height */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
+                          <span>Block Height (Depth)</span>
+                          <span className="font-bold text-emerald-600">{config.depth3d ?? 24}px</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={8}
+                          max={55}
+                          value={config.depth3d ?? 24}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              depth3d: parseInt(e.target.value, 10),
+                            }))
+                          }
+                          className="w-full accent-emerald-500 cursor-pointer"
+                        />
+                      </div>
+
+                      {/* Yaw Angle */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
+                          <span>Isometric Yaw Tilt</span>
+                          <span className="font-bold text-emerald-600">{config.yaw3d ?? 22}&deg;</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={-45}
+                          max={45}
+                          value={config.yaw3d ?? 22}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              yaw3d: parseInt(e.target.value, 10),
+                            }))
+                          }
+                          className="w-full accent-emerald-500 cursor-pointer"
+                        />
+                      </div>
+
+                      {/* Pitch Angle */}
+                      <div className="space-y-1.5">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
+                          <span>Overhead Pitch</span>
+                          <span className="font-bold text-emerald-600">{config.pitch3d ?? 12}&deg;</span>
+                        </div>
+                        <input
+                          type="range"
+                          min={0}
+                          max={35}
+                          value={config.pitch3d ?? 12}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              pitch3d: parseInt(e.target.value, 10),
+                            }))
+                          }
+                          className="w-full accent-emerald-500 cursor-pointer"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Voxel Height Variation & Shadow Toggles */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200">
+                      <label className="flex items-center gap-2 text-xs font-mono text-slate-800 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={config.heightVariation3d ?? true}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              heightVariation3d: e.target.checked,
+                            }))
+                          }
+                          className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+                        />
+                        <span>Architectural Voxel Step Heights</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 text-xs font-mono text-slate-800 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={config.shadow3d ?? true}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              shadow3d: e.target.checked,
+                            }))
+                          }
+                          className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+                        />
+                        <span>Floor Contact Drop Shadow</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {/* Artistic AI Illusion & Image Texture Section (Reference Image 2) */}
+                  <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-emerald-600" />
+                        <h4 className="text-xs font-mono font-bold text-slate-900 uppercase">
+                          Artistic AI Illusion &amp; Photo Blend
+                        </h4>
+                      </div>
+                      {config.artisticImageOverlay && (
+                        <button
+                          type="button"
+                          onClick={() => setConfig((prev) => ({ ...prev, artisticImageOverlay: undefined }))}
+                          className="text-[11px] text-red-500 hover:underline cursor-pointer font-mono"
+                        >
+                          Remove Photo Overlay
+                        </button>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-500">
+                      Blend sandwich, food textures, landscapes, or artworks into the QR code canvas like in AI QR art.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {/* Photo Upload */}
+                      <label className="p-4 rounded-xl border border-dashed border-slate-300 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/40 transition flex flex-col items-center justify-center text-center gap-1.5 cursor-pointer">
+                        <Upload className="w-5 h-5 text-emerald-600" />
+                        <span className="text-xs font-bold text-slate-800">Upload Artwork / Food Image</span>
+                        <span className="text-[10px] text-slate-500">PNG, JPG or WebP</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            if (e.target.files && e.target.files[0]) {
+                              const reader = new FileReader();
+                              reader.onload = (ev) => {
+                                setConfig((prev) => ({
+                                  ...prev,
+                                  artisticImageOverlay: ev.target?.result as string,
+                                }));
+                              };
+                              reader.readAsDataURL(e.target.files[0]);
+                            }
+                          }}
+                          className="hidden"
+                        />
+                      </label>
+
+                      {/* Opacity slider */}
+                      <div className="space-y-2 flex flex-col justify-center">
+                        <div className="flex justify-between text-xs font-mono text-slate-600">
+                          <span>Artwork Blend Opacity</span>
+                          <span className="font-bold text-emerald-600">
+                            {Math.round((config.artisticOpacity ?? 0.65) * 100)}%
+                          </span>
+                        </div>
+                        <input
+                          type="range"
+                          min={20}
+                          max={95}
+                          value={Math.round((config.artisticOpacity ?? 0.65) * 100)}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              artisticOpacity: parseInt(e.target.value, 10) / 100,
+                            }))
+                          }
+                          className="w-full accent-emerald-500 cursor-pointer"
+                        />
+                        <p className="text-[10px] text-slate-500">
+                          Keep between 50-70% for scannability while keeping the artwork visible.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -1304,33 +1586,63 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
         {/* ================= RIGHT COLUMN: LIVE PREVIEW & DOWNLOAD ================= */}
         <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
           <div className="space-y-4">
-            {/* Step 3 Badge */}
-            <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-emerald-600 border border-emerald-300 flex items-center justify-center text-xs font-mono font-bold shrink-0">
-                3
-              </span>
-              <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
-                Live QR Preview & Export
-              </h3>
+            {/* Step 3 Badge & 3D Quick Toggle */}
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-xs font-mono font-bold shrink-0 shadow-xs">
+                  3
+                </span>
+                <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
+                  Live QR Preview
+                </h3>
+              </div>
+
+              {/* 1-Click 3D Toggle Pill */}
+              <button
+                type="button"
+                onClick={() =>
+                  setConfig((prev) => ({
+                    ...prev,
+                    is3dEnabled: !prev.is3dEnabled,
+                    fgColor: !prev.is3dEnabled && prev.fgColor === '#000000' ? '#5c67a3' : prev.fgColor,
+                  }))
+                }
+                className={`px-3 py-1 rounded-full text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-xs ${
+                  config.is3dEnabled
+                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300'
+                }`}
+                title="Toggle between 2D flat and 3D isometric block QR code"
+              >
+                <Box className="w-3.5 h-3.5" />
+                <span>{config.is3dEnabled ? '3D Active' : 'Switch to 3D'}</span>
+              </button>
             </div>
 
-            {/* Large Centered QR Canvas Frame (Sleek dark preview stand) */}
-            <div className="p-6 rounded-2xl bg-white shadow-xl border border-slate-300 relative flex items-center justify-center overflow-hidden shadow-lg border border-slate-200">
+            {/* Large Centered QR Canvas Frame */}
+            <div className="p-6 rounded-3xl bg-white shadow-xl border border-slate-200 relative flex flex-col items-center justify-center overflow-hidden">
+              {config.is3dEnabled && (
+                <div className="mb-3 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                  <Box className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>3D Isometric Voxel Extrusion</span>
+                </div>
+              )}
+
               <canvas
                 ref={canvasRef}
-                className="max-w-full h-auto object-contain transition-all relative z-10 rounded-lg shadow-2xl"
+                className="max-w-full h-auto object-contain transition-all relative z-10 rounded-xl"
                 style={{ maxHeight: '340px' }}
               />
             </div>
 
-            {/* Big Vibrant Amber Download Button */}
+            {/* Big Vibrant Emerald Download Button */}
             <button
               type="button"
               onClick={handleDownload}
-              className="w-full py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer font-mono tracking-wider uppercase"
+              className="w-full py-3.5 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 transition-all cursor-pointer font-mono tracking-wider uppercase hover:scale-[1.01] active:scale-[0.99]"
             >
               <Download className="w-4 h-4" />
-              <span>Download PNG QR Code</span>
+              <span>{config.is3dEnabled ? 'Download 3D PNG QR Code' : 'Download PNG QR Code'}</span>
             </button>
 
             {/* Secondary Options: SVG & Copy Image */}

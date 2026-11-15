@@ -476,6 +476,272 @@ function drawPresetLogo(
 }
 
 /**
+ * Color brightness and shading utilities for 3D faces
+ */
+function hexToRgb(hex: string): [number, number, number] {
+  let c = (hex || '').replace('#', '').trim();
+  if (c.length === 3) {
+    c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+  }
+  const num = parseInt(c, 16);
+  if (isNaN(num)) return [92, 103, 163]; // fallback to reference slate-blue (#5c67a3)
+  return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
+}
+
+function adjustColorBrightness(hex: string, percent: number): string {
+  const [r, g, b] = hexToRgb(hex);
+  const factor = 1 + percent / 100;
+  const newR = Math.min(255, Math.max(0, Math.round(r * factor)));
+  const newG = Math.min(255, Math.max(0, Math.round(g * factor)));
+  const newB = Math.min(255, Math.max(0, Math.round(b * factor)));
+  return `rgb(${newR}, ${newG}, ${newB})`;
+}
+
+interface Point3D {
+  x: number;
+  y: number;
+  z: number;
+}
+
+interface ProjectedPoint {
+  x: number;
+  y: number;
+  z: number;
+}
+
+interface FacePolygon {
+  points: ProjectedPoint[];
+  avgZ: number;
+  fill: string;
+  stroke: string;
+}
+
+function project3dPoint(
+  p: Point3D,
+  yawRad: number,
+  pitchRad: number,
+  cx: number,
+  cy: number,
+  fov: number
+): ProjectedPoint {
+  // Yaw around vertical axis Y
+  const cosY = Math.cos(yawRad);
+  const sinY = Math.sin(yawRad);
+  const x1 = p.x * cosY + p.z * sinY;
+  const y1 = p.y;
+  const z1 = -p.x * sinY + p.z * cosY;
+
+  // Pitch around horizontal axis X
+  const cosP = Math.cos(pitchRad);
+  const sinP = Math.sin(pitchRad);
+  const x2 = x1;
+  const y2 = y1 * cosP - z1 * sinP;
+  const z2 = y1 * sinP + z1 * cosP;
+
+  // Perspective projection
+  const scale = fov / (fov + z2);
+  return {
+    x: cx + x2 * scale,
+    y: cy - y2 * scale,
+    z: z2,
+  };
+}
+
+/**
+ * 3D Isometric Extruded Voxel QR Code Generator (Matching reference 3D block image)
+ */
+export function render3dIsometricQr(
+  ctx: CanvasRenderingContext2D,
+  qr: { modules: { size: number; get: (r: number, c: number) => number } },
+  config: QrConfig,
+  canvasWidth: number,
+  canvasHeight: number,
+  size: number
+): void {
+  const matrixSize = qr.modules.size;
+  const baseColor = config.fgColor || '#5c67a3'; // Reference slate-indigo blue by default
+  const bgColor = config.bgColor || '#f8fafc';
+
+  // 1. Clear & Background
+  if (!config.transparentBg) {
+    ctx.fillStyle = bgColor;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  } else {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  }
+
+  // Camera angles (yaw and pitch)
+  const yawDeg = config.yaw3d ?? 22; // ~22 degrees tilt matching reference screenshot
+  const pitchDeg = config.pitch3d ?? 12; // ~12 degrees pitch
+  const yawRad = (yawDeg * Math.PI) / 180;
+  const pitchRad = (pitchDeg * Math.PI) / 180;
+  const fov = 1600;
+
+  const cx = canvasWidth / 2;
+  const cy = canvasHeight / 2 - 10;
+
+  // Physical size & Extrusion scale
+  const qrPhysicalSize = size * 0.72;
+  const cellSize = qrPhysicalSize / matrixSize;
+  const baseDepth = (config.depth3d ?? 24) * (cellSize / 18);
+  const hasHeightVariation = config.heightVariation3d ?? true;
+
+  // 2. Soft Floor Shadow (Ground plane shadow beneath the standing 3D QR)
+  if (config.shadow3d !== false) {
+    ctx.save();
+    const floorY = -qrPhysicalSize / 2 - 8;
+    const shadowCenter = project3dPoint(
+      { x: 0, y: floorY, z: baseDepth / 2 },
+      yawRad,
+      pitchRad,
+      cx,
+      cy,
+      fov
+    );
+
+    const grad = ctx.createRadialGradient(
+      shadowCenter.x + 20,
+      shadowCenter.y + 15,
+      15,
+      shadowCenter.x + 20,
+      shadowCenter.y + 15,
+      qrPhysicalSize * 0.65
+    );
+    grad.addColorStop(0, 'rgba(15, 23, 42, 0.25)');
+    grad.addColorStop(0.35, 'rgba(15, 23, 42, 0.12)');
+    grad.addColorStop(1, 'rgba(15, 23, 42, 0)');
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.ellipse(
+      shadowCenter.x + 20,
+      shadowCenter.y + 18,
+      qrPhysicalSize * 0.6,
+      qrPhysicalSize * 0.22,
+      yawRad * 0.4,
+      0,
+      Math.PI * 2
+    );
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // Lighting face shades
+  const topFaceColor = config.color3dTop || adjustColorBrightness(baseColor, 26);
+  const frontFaceColor = baseColor;
+  const rightFaceColor = config.color3dSide || adjustColorBrightness(baseColor, -14);
+  const leftFaceColor = adjustColorBrightness(baseColor, -32);
+  const bottomFaceColor = adjustColorBrightness(baseColor, -44);
+  const strokeColor = adjustColorBrightness(baseColor, -12);
+
+  // 3. Build 3D Block Faces for all active QR modules
+  const faces: FacePolygon[] = [];
+
+  for (let r = 0; r < matrixSize; r++) {
+    for (let c = 0; c < matrixSize; c++) {
+      if (qr.modules.get(r, c) !== 1) continue;
+
+      // Coordinate on vertical upright plane (X, Y)
+      const u = (c - matrixSize / 2 + 0.5) * cellSize;
+      const v = (matrixSize / 2 - r - 0.5) * cellSize;
+
+      // Extrusion depth (H)
+      let d = baseDepth;
+      const isCornerEye =
+        (r < 7 && c < 7) ||
+        (r < 7 && c >= matrixSize - 7) ||
+        (r >= matrixSize - 7 && c < 7);
+
+      if (isCornerEye) {
+        d = baseDepth * 1.15; // Prominent solid extruded corner eyes
+      } else if (hasHeightVariation) {
+        // Variable voxel heights like in screenshot!
+        const hash = ((r * 13 + c * 29) % 7) / 7;
+        d = baseDepth * (0.8 + 0.4 * hash);
+      }
+
+      const halfW = cellSize * 0.485; // Slight hairline gap between voxel blocks
+      const halfH = cellSize * 0.485;
+
+      // 8 Vertices for this block
+      const p0 = project3dPoint({ x: u - halfW, y: v - halfH, z: 0 }, yawRad, pitchRad, cx, cy, fov);
+      const p1 = project3dPoint({ x: u + halfW, y: v - halfH, z: 0 }, yawRad, pitchRad, cx, cy, fov);
+      const p2 = project3dPoint({ x: u + halfW, y: v + halfH, z: 0 }, yawRad, pitchRad, cx, cy, fov);
+      const p3 = project3dPoint({ x: u - halfW, y: v + halfH, z: 0 }, yawRad, pitchRad, cx, cy, fov);
+
+      const p4 = project3dPoint({ x: u - halfW, y: v - halfH, z: d }, yawRad, pitchRad, cx, cy, fov);
+      const p5 = project3dPoint({ x: u + halfW, y: v - halfH, z: d }, yawRad, pitchRad, cx, cy, fov);
+      const p6 = project3dPoint({ x: u + halfW, y: v + halfH, z: d }, yawRad, pitchRad, cx, cy, fov);
+      const p7 = project3dPoint({ x: u - halfW, y: v + halfH, z: d }, yawRad, pitchRad, cx, cy, fov);
+
+      // Helper to add face if front-facing towards camera
+      const addFace = (pts: ProjectedPoint[], fill: string) => {
+        // Shoelace signed area (positive / negative determines winding)
+        const area =
+          (pts[1].x - pts[0].x) * (pts[2].y - pts[1].y) -
+          (pts[1].y - pts[0].y) * (pts[2].x - pts[1].x);
+
+        if (area > 0) {
+          const avgZ = (pts[0].z + pts[1].z + pts[2].z + pts[3].z) / 4;
+          faces.push({ points: pts, avgZ, fill, stroke: strokeColor });
+        }
+      };
+
+      // 1. Front Face (+Z)
+      addFace([p4, p5, p6, p7], frontFaceColor);
+
+      // 2. Top Face (+Y)
+      addFace([p7, p6, p2, p3], topFaceColor);
+
+      // 3. Right Face (+X)
+      addFace([p5, p1, p2, p6], rightFaceColor);
+
+      // 4. Left Face (-X)
+      addFace([p0, p4, p7, p3], leftFaceColor);
+
+      // 5. Bottom Face (-Y)
+      addFace([p0, p1, p5, p4], bottomFaceColor);
+    }
+  }
+
+  // 4. Sort all faces from furthest to nearest (Painter's Algorithm)
+  faces.sort((a, b) => b.avgZ - a.avgZ);
+
+  // 5. Draw Faces
+  ctx.lineWidth = 0.5;
+  for (const f of faces) {
+    ctx.beginPath();
+    ctx.moveTo(f.points[0].x, f.points[0].y);
+    ctx.lineTo(f.points[1].x, f.points[1].y);
+    ctx.lineTo(f.points[2].x, f.points[2].y);
+    ctx.lineTo(f.points[3].x, f.points[3].y);
+    ctx.closePath();
+    ctx.fillStyle = f.fill;
+    ctx.fill();
+    ctx.strokeStyle = f.stroke;
+    ctx.stroke();
+  }
+
+  // 6. Optional Artistic AI Image Overlay (if image supplied)
+  if (config.artisticImageOverlay) {
+    try {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = config.artisticImageOverlay;
+      if (img.complete && img.naturalWidth > 0) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'overlay';
+        ctx.globalAlpha = config.artisticOpacity ?? 0.65;
+        ctx.drawImage(img, 0, 0, canvasWidth, canvasHeight);
+        ctx.restore();
+      }
+    } catch {
+      // Fallback gracefully
+    }
+  }
+}
+
+/**
  * Renders complete custom QR Code to Canvas with Shape, Border, Logo, and Frame
  */
 export async function renderQrToCanvas(
@@ -531,6 +797,12 @@ export async function renderQrToCanvas(
 
   const ctx = targetCanvas.getContext('2d', { willReadFrequently: true });
   if (!ctx) return;
+
+  // If 3D Extruded Voxel QR is enabled, use the dedicated 3D isometric renderer!
+  if (config.is3dEnabled) {
+    render3dIsometricQr(ctx, qr, config, canvasWidth, canvasHeight, size);
+    return;
+  }
 
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
