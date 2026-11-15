@@ -125,11 +125,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`relative group cursor-pointer rounded-3xl border-2 border-dashed p-10 sm:p-14 text-center transition-all duration-300 ${
-          isDragging
-            ? 'border-cyan-500 bg-cyan-50/50 scale-[1.01] shadow-xl'
-            : 'border-slate-300 hover:border-cyan-500 bg-white hover:bg-slate-50/70 shadow-sm'
-        }`}
+        className={`relative group cursor-pointer rounded-3xl border-2 border-dashed p-10 sm:p-14 text-center transition-all duration-300 ${isDragging
+          ? 'border-cyan-500 bg-cyan-50/50 scale-[1.01] shadow-xl'
+          : 'border-slate-300 hover:border-cyan-500 bg-white hover:bg-slate-50/70 shadow-sm'
+          }`}
       >
         <input
           ref={fileInputRef}

@@ -327,11 +327,10 @@ export function App() {
                 <button
                   type="button"
                   onClick={() => setCutterMode('single')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                    cutterMode === 'single'
-                      ? 'bg-emerald-600 text-white shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'single'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
                 >
                   <Scissors className="w-3.5 h-3.5 text-white" />
                   <span>Video Splitter &amp; Cutter</span>
@@ -339,11 +338,10 @@ export function App() {
                 <button
                   type="button"
                   onClick={() => setCutterMode('batch')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
-                    cutterMode === 'batch'
-                      ? 'bg-emerald-600 text-white font-bold shadow-xs'
-                      : 'text-slate-600 hover:text-slate-900'
-                  }`}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'batch'
+                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                    }`}
                 >
                   <Smartphone className="w-3.5 h-3.5" />
                   <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>

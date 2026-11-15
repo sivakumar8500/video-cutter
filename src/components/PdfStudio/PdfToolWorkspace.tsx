@@ -99,14 +99,14 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
     tool.id === 'pdf-to-excel'
       ? 'excel'
       : tool.id === 'pdf-to-powerpoint'
-      ? 'powerpoint'
-      : tool.id === 'pdf-to-markdown'
-      ? 'markdown'
-      : tool.id === 'pdf-to-jpg'
-      ? 'images'
-      : tool.id === 'pdf-to-pdfa'
-      ? 'pdfa'
-      : 'word'
+        ? 'powerpoint'
+        : tool.id === 'pdf-to-markdown'
+          ? 'markdown'
+          : tool.id === 'pdf-to-jpg'
+            ? 'images'
+            : tool.id === 'pdf-to-pdfa'
+              ? 'pdfa'
+              : 'word'
   );
 
   // Tool Specific States
@@ -985,20 +985,18 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                     key={fmt.id}
                     type="button"
                     onClick={() => setSelectedDocFormat(fmt.id)}
-                    className={`p-3 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${
-                      selectedDocFormat === fmt.id
-                        ? 'bg-gradient-to-br from-blue-600/30 to-indigo-600/30 border-blue-500 text-white shadow-lg shadow-blue-500/20 ring-1 ring-blue-500/50'
-                        : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
-                    }`}
+                    className={`p-3 rounded-2xl text-left border transition-all cursor-pointer flex flex-col justify-between ${selectedDocFormat === fmt.id
+                      ? 'bg-gradient-to-br from-blue-600/30 to-indigo-600/30 border-blue-500 text-white shadow-lg shadow-blue-500/20 ring-1 ring-blue-500/50'
+                      : 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                      }`}
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-bold text-xs">{fmt.label}</span>
                       <span
-                        className={`text-[10px] px-1.5 py-0.5 rounded-md font-mono font-bold ${
-                          selectedDocFormat === fmt.id
-                            ? 'bg-blue-500 text-white'
-                            : 'bg-slate-800 text-slate-400'
-                        }`}
+                        className={`text-[10px] px-1.5 py-0.5 rounded-md font-mono font-bold ${selectedDocFormat === fmt.id
+                          ? 'bg-blue-500 text-white'
+                          : 'bg-slate-800 text-slate-400'
+                          }`}
                       >
                         .{fmt.ext}
                       </span>
@@ -1368,11 +1366,10 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                   <button
                     key={deg}
                     onClick={() => setRotationAngle(deg)}
-                    className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      rotationAngle === deg
-                        ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
-                        : 'bg-slate-800 text-slate-400 hover:text-white'
-                    }`}
+                    className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${rotationAngle === deg
+                      ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
+                      : 'bg-slate-800 text-slate-400 hover:text-white'
+                      }`}
                   >
                     +{deg}° Clockwise
                   </button>
@@ -1394,11 +1391,10 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                   <button
                     key={lvl.id}
                     onClick={() => setCompressLevel(lvl.id)}
-                    className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${
-                      compressLevel === lvl.id
-                        ? 'bg-rose-500/20 border-rose-500 text-white'
-                        : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
-                    }`}
+                    className={`p-3 rounded-2xl text-left border transition-all cursor-pointer ${compressLevel === lvl.id
+                      ? 'bg-rose-500/20 border-rose-500 text-white'
+                      : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                      }`}
                   >
                     <div className="text-xs font-bold">{lvl.label}</div>
                     <div className="text-[10px] text-slate-500">{lvl.desc}</div>
@@ -1643,11 +1639,10 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                     value={protectConfirmPassword}
                     onChange={(e) => setProtectConfirmPassword(e.target.value)}
                     placeholder="Re-enter password to confirm..."
-                    className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border text-xs text-white placeholder-slate-500 focus:outline-none transition-all font-mono ${
-                      protectConfirmPassword && protectConfirmPassword !== protectUserPassword
-                        ? 'border-red-500/80'
-                        : 'border-slate-800 focus:border-rose-500'
-                    }`}
+                    className={`w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border text-xs text-white placeholder-slate-500 focus:outline-none transition-all font-mono ${protectConfirmPassword && protectConfirmPassword !== protectUserPassword
+                      ? 'border-red-500/80'
+                      : 'border-slate-800 focus:border-rose-500'
+                      }`}
                   />
                   {protectConfirmPassword && protectConfirmPassword !== protectUserPassword && (
                     <p className="text-[11px] text-red-400">Passwords do not match</p>
@@ -1661,22 +1656,20 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                     <button
                       type="button"
                       onClick={() => setProtectAlgorithm('AES-256')}
-                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                        protectAlgorithm === 'AES-256'
-                          ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20'
-                          : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
-                      }`}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${protectAlgorithm === 'AES-256'
+                        ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20'
+                        : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
+                        }`}
                     >
                       AES-256 (Recommended)
                     </button>
                     <button
                       type="button"
                       onClick={() => setProtectAlgorithm('RC4')}
-                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                        protectAlgorithm === 'RC4'
-                          ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20'
-                          : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
-                      }`}
+                      className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${protectAlgorithm === 'RC4'
+                        ? 'bg-rose-500 text-white shadow-md shadow-rose-500/20'
+                        : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white'
+                        }`}
                     >
                       RC4 128-bit (Legacy)
                     </button>
