@@ -23,6 +23,9 @@ import {
   Trash2,
   Move,
   RotateCcw,
+  Palette,
+  Folder,
+  Search,
 } from 'lucide-react';
 import type {
   QrConfig,
@@ -267,62 +270,298 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto space-y-8 animate-in fade-in duration-300 text-slate-900">
-      {/* Header Bar with Subtle Monospace Badge */}
-      <div className="border-b border-slate-200 pb-6">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ff7a00]/10 border border-[#ff7a00]/25 text-[#ff7a00] text-xs font-mono mb-2">
-              <QrIcon className="w-3.5 h-3.5" />
-              <span>Vector QR Studio • 100% Client-Side</span>
+    <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in duration-300 text-slate-900">
+      {/* ================= 1. HERO SECTION (From Reference UI) ================= */}
+      <div className="text-center max-w-4xl mx-auto space-y-6 pt-4 pb-2">
+        {/* Subtle pill badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold shadow-xs">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span>Vector QR Studio • 100% Client-Side &amp; Private</span>
+        </div>
+
+        {/* Main Hero Headline */}
+        <h1 className="text-4xl sm:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+          We make <span className="text-emerald-500">QR codes</span> easy
+        </h1>
+
+        {/* Benefits Checkmark Pills */}
+        <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 pt-1 text-xs sm:text-sm font-semibold text-slate-700">
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-xs">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-              QR Code Generator & Styler
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1">
-              Generate pixel-perfect static & dynamic QR codes with customizable shapes, frames, and local logo embedding.
-            </p>
+            <span>Generate dynamic, editable QR codes</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-xs">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </div>
+            <span>Track performance with analytics</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-xs">
+              <Check className="w-3.5 h-3.5 stroke-[3]" />
+            </div>
+            <span>Design QR codes with Logo, Color &amp; Shapes</span>
+          </div>
+        </div>
+
+        {/* Main Hero CTA */}
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={() => {
+              document.getElementById('qr-builder-workspace')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm sm:text-base shadow-xl shadow-emerald-500/25 transition-all cursor-pointer hover:scale-105 active:scale-95"
+          >
+            <QrIcon className="w-5 h-5" />
+            <span>Create QR code</span>
+          </button>
+        </div>
+      </div>
+
+      {/* ================= 2. DASHBOARD & STUDIO PREVIEW MOCKUP ================= */}
+      <div className="relative mx-auto max-w-5xl rounded-3xl bg-white border border-slate-200/90 shadow-2xl p-5 sm:p-7 space-y-6 overflow-hidden">
+        {/* Soft decorative glow */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* Top Header of Mockup */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500 flex items-center justify-center text-white font-black text-sm shadow-sm shadow-emerald-500/30">
+              <QrIcon className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-sm font-extrabold text-slate-900">My QR Codes</h3>
+              <p className="text-[11px] text-slate-500">Live In-Browser Studio Dashboard</p>
+            </div>
           </div>
 
-          {/* Plain QR vs Custom Design Switcher */}
-          <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200">
+          <div className="flex items-center gap-2">
             <button
               type="button"
-              onClick={applyPlainQr}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
-                isPlainQr
-                  ? 'bg-slate-900 text-white font-bold shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
-              title="Standard clean black & white QR code with no logo or styling"
+              onClick={() => document.getElementById('qr-builder-workspace')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 flex items-center gap-1.5 cursor-pointer"
             >
-              <span className="w-2 h-2 rounded-sm bg-black inline-block" />
-              <span>Plain QR</span>
+              <Folder className="w-3.5 h-3.5 text-slate-500" />
+              <span>New Folder</span>
             </button>
-
             <button
               type="button"
-              onClick={() => {
-                if (isPlainQr) {
-                  setConfig((prev) => ({
-                    ...prev,
-                    borderStyle: 'rounded',
-                    shapeStyle: 'rounded',
-                    designTab: 'shape',
-                  }));
-                }
-              }}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
-                !isPlainQr
-                  ? 'bg-slate-900 text-white font-bold shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900'
-              }`}
+              onClick={() => document.getElementById('qr-builder-workspace')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-emerald-500/20 cursor-pointer"
             >
-              <span>Custom Design</span>
+              <QrIcon className="w-3.5 h-3.5" />
+              <span>Create QR Code</span>
             </button>
           </div>
         </div>
+
+        {/* Folder Stats Strip (matching screenshot UI) */}
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          {[
+            { name: 'UI-UX design', count: '50 Files' },
+            { name: 'Prototype', count: '20 Files' },
+            { name: 'UI design', count: '5 Files' },
+            { name: 'UX design', count: '3 Files' },
+            { name: 'Design System', count: '21 Files' },
+          ].map((f) => (
+            <div key={f.name} className="p-3 rounded-2xl bg-slate-50/80 border border-slate-200/60 space-y-1">
+              <div className="flex items-center gap-1.5 text-slate-500 text-[11px]">
+                <Folder className="w-3.5 h-3.5 text-emerald-600" />
+                <span className="font-bold text-slate-900">{f.count}</span>
+              </div>
+              <p className="text-xs font-semibold text-slate-600 truncate">{f.name}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Search & Filter Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-2 rounded-2xl bg-slate-50 border border-slate-200/80">
+          <div className="relative flex-1 w-full">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              placeholder="Search QR Codes..."
+              readOnly
+              value=""
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none"
+            />
+          </div>
+          <div className="flex items-center gap-2 text-xs">
+            <span className="px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
+              <span>Active</span>
+            </span>
+            <span className="px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium">
+              Image
+            </span>
+            <span className="px-3 py-1 rounded-xl bg-white border border-slate-200 text-slate-700 font-medium">
+              Most relevant
+            </span>
+          </div>
+        </div>
+
+        {/* Table Mockup Rows */}
+        <div className="space-y-2">
+          {[
+            { name: 'My QR Code 01', scans: '50 Scans', link: 'https://vidcuts.app/portfolio-showcase', date: '01 Nov 2026' },
+            { name: 'My QR Code 02', scans: '25 Scans', link: 'https://vidcuts.app/wifi-studio-guest', date: '05 Nov 2026' },
+            { name: 'My QR Code 03', scans: '80 Scans', link: 'https://vidcuts.app/creator-contact-vcard', date: '12 Nov 2026' },
+          ].map((row) => (
+            <div key={row.name} className="flex items-center justify-between p-3 rounded-2xl bg-white border border-slate-200/70 hover:border-emerald-300 transition-all text-xs">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 font-mono font-bold shrink-0">
+                  <QrIcon className="w-5 h-5" />
+                </div>
+                <div className="min-w-0">
+                  <p className="font-bold text-slate-900 truncate">{row.name}</p>
+                  <p className="text-[11px] text-slate-500 font-mono truncate">{row.link} • {row.date}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="hidden sm:inline-block font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  {row.scans}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setConfig((prev) => ({ ...prev, content: row.link }));
+                    document.getElementById('qr-builder-workspace')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 font-semibold border border-slate-200 transition-all cursor-pointer"
+                >
+                  Edit
+                </button>
+                <div className="w-8 h-4 bg-emerald-500 rounded-full flex items-center justify-end px-0.5">
+                  <div className="w-3 h-3 rounded-full bg-white shadow-xs" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* ================= 3. THREE SIMPLE STEPS (Centerpiece from Screenshot) ================= */}
+      <div className="py-8 space-y-10">
+        <div className="text-center space-y-2">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Create your <br />
+            QR code in three <span className="text-emerald-500">simple steps</span>
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 max-w-lg mx-auto">
+            Follow these three simple steps to generate, personalize, and export professional QR codes in seconds.
+          </p>
+        </div>
+
+        {/* 3 Connected Steps with Horizontal Dotted Line */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Horizontal Dotted Line */}
+          <div className="hidden md:block absolute top-7 left-[15%] right-[15%] h-0.5 border-t-2 border-dashed border-slate-200 -z-0" />
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            {/* Step 1: Content (Emerald Green) */}
+            <div className="flex flex-col items-center text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500 shadow-xl shadow-emerald-500/30 flex items-center justify-center text-white shrink-0 transform transition-transform hover:scale-110">
+                <FileText className="w-7 h-7" />
+              </div>
+              <div className="space-y-1 max-w-xs">
+                <h3 className="text-base font-extrabold text-slate-900">Choose your QR Code content</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Decide what you want to share. You can use URLs, videos, apps, Wi-Fi, vCards, and more!
+                </p>
+              </div>
+            </div>
+
+            {/* Step 2: Customize (Purple / Indigo) */}
+            <div className="flex flex-col items-center text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-indigo-500 shadow-xl shadow-indigo-500/30 flex items-center justify-center text-white shrink-0 transform transition-transform hover:scale-110">
+                <Palette className="w-7 h-7" />
+              </div>
+              <div className="space-y-1 max-w-xs">
+                <h3 className="text-base font-extrabold text-slate-900">Customize your design</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Personalize your QR code&apos;s color, shape, and style to create a unique design that matches your brand.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3: Download (Sky Blue) */}
+            <div className="flex flex-col items-center text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl bg-blue-500 shadow-xl shadow-blue-500/30 flex items-center justify-center text-white shrink-0 transform transition-transform hover:scale-110">
+                <Download className="w-7 h-7" />
+              </div>
+              <div className="space-y-1 max-w-xs">
+                <h3 className="text-base font-extrabold text-slate-900">Download your QR code</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Save your QR code as a PNG, SVG, JPG or EPS. Print it or share it digitally anywhere!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ================= 4. THE LIVE GENERATOR WORKSPACE ================= */}
+      <div id="qr-builder-workspace" className="pt-4 space-y-8">
+        {/* Workspace Sub-Header */}
+        <div className="border-b border-slate-200 pb-6">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono mb-2">
+                <QrIcon className="w-3.5 h-3.5" />
+                <span>Interactive Studio Builder</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
+                Live QR Code Studio
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-600 mt-1">
+                Customize your content, shapes, local logo watermark, and frame with real-time browser rendering.
+              </p>
+            </div>
+
+            {/* Plain QR vs Custom Design Switcher */}
+            <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200">
+              <button
+                type="button"
+                onClick={applyPlainQr}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isPlainQr
+                    ? 'bg-slate-900 text-white font-bold shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+                title="Standard clean black & white QR code with no logo or styling"
+              >
+                <span className="w-2 h-2 rounded-sm bg-black inline-block" />
+                <span>Plain QR</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  if (isPlainQr) {
+                    setConfig((prev) => ({
+                      ...prev,
+                      borderStyle: 'rounded',
+                      shapeStyle: 'rounded',
+                      designTab: 'shape',
+                    }));
+                  }
+                }}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer flex items-center gap-1.5 ${
+                  !isPlainQr
+                    ? 'bg-emerald-600 text-white font-bold shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <span>Custom Design</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* ================= LEFT COLUMN ================= */}
@@ -358,11 +597,11 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     onClick={() => setConfig((prev) => ({ ...prev, type: item.id }))}
                     className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-mono tracking-wider transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#ff7a00] text-black font-bold shadow-md shadow-[#ff7a00]/20'
+                        ? 'bg-emerald-500 text-white font-bold shadow-md shadow-emerald-500/20'
                         : 'bg-transparent border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300 hover:bg-slate-100'
                     }`}
                   >
-                    <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-black' : 'text-[#ff7a00]'}`} />
+                    <Icon className={`w-3.5 h-3.5 ${isSelected ? 'text-black' : 'text-emerald-600'}`} />
                     <span>{item.label}</span>
                   </button>
                 );
@@ -373,7 +612,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           {/* Step 1: Complete the content */}
           <div className="space-y-4 pt-2">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-emerald-600 border border-emerald-300 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 1
               </span>
               <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
@@ -406,7 +645,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                 value={config.content}
                 onChange={(e) => setConfig((prev) => ({ ...prev, content: e.target.value }))}
                 placeholder="https://example.com"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 focus:border-[#ff7a00] rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all font-mono"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-300 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none transition-all font-mono"
               />
 
               {/* Wi-Fi Additional Inputs */}
@@ -422,7 +661,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       }))
                     }
                     placeholder="Network Name (SSID)"
-                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-mono focus:border-[#ff7a00] focus:outline-none"
+                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs text-slate-900 font-mono focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                   />
                   <input
                     type="text"
@@ -434,7 +673,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       }))
                     }
                     placeholder="Password"
-                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
+                    className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                   />
                 </div>
               )}
@@ -444,7 +683,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           {/* Step 2: Design your QR Code */}
           <div className="space-y-4 pt-4 border-t border-slate-200">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-emerald-600 border border-emerald-300 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 2
               </span>
               <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
@@ -468,7 +707,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       onClick={() => setConfig((prev) => ({ ...prev, designTab: tab.id }))}
                       className={`pb-3 text-xs font-mono tracking-wider uppercase transition-all cursor-pointer border-b-2 -mb-px ${
                         isSelected
-                          ? 'border-[#ff7a00] text-[#ff7a00] font-bold'
+                          ? 'border-emerald-500 text-emerald-600 font-bold'
                           : 'border-transparent text-slate-600 hover:text-slate-900'
                       }`}
                     >
@@ -485,7 +724,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <label className="text-xs font-mono text-slate-900 flex items-center gap-1.5 font-bold">
-                        <Upload className="w-4 h-4 text-[#ff7a00]" />
+                        <Upload className="w-4 h-4 text-emerald-600" />
                         <span>Local Logo Upload</span>
                       </label>
                       {config.logoUrl && (
@@ -502,7 +741,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
 
                     {/* Active Uploaded Logo OR Drag-Drop Zone */}
                     {config.logoUrl ? (
-                      <div className="p-3.5 rounded-xl border border-[#ff7a00]/30 bg-[#ff7a00]/10 flex items-center justify-between gap-3">
+                      <div className="p-3.5 rounded-xl border border-emerald-300 bg-emerald-50 flex items-center justify-between gap-3">
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="w-12 h-12 rounded-xl bg-black border border-slate-300 flex items-center justify-center p-1 shrink-0 overflow-hidden">
                             <img
@@ -515,7 +754,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             <p className="text-xs font-mono font-bold text-slate-900 truncate">
                               {fileNameInput || 'Local Logo Image'}
                             </p>
-                            <p className="text-[10px] text-[#ff7a00] font-mono flex items-center gap-1">
+                            <p className="text-[10px] text-emerald-600 font-mono flex items-center gap-1">
                               <Check className="w-3 h-3" /> Active on QR Code
                             </p>
                           </div>
@@ -540,8 +779,8 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         onClick={() => fileInputRef.current?.click()}
                         className={`p-6 rounded-2xl border border-dashed transition-all cursor-pointer flex flex-col items-center justify-center text-center gap-2 ${
                           isDragging
-                            ? 'border-[#ff7a00] bg-[#ff7a00]/10 scale-[1.01]'
-                            : 'border-slate-300 hover:border-[#ff7a00] bg-white hover:bg-[#ff7a00]/5'
+                            ? 'border-emerald-500 bg-emerald-50 scale-[1.01]'
+                            : 'border-slate-300 hover:border-emerald-400 bg-white hover:bg-emerald-50'
                         }`}
                       >
                         <input
@@ -551,7 +790,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onChange={handleLogoUpload}
                           className="hidden"
                         />
-                        <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-300 flex items-center justify-center text-[#ff7a00]">
+                        <div className="w-10 h-10 rounded-xl bg-slate-100 border border-slate-300 flex items-center justify-center text-emerald-600">
                           <Upload className="w-5 h-5" />
                         </div>
                         <div>
@@ -559,7 +798,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             Upload local logo from your device
                           </p>
                           <p className="text-[11px] text-slate-500">
-                            Drag & drop here or <span className="text-[#ff7a00] underline">browse files</span> (PNG, JPG, SVG, WebP)
+                            Drag & drop here or <span className="text-emerald-600 underline">browse files</span> (PNG, JPG, SVG, WebP)
                           </p>
                         </div>
                       </div>
@@ -571,7 +810,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     <div className="flex items-center justify-between">
                       <div>
                         <label className="text-xs font-mono font-bold text-slate-900 flex items-center gap-1.5">
-                          <Move className="w-3.5 h-3.5 text-[#ff7a00]" />
+                          <Move className="w-3.5 h-3.5 text-emerald-600" />
                           <span>Logo Alignment & Positioning Provision</span>
                         </label>
                         <p className="text-[11px] text-slate-600">
@@ -590,7 +829,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                               logoOffsetY: 0,
                             }))
                           }
-                          className="text-[11px] text-[#ff7a00] hover:underline flex items-center gap-1 font-mono cursor-pointer"
+                          className="text-[11px] text-emerald-600 hover:underline flex items-center gap-1 font-mono cursor-pointer"
                         >
                           <RotateCcw className="w-3 h-3" />
                           <span>Reset Position</span>
@@ -625,7 +864,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             }
                             className={`py-2 rounded-xl text-xs font-mono font-bold border transition-all cursor-pointer flex items-center justify-center ${
                               isSelected
-                                ? 'bg-[#ff7a00]/15 border-[#ff7a00] text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
+                                ? 'bg-emerald-50 border-emerald-500 text-emerald-600 ring-1 ring-emerald-500/30'
                                 : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
                             }`}
                             title={pos.title}
@@ -641,7 +880,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Horizontal Shift (X)</span>
-                          <span className="font-mono text-[#ff7a00]">
+                          <span className="font-mono text-emerald-600">
                             {config.logoOffsetX || 0}%
                           </span>
                         </div>
@@ -657,14 +896,14 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                               errorCorrectionLevel: 'H',
                             }))
                           }
-                          className="w-full accent-[#ff7a00] cursor-pointer"
+                          className="w-full accent-emerald-500 cursor-pointer"
                         />
                       </div>
 
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Vertical Shift (Y)</span>
-                          <span className="font-mono text-[#ff7a00]">
+                          <span className="font-mono text-emerald-600">
                             {config.logoOffsetY || 0}%
                           </span>
                         </div>
@@ -680,7 +919,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                               errorCorrectionLevel: 'H',
                             }))
                           }
-                          className="w-full accent-[#ff7a00] cursor-pointer"
+                          className="w-full accent-emerald-500 cursor-pointer"
                         />
                       </div>
                     </div>
@@ -689,7 +928,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     <div className="space-y-1.5 pt-1">
                       <div className="flex justify-between text-xs font-mono text-slate-600">
                         <span>Logo Scale / Size</span>
-                        <span className="font-mono font-bold text-[#ff7a00]">
+                        <span className="font-mono font-bold text-emerald-600">
                           {config.logoSizePercent || 22}%
                         </span>
                       </div>
@@ -705,7 +944,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             errorCorrectionLevel: 'H',
                           }))
                         }
-                        className="w-full accent-[#ff7a00] cursor-pointer"
+                        className="w-full accent-emerald-500 cursor-pointer"
                       />
                       <p className="text-[10px] text-slate-500 font-mono">
                         Recommended: 18% - 24% for maximum camera scannability.
@@ -730,7 +969,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             onClick={() => setConfig((prev) => ({ ...prev, logoShape: sh.id }))}
                             className={`px-3 py-1.5 rounded-xl border text-xs font-mono cursor-pointer transition-all ${
                               (config.logoShape || 'circle') === sh.id
-                                ? 'bg-[#ff7a00]/15 border-[#ff7a00] text-[#ff7a00]'
+                                ? 'bg-emerald-50 border-emerald-500 text-emerald-600'
                                 : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
                             }`}
                           >
@@ -754,7 +993,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           }
                           className="sr-only peer"
                         />
-                        <div className="w-10 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#ff7a00]" />
+                        <div className="w-10 h-5 bg-white/20 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-emerald-500 text-white" />
                       </label>
                       <span className="text-xs font-mono text-slate-700">
                         Remove background behind Logo
@@ -781,7 +1020,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         }
                         className={`w-11 h-11 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                           config.presetLogo === 'none' && !config.logoElement
-                            ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00]'
+                            ? 'border-emerald-500 bg-emerald-50 text-emerald-600'
                             : 'border-slate-200 bg-white text-slate-400 hover:border-slate-300'
                         }`}
                         title="None"
@@ -818,7 +1057,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                             }
                             className={`w-11 h-11 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                               isSelected
-                                ? 'border-[#ff7a00] ring-1 ring-[#ff7a00]/40 bg-[#ff7a00]/10'
+                                ? 'border-emerald-500 ring-1 ring-emerald-500/40 bg-emerald-50'
                                 : 'border-slate-200 bg-white hover:border-slate-300'
                             }`}
                             title={logo.label}
@@ -853,7 +1092,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           }
                           className={`h-11 px-3 rounded-xl border flex items-center justify-center cursor-pointer transition-all ${
                             config.presetLogo === b.id
-                              ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00]'
+                              ? 'border-emerald-500 bg-emerald-50 text-emerald-600'
                               : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                           }`}
                         >
@@ -888,7 +1127,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onClick={() => setConfig((prev) => ({ ...prev, shapeStyle: st.id }))}
                           className={`h-12 rounded-xl border flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${
                             config.shapeStyle === st.id
-                              ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
+                              ? 'border-emerald-500 bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/30'
                               : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
                           }`}
                         >
@@ -909,7 +1148,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           value={config.bgColor}
                           disabled={config.transparentBg}
                           onChange={(e) => setConfig((prev) => ({ ...prev, bgColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                         />
                         <input
                           type="color"
@@ -924,7 +1163,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           type="checkbox"
                           checked={config.transparentBg}
                           onChange={(e) => setConfig((prev) => ({ ...prev, transparentBg: e.target.checked }))}
-                          className="accent-[#ff7a00] rounded"
+                          className="accent-emerald-500 rounded"
                         />
                         <span className="text-xs font-mono text-slate-600">Transparent Background</span>
                       </label>
@@ -938,7 +1177,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           type="text"
                           value={config.fgColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, fgColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                         />
                         <input
                           type="color"
@@ -952,7 +1191,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           type="checkbox"
                           checked={config.gradientEnabled}
                           onChange={(e) => setConfig((prev) => ({ ...prev, gradientEnabled: e.target.checked }))}
-                          className="accent-[#ff7a00] rounded"
+                          className="accent-emerald-500 rounded"
                         />
                         <span className="text-xs font-mono text-slate-600">Gradient Accents</span>
                       </label>
@@ -979,7 +1218,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           onClick={() => setConfig((prev) => ({ ...prev, borderStyle: b.id }))}
                           className={`h-12 rounded-xl border flex flex-col items-center justify-center p-1 cursor-pointer transition-all ${
                             config.borderStyle === b.id
-                              ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
+                              ? 'border-emerald-500 bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/30'
                               : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-900'
                           }`}
                         >
@@ -996,7 +1235,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           type="text"
                           value={config.borderColor}
                           onChange={(e) => setConfig((prev) => ({ ...prev, borderColor: e.target.value }))}
-                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
+                          className="w-28 px-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-mono text-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                         />
                         <input
                           type="color"
@@ -1033,7 +1272,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         onClick={() => setConfig((prev) => ({ ...prev, frameType: fr.id }))}
                         className={`w-28 h-28 rounded-xl border flex flex-col items-center justify-center p-2 shrink-0 cursor-pointer transition-all ${
                           config.frameType === fr.id
-                            ? 'border-[#ff7a00] bg-[#ff7a00]/15 text-[#ff7a00] ring-1 ring-[#ff7a00]/30'
+                            ? 'border-emerald-500 bg-emerald-50 text-emerald-600 ring-1 ring-emerald-500/30'
                             : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                         }`}
                       >
@@ -1052,7 +1291,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         value={config.frameLabel}
                         onChange={(e) => setConfig((prev) => ({ ...prev, frameLabel: e.target.value }))}
                         placeholder="SCAN ME"
-                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-[#ff7a00] focus:outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-xl text-xs font-mono text-slate-900 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 focus:outline-none"
                       />
                     </div>
                   )}
@@ -1067,7 +1306,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           <div className="space-y-4">
             {/* Step 3 Badge */}
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-[#ff7a00]/20 text-[#ff7a00] border border-[#ff7a00]/40 flex items-center justify-center text-xs font-mono font-bold shrink-0">
+              <span className="w-5 h-5 rounded-full bg-emerald-500 text-white text-emerald-600 border border-emerald-300 flex items-center justify-center text-xs font-mono font-bold shrink-0">
                 3
               </span>
               <h3 className="text-sm font-mono tracking-wider uppercase font-bold text-slate-900">
@@ -1088,7 +1327,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
             <button
               type="button"
               onClick={handleDownload}
-              className="w-full py-3.5 px-6 rounded-xl bg-[#ff7a00] hover:bg-[#ff8f26] text-black font-extrabold text-sm shadow-lg shadow-[#ff7a00]/20 flex items-center justify-center gap-2 transition-all cursor-pointer font-mono tracking-wider uppercase"
+              className="w-full py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer font-mono tracking-wider uppercase"
             >
               <Download className="w-4 h-4" />
               <span>Download PNG QR Code</span>
@@ -1101,7 +1340,7 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                 onClick={handleDownloadSvg}
                 className="py-2.5 px-3 rounded-xl border border-slate-300 hover:border-slate-400 bg-white hover:bg-slate-100 text-slate-900 text-xs font-mono tracking-wide flex items-center justify-center gap-1.5 transition-all cursor-pointer"
               >
-                <Download className="w-3.5 h-3.5 text-[#ff7a00]" />
+                <Download className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Vector SVG</span>
               </button>
 
@@ -1112,12 +1351,12 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
               >
                 {isCopied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-[#ff7a00]" />
-                    <span className="text-[#ff7a00] font-bold">Copied!</span>
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-emerald-600 font-bold">Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-[#ff7a00]" />
+                    <Copy className="w-3.5 h-3.5 text-emerald-600" />
                     <span>Copy Image</span>
                   </>
                 )}
@@ -1126,24 +1365,60 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           </div>
         </div>
       </div>
+      </div>
 
-      {/* Bottom Features Strip (Clean dashed hairline features, zero boxy cards) */}
-      <div className="border-t border-slate-200 pt-8 grid grid-cols-2 sm:grid-cols-4 gap-6 text-slate-700 text-center">
-        <div className="flex flex-col items-center justify-center gap-2 p-2">
-          <Smartphone className="w-5 h-5 text-[#ff7a00]" />
-          <span className="text-xs font-mono tracking-wide">Fully Customized Landing Pages</span>
+      {/* ================= 5. ADVANCED QR CODE GENERATOR FEATURES (From Screenshot) ================= */}
+      <div className="py-12 border-t border-slate-200 space-y-10">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Experience the most <br />
+            <span className="text-emerald-500">Advanced QR code</span> generator
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            We&apos;ve built the market&apos;s most powerful and customizable QR code software, packing it full of functionality while keeping it 100% private, client-side, and free.
+          </p>
         </div>
-        <div className="flex flex-col items-center justify-center gap-2 p-2">
-          <FileText className="w-5 h-5 text-[#ff7a00]" />
-          <span className="text-xs font-mono tracking-wide">Dynamic VCard & Wi-Fi Codes</span>
-        </div>
-        <div className="flex flex-col items-center justify-center gap-2 p-2">
-          <QrIcon className="w-5 h-5 text-[#ff7a00]" />
-          <span className="text-xs font-mono tracking-wide">Custom Shapes & Eye Borders</span>
-        </div>
-        <div className="flex flex-col items-center justify-center gap-2 p-2">
-          <ImageIcon className="w-5 h-5 text-[#ff7a00]" />
-          <span className="text-xs font-mono tracking-wide">Vector SVG & Logo Embedding</span>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-3 group">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+              <Smartphone className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">Dynamic Multi-Content</h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Support for 15+ protocols: URLs, vCards, Wi-Fi access, SMS, WhatsApp direct chat, and apps.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-3 group">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+              <Palette className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">Custom Shapes &amp; Eye Borders</h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Choose from rounded, squircle, or hexagon dots with customizable corner eye patterns.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-3 group">
+            <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+              <Upload className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">Local Logo Embedding</h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Upload your brand logo with 9 anchor position options, size slider, and transparent margin padding.
+            </p>
+          </div>
+
+          <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition-all space-y-3 group">
+            <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform shadow-xs">
+              <Download className="w-6 h-6" />
+            </div>
+            <h4 className="text-sm font-bold text-slate-900">Lossless Vector SVG Export</h4>
+            <p className="text-xs text-slate-500 leading-relaxed">
+              Export ultra-crisp resolution-independent vector SVG or high-res PNG ready for commercial print.
+            </p>
+          </div>
         </div>
       </div>
     </div>

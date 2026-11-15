@@ -297,7 +297,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] flex flex-col font-sans selection:bg-[#F59E0B] selection:text-white">
+    <div className="min-h-screen bg-[#f8fafc] text-[#0f172a] flex flex-col font-sans selection:bg-emerald-500 selection:text-white">
       {/* Top Navigation Bar with Sub-Navigation Tabs */}
       <Header
         hasVideo={!!video}
@@ -329,11 +329,11 @@ export function App() {
                   onClick={() => setCutterMode('single')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'single'
-                      ? 'bg-slate-900 text-white shadow-xs'
+                      ? 'bg-emerald-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <Scissors className="w-3.5 h-3.5 text-[#F59E0B]" />
+                  <Scissors className="w-3.5 h-3.5 text-white" />
                   <span>Video Splitter &amp; Cutter</span>
                 </button>
                 <button
@@ -341,11 +341,11 @@ export function App() {
                   onClick={() => setCutterMode('batch')}
                   className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${
                     cutterMode === 'batch'
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold shadow-xs'
+                      ? 'bg-emerald-600 text-white font-bold shadow-xs'
                       : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
-                  <Smartphone className="w-3.5 h-3.5 text-slate-900" />
+                  <Smartphone className="w-3.5 h-3.5" />
                   <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
                 </button>
               </div>

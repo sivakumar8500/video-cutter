@@ -346,7 +346,7 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-6 border-b border-slate-200">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-[11px] font-mono font-bold uppercase tracking-wider">
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-mono font-bold uppercase tracking-wider">
               Media Processing Suite
             </span>
             <span className="text-xs text-slate-500">• 100% Client-Side FFmpeg</span>
@@ -366,7 +366,7 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
             onClick={() => setActiveMode('url-downloader')}
             className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
               activeMode === 'url-downloader'
-                ? 'bg-gradient-to-r from-orange-500 to-amber-500 text-slate-950 shadow-sm'
+                ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/25'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
             }`}
           >
@@ -412,7 +412,7 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <Link className="w-5 h-5 text-amber-500" />
+                  <Link className="w-5 h-5 text-emerald-500" />
                   <span>Download Video From Any URL</span>
                 </h3>
                 <p className="text-xs text-slate-600 mt-0.5">
@@ -425,7 +425,7 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
                 onClick={handlePasteFromClipboard}
                 className="px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer shrink-0 shadow-xs"
               >
-                <Copy className="w-3.5 h-3.5 text-amber-600" />
+                <Copy className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Paste from Clipboard</span>
               </button>
             </div>
@@ -438,7 +438,7 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
                   value={inputUrl}
                   onChange={(e) => setInputUrl(e.target.value)}
                   placeholder="https://example.com/video.mp4 or direct web link..."
-                  className="w-full h-12 pl-4 pr-10 rounded-2xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-amber-500 font-mono transition shadow-inner"
+                  className="w-full h-12 pl-4 pr-10 rounded-2xl bg-slate-50 border border-slate-300 text-sm text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-emerald-500 font-mono transition shadow-inner"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') handleFetchUrlVideo();
                   }}
@@ -458,16 +458,16 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
                 type="button"
                 onClick={() => handleFetchUrlVideo()}
                 disabled={isFetchingUrl || !inputUrl.trim()}
-                className="h-12 px-6 rounded-2xl bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-500 hover:from-orange-400 hover:to-yellow-400 text-slate-950 font-extrabold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shrink-0"
+                className="h-12 px-6 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-extrabold text-sm shadow-md shadow-emerald-500/20 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 shrink-0"
               >
                 {isFetchingUrl ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-slate-950" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                     <span>Fetching...</span>
                   </>
                 ) : (
                   <>
-                    <Download className="w-4 h-4 text-slate-950" />
+                    <Download className="w-4 h-4 text-white" />
                     <span>Fetch &amp; Download</span>
                   </>
                 )}
@@ -494,8 +494,8 @@ export const MediaToolsStudio: React.FC<MediaToolsStudioProps> = ({ onSendToVide
 
             {/* Loading message */}
             {isFetchingUrl && (
-              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center gap-2.5 font-medium">
-                <Loader2 className="w-4 h-4 animate-spin text-amber-600 shrink-0" />
+              <div className="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2.5 font-medium">
+                <Loader2 className="w-4 h-4 animate-spin text-emerald-600 shrink-0" />
                 <span>{urlFetchProgress || 'Fetching video stream into browser memory...'}</span>
               </div>
             )}

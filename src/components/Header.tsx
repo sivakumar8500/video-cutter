@@ -21,7 +21,7 @@ export const Header: React.FC<HeaderProps> = ({
   onTabChange,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#E8E2D9] bg-white/95 backdrop-blur-xl shadow-xs">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200/80 bg-white/95 backdrop-blur-xl shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between gap-4">
           {/* Brand Logo & Name */}
@@ -32,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({
                 e.preventDefault();
                 onTabChange('home');
               }}
-              className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-sm border border-[#E8E2D9] shrink-0 cursor-pointer"
+              className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-sm border border-slate-200 shrink-0 cursor-pointer"
               title="VidCuts - In-Browser Media Suite Home"
               aria-label="VidCuts Home"
             >
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
                     e.preventDefault();
                     onTabChange('home');
                   }}
-                  className="font-extrabold text-base sm:text-lg tracking-tight text-[#2B140D] hover:text-[#5B2E1E] transition-colors cursor-pointer"
+                  className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900 hover:text-emerald-600 transition-colors cursor-pointer"
                   title="VidCuts Home"
                 >
                   VidCuts
@@ -59,7 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
                   href="https://www.reeyanshtech.in/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FEF3C7] hover:bg-[#FDE68A] text-[#B45309] border border-[#FDE68A] transition-all cursor-pointer group"
+                  className="hidden sm:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition-all cursor-pointer group"
                   title="Visit Reeyansh Tech Solutions Official Website"
                 >
                   <img
@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
-              <p className="text-[11px] text-[#6B4E44] hidden md:block">
+              <p className="text-[11px] text-slate-500 hidden md:block">
                 100% In-Browser Video, Image, PDF &amp; QR Suite
               </p>
             </div>
@@ -88,10 +88,10 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('home');
               }}
               aria-current={activeTab === 'home' ? 'page' : undefined}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'home'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="VidCuts Home Overview"
             >
@@ -105,10 +105,10 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('video-cutter');
               }}
               aria-current={activeTab === 'video-cutter' ? 'page' : undefined}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'video-cutter'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="Video Cutter &amp; Splitter Tool"
             >
@@ -123,10 +123,10 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('media-tools');
               }}
               aria-current={activeTab === 'media-tools' ? 'page' : undefined}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'media-tools'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="Media Tools - URL Downloader, Audio Extractor &amp; Remover"
             >
@@ -141,10 +141,10 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('image-studio');
               }}
               aria-current={activeTab === 'image-studio' ? 'page' : undefined}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'image-studio'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="Image Studio - Aspect Crop &amp; Shape Mask Editor"
             >
@@ -159,15 +159,17 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('pdf-studio');
               }}
               aria-current={activeTab === 'pdf-studio' ? 'page' : undefined}
-              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer ${
                 activeTab === 'pdf-studio'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="32 Client-Side PDF Tools Suite"
             >
               <span>PDF Tools</span>
-              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A]">
+              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full ${
+                activeTab === 'pdf-studio' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+              }`}>
                 32
               </span>
             </a>
@@ -179,10 +181,10 @@ export const Header: React.FC<HeaderProps> = ({
                 onTabChange('qr');
               }}
               aria-current={activeTab === 'qr' ? 'page' : undefined}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer inline-flex items-center ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                 activeTab === 'qr'
-                  ? 'bg-[#2B140D] text-white font-extrabold shadow-sm'
-                  : 'text-[#5C3D32] hover:text-[#2B140D] hover:bg-[#F5EFE6]'
+                  ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
               }`}
               title="Custom Vector QR Code Studio &amp; Scanner"
             >
@@ -192,18 +194,18 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Right Status Badges & Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FEF3C7] border border-[#FDE68A] text-[#B45309] text-xs font-mono font-medium">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#F59E0B]" />
+            <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium shadow-xs">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span>100% Private</span>
             </div>
 
             {hasVideo && activeTab === 'video-cutter' && (
               <button
                 onClick={onReset}
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-[#2B140D] hover:bg-[#F5EFE6] bg-white border border-[#E8E2D9] rounded-lg transition-all duration-150 cursor-pointer shadow-xs"
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-800 hover:bg-slate-50 bg-white border border-slate-200 rounded-xl transition-all duration-150 cursor-pointer shadow-xs"
                 title="Reset video task"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-[#F59E0B]" />
+                <RefreshCw className="w-3.5 h-3.5 text-emerald-600" />
                 <span className="hidden sm:inline">New Video</span>
               </button>
             )}
