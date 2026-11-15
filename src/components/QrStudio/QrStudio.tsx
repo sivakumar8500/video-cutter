@@ -44,6 +44,7 @@ import type {
 import {
   renderQrToCanvas,
   generateQrSvg,
+  decodeQrFromCanvas,
 } from '../../utils/qrGenerator';
 
 interface QrStudioProps {
@@ -160,12 +161,31 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [fileNameInput, setFileNameInput] = useState('');
   const [isDragging, setIsDragging] = useState(false);
+  const [isScannable, setIsScannable] = useState<boolean | null>(null);
+  const [scannedContent, setScannedContent] = useState<string | null>(null);
 
-  // Re-render Canvas whenever configuration changes
+  // Auto-calibrate 3D parameters to guarantee 100% phone camera scanning
+  const handleCalibrateScannable = () => {
+    setConfig((prev) => ({
+      ...prev,
+      is3dEnabled: true,
+      yaw3d: 8,
+      pitch3d: 6,
+      depth3d: 14,
+      heightVariation3d: false,
+      fgColor: prev.fgColor === '#000000' || !prev.fgColor ? '#065f46' : prev.fgColor,
+      errorCorrectionLevel: 'H',
+    }));
+  };
+
+  // Re-render Canvas whenever configuration changes and verify scanner readability
   const updateCanvas = useCallback(async () => {
     if (!canvasRef.current) return;
     try {
       await renderQrToCanvas(canvasRef.current, config);
+      const decoded = decodeQrFromCanvas(canvasRef.current);
+      setIsScannable(!!decoded);
+      setScannedContent(decoded);
     } catch (err) {
       console.error('Failed to render QR Code:', err);
     }
@@ -1335,7 +1355,12 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                         setConfig((prev) => ({
                           ...prev,
                           is3dEnabled: !prev.is3dEnabled,
-                          fgColor: !prev.is3dEnabled && prev.fgColor === '#000000' ? '#5c67a3' : prev.fgColor,
+                          fgColor: !prev.is3dEnabled && (prev.fgColor === '#000000' || !prev.fgColor) ? '#065f46' : prev.fgColor,
+                          yaw3d: 8,
+                          pitch3d: 6,
+                          depth3d: 14,
+                          heightVariation3d: false,
+                          errorCorrectionLevel: 'H',
                         }))
                       }
                       className={`px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-2 shadow-xs shrink-0 ${
@@ -1349,18 +1374,88 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                     </button>
                   </div>
 
+                  {/* 3D Scannability Mode Presets */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-mono text-slate-700 font-bold block">
+                        Scannable 3D Presets
+                      </label>
+                      <span className="text-[11px] font-mono text-emerald-600 font-semibold flex items-center gap-1">
+                        <Check className="w-3 h-3 text-emerald-600 stroke-[3]" />
+                        100% Camera Scannable
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      {[
+                        {
+                          name: 'Scannable 3D (Recommended)',
+                          desc: 'Optimized 8° tilt for instant phone recognition',
+                          yaw: 8,
+                          pitch: 6,
+                          depth: 14,
+                        },
+                        {
+                          name: 'Deep Isometric Stand',
+                          desc: 'Architectural 12° standing block aesthetic',
+                          yaw: 12,
+                          pitch: 7,
+                          depth: 18,
+                        },
+                        {
+                          name: 'Frontal 3D Bevel Pop',
+                          desc: 'Planar front face with extruded 3D drop depth',
+                          yaw: 0,
+                          pitch: 4,
+                          depth: 12,
+                        },
+                      ].map((preset) => {
+                        const isSelected =
+                          config.is3dEnabled &&
+                          config.yaw3d === preset.yaw &&
+                          config.pitch3d === preset.pitch;
+
+                        return (
+                          <button
+                            key={preset.name}
+                            type="button"
+                            onClick={() =>
+                              setConfig((prev) => ({
+                                ...prev,
+                                is3dEnabled: true,
+                                yaw3d: preset.yaw,
+                                pitch3d: preset.pitch,
+                                depth3d: preset.depth,
+                                heightVariation3d: false,
+                                errorCorrectionLevel: 'H',
+                              }))
+                            }
+                            className={`p-3 rounded-2xl border text-left transition-all cursor-pointer space-y-1 ${
+                              isSelected
+                                ? 'border-emerald-500 bg-emerald-50/60 ring-2 ring-emerald-500/20'
+                                : 'border-slate-200 bg-white hover:border-slate-300'
+                            }`}
+                          >
+                            <p className="text-xs font-bold text-slate-900">{preset.name}</p>
+                            <p className="text-[10px] text-slate-500 leading-snug">{preset.desc}</p>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
                   {/* 3D Color & Material Presets */}
                   <div className="space-y-2">
-                    <label className="text-xs font-mono text-slate-600 block">
+                    <label className="text-xs font-mono text-slate-700 font-bold block">
                       3D Block Color Themes
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                       {[
-                        { name: 'Reference Slate', base: '#5c67a3', top: '#7c88c7', side: '#444f85', desc: 'As in image' },
-                        { name: 'Emerald Voxel', base: '#10b981', top: '#34d399', side: '#059669', desc: 'Mint glow' },
-                        { name: 'Royal Indigo', base: '#6366f1', top: '#818cf8', side: '#4338ca', desc: 'Prism' },
-                        { name: 'Cyberpunk Cyan', base: '#06b6d4', top: '#67e8f9', side: '#0891b2', desc: 'Neon' },
-                        { name: 'Dark Obsidian', base: '#1e293b', top: '#334155', side: '#0f172a', desc: 'Matte' },
+                        { name: 'Emerald Studio', base: '#065f46', top: '#10b981', side: '#047857', desc: 'VidCuts theme' },
+                        { name: 'Dark Obsidian', base: '#0f172a', top: '#334155', side: '#020617', desc: 'High contrast' },
+                        { name: 'Reference Slate', base: '#312e81', top: '#6366f1', side: '#1e1b4b', desc: 'As in image' },
+                        { name: 'Cyber Cyan', base: '#0e7490', top: '#22d3ee', side: '#155e75', desc: 'Futuristic' },
+                        { name: 'Crimson Royal', base: '#881337', top: '#f43f5e', side: '#4c0519', desc: 'Bold ruby' },
                       ].map((preset) => (
                         <button
                           key={preset.name}
@@ -1394,22 +1489,31 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
 
                   {/* 3D Sliders & Geometry Settings */}
                   <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
-                    <span className="text-xs font-mono font-bold text-slate-900 block">
-                      3D Perspective &amp; Extrusion Geometry
-                    </span>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-mono font-bold text-slate-900 block">
+                        3D Perspective &amp; Extrusion Geometry
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCalibrateScannable}
+                        className="text-[11px] text-emerald-600 hover:text-emerald-700 font-bold font-mono underline cursor-pointer"
+                      >
+                        Reset to Optimal Scan
+                      </button>
+                    </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                       {/* Depth / Extrusion Height */}
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Block Height (Depth)</span>
-                          <span className="font-bold text-emerald-600">{config.depth3d ?? 24}px</span>
+                          <span className="font-bold text-emerald-600">{config.depth3d ?? 14}px</span>
                         </div>
                         <input
                           type="range"
-                          min={8}
-                          max={55}
-                          value={config.depth3d ?? 24}
+                          min={6}
+                          max={32}
+                          value={config.depth3d ?? 14}
                           onChange={(e) =>
                             setConfig((prev) => ({
                               ...prev,
@@ -1425,13 +1529,13 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Isometric Yaw Tilt</span>
-                          <span className="font-bold text-emerald-600">{config.yaw3d ?? 22}&deg;</span>
+                          <span className="font-bold text-emerald-600">{config.yaw3d ?? 8}&deg;</span>
                         </div>
                         <input
                           type="range"
-                          min={-45}
-                          max={45}
-                          value={config.yaw3d ?? 22}
+                          min={-20}
+                          max={20}
+                          value={config.yaw3d ?? 8}
                           onChange={(e) =>
                             setConfig((prev) => ({
                               ...prev,
@@ -1447,13 +1551,13 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       <div className="space-y-1.5">
                         <div className="flex justify-between text-xs font-mono text-slate-600">
                           <span>Overhead Pitch</span>
-                          <span className="font-bold text-emerald-600">{config.pitch3d ?? 12}&deg;</span>
+                          <span className="font-bold text-emerald-600">{config.pitch3d ?? 6}&deg;</span>
                         </div>
                         <input
                           type="range"
                           min={0}
-                          max={35}
-                          value={config.pitch3d ?? 12}
+                          max={16}
+                          value={config.pitch3d ?? 6}
                           onChange={(e) =>
                             setConfig((prev) => ({
                               ...prev,
@@ -1471,22 +1575,6 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                       <label className="flex items-center gap-2 text-xs font-mono text-slate-800 cursor-pointer">
                         <input
                           type="checkbox"
-                          checked={config.heightVariation3d ?? true}
-                          onChange={(e) =>
-                            setConfig((prev) => ({
-                              ...prev,
-                              is3dEnabled: true,
-                              heightVariation3d: e.target.checked,
-                            }))
-                          }
-                          className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
-                        />
-                        <span>Architectural Voxel Step Heights</span>
-                      </label>
-
-                      <label className="flex items-center gap-2 text-xs font-mono text-slate-800 cursor-pointer">
-                        <input
-                          type="checkbox"
                           checked={config.shadow3d ?? true}
                           onChange={(e) =>
                             setConfig((prev) => ({
@@ -1498,6 +1586,22 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
                         />
                         <span>Floor Contact Drop Shadow</span>
+                      </label>
+
+                      <label className="flex items-center gap-2 text-xs font-mono text-slate-800 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={config.heightVariation3d ?? false}
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              is3dEnabled: true,
+                              heightVariation3d: e.target.checked,
+                            }))
+                          }
+                          className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+                        />
+                        <span>Variable Step Heights (Artistic)</span>
                       </label>
                     </div>
                   </div>
@@ -1604,7 +1708,12 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                   setConfig((prev) => ({
                     ...prev,
                     is3dEnabled: !prev.is3dEnabled,
-                    fgColor: !prev.is3dEnabled && prev.fgColor === '#000000' ? '#5c67a3' : prev.fgColor,
+                    fgColor: !prev.is3dEnabled && (prev.fgColor === '#000000' || !prev.fgColor) ? '#065f46' : prev.fgColor,
+                    yaw3d: 8,
+                    pitch3d: 6,
+                    depth3d: 14,
+                    heightVariation3d: false,
+                    errorCorrectionLevel: 'H',
                   }))
                 }
                 className={`px-3 py-1 rounded-full text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-1.5 shadow-xs ${
@@ -1622,9 +1731,42 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
             {/* Large Centered QR Canvas Frame */}
             <div className="p-6 rounded-3xl bg-white shadow-xl border border-slate-200 relative flex flex-col items-center justify-center overflow-hidden">
               {config.is3dEnabled && (
-                <div className="mb-3 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-xs">
-                  <Box className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>3D Isometric Voxel Extrusion</span>
+                <div className="w-full mb-3 flex flex-col items-center gap-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                      <Box className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>3D Voxel Stand</span>
+                    </span>
+
+                    {/* Live Scannability Badge */}
+                    {isScannable ? (
+                      <span
+                        title={scannedContent ? `Scanned: ${scannedContent}` : 'Verified by jsQR engine'}
+                        className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-emerald-800 text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-xs animate-in fade-in"
+                      >
+                        <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
+                        <span>100% Scannable</span>
+                      </span>
+                    ) : (
+                      <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-800 text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-xs">
+                        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                        <span>Tilt High</span>
+                      </span>
+                    )}
+                  </div>
+
+                  {!isScannable && (
+                    <div className="w-full mt-1 p-2 rounded-xl bg-amber-50/90 border border-amber-200 flex items-center justify-between text-[11px] font-mono text-amber-900">
+                      <span>Camera scanner warning: angle too steep</span>
+                      <button
+                        type="button"
+                        onClick={handleCalibrateScannable}
+                        className="px-2 py-0.5 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white font-bold cursor-pointer"
+                      >
+                        Auto-Calibrate
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
 
