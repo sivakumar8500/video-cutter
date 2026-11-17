@@ -10,6 +10,7 @@ import {
   ArrowRight,
   AlertCircle,
   CheckCircle2,
+  FolderOpen,
 } from 'lucide-react';
 import type { LoadedImageInfo } from '../../types/imageStudio';
 import { generateSampleImage, loadImageFromUrl } from '../../utils/imageStudioCanvas';
@@ -19,28 +20,10 @@ interface ImageUploaderProps {
 }
 
 const SAMPLE_URLS = [
-  {
-    label: 'Mountain',
-    url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80',
-  },
-  {
-    label: 'Portrait',
-    url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80',
-  },
-  {
-    label: 'Birthday',
-    url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&q=80',
-  },
-  {
-    label: 'Neon City',
-    url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=80',
-  },
-];
-
-const FEATURES = [
-  { icon: ShieldCheck, label: '100% Private', desc: 'Never leaves your device', color: 'emerald' },
-  { icon: ImageIcon, label: '9 Shapes', desc: 'Circle, Heart, Star & more', color: 'violet' },
-  { icon: Zap, label: 'KB Reducer', desc: 'Hit any target file size', color: 'amber' },
+  { label: 'Mountain', url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1200&q=80' },
+  { label: 'Portrait', url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80' },
+  { label: 'Birthday', url: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?w=1200&q=80' },
+  { label: 'City Night', url: 'https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1200&q=80' },
 ];
 
 export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) => {
@@ -95,23 +78,20 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
 
   const handleLoadFromUrl = async (urlOverride?: string) => {
     const targetUrl = (urlOverride || inputUrl).trim();
-    if (!targetUrl) {
-      setUrlError('Please paste an image URL first.');
-      return;
-    }
+    if (!targetUrl) { setUrlError('Please paste an image URL first.'); return; }
     setUrlError(null);
     setUrlSuccess(false);
     setIsLoadingUrl(true);
     try {
       const loaded = await loadImageFromUrl(targetUrl);
       setUrlSuccess(true);
-      setTimeout(() => setUrlSuccess(false), 1500);
+      setTimeout(() => setUrlSuccess(false), 2000);
       onImageLoaded(loaded);
     } catch (err: unknown) {
       setUrlError(
         err instanceof Error
           ? err.message
-          : 'Could not fetch this image. Try another URL or download and upload the image directly.'
+          : 'Could not load this image. Try another URL or download and upload directly.'
       );
     } finally {
       setIsLoadingUrl(false);
@@ -121,57 +101,58 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
   return (
     <div className="max-w-4xl mx-auto space-y-4">
 
-      {/* ── Main Drop Zone ── */}
+      {/* ── Drop Zone ── */}
       <div
         onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
         className={`
-          relative group cursor-pointer select-none
-          rounded-2xl border-2 border-dashed
-          px-8 py-12 sm:py-16 text-center
-          transition-all duration-200 overflow-hidden
+          relative group cursor-pointer select-none rounded-2xl
+          border-2 border-dashed transition-all duration-200
+          px-6 py-12 sm:py-16 text-center overflow-hidden
           ${isDragging
-            ? 'border-violet-500 bg-violet-50 shadow-lg shadow-violet-100'
-            : 'border-slate-300 hover:border-violet-400 bg-white hover:bg-violet-50/40 shadow-sm'
+            ? 'border-green-500 bg-green-50 shadow-lg shadow-green-100'
+            : 'border-green-300 bg-white hover:border-green-500 hover:bg-green-50/60 shadow-sm'
           }
         `}
       >
         <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
 
-        {/* subtle bg pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, #7c3aed 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
-
-        <div className="relative flex flex-col items-center gap-4">
-          {/* Icon */}
-          <div className="relative">
-            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-200
-              ${isDragging ? 'bg-violet-600 shadow-lg shadow-violet-500/40 scale-110' : 'bg-violet-600 group-hover:shadow-lg group-hover:shadow-violet-500/30 group-hover:scale-105'}
-            `}>
-              <UploadCloud className="w-8 h-8 text-white" />
-            </div>
+        <div className="flex flex-col items-center gap-5">
+          {/* Upload Icon */}
+          <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-200 shadow-md
+            ${isDragging ? 'bg-green-600 scale-110 shadow-green-400/40' : 'bg-green-600 group-hover:scale-105 group-hover:shadow-green-400/30'}
+          `}>
+            <UploadCloud className="w-8 h-8 text-white" />
           </div>
 
-          {/* Copy */}
-          <div className="space-y-1">
-            <p className="text-lg font-bold text-slate-800">
-              {isDragging ? 'Drop to upload' : 'Drop image here'}
-            </p>
-            <p className="text-sm text-slate-500">
+          {/* Text */}
+          <div className="space-y-1.5">
+            <h3 className="text-xl font-bold text-black">
+              {isDragging ? 'Release to upload' : 'Drop your image here'}
+            </h3>
+            <p className="text-sm text-gray-500">
               or{' '}
-              <span className="text-violet-600 font-semibold underline underline-offset-2 decoration-violet-400/60">
-                click to browse
+              <span className="text-green-600 font-semibold underline underline-offset-2 cursor-pointer">
+                click to browse files
               </span>
-              {' '}— PNG, JPG, WebP, SVG, GIF
             </p>
+            <p className="text-xs text-gray-400 mt-1">PNG · JPG · WebP · SVG · GIF · BMP</p>
           </div>
 
-          {/* Format pills */}
-          <div className="flex flex-wrap justify-center gap-1.5 pt-1">
-            {['Custom Resize', 'Shape Crop', 'KB Reduce', 'Filters & Adjust', 'Watermark', 'Frames'].map((f) => (
-              <span key={f} className="px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-600 border border-slate-200">
+          {/* Feature chips */}
+          <div className="flex flex-wrap justify-center gap-2 pt-1">
+            {[
+              '🔲 Resize & Compress',
+              '⭕ Shape Cropping',
+              '⚡ KB Target',
+              '🎨 Filters',
+              '🖼️ Frames',
+              '💧 Watermark',
+            ].map((f) => (
+              <span key={f}
+                className="px-3 py-1 rounded-full text-xs font-medium bg-white text-black border border-green-200 shadow-sm">
                 {f}
               </span>
             ))}
@@ -180,37 +161,39 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
       </div>
 
       {/* ── URL Loader + Sample ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-5 gap-4">
 
-        {/* URL Input — takes 3/5 */}
-        <div className="sm:col-span-3 bg-white border border-slate-200 rounded-2xl p-4 shadow-sm space-y-3">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-indigo-100 flex items-center justify-center shrink-0">
-              <Globe className="w-4 h-4 text-indigo-600" />
+        {/* URL Input — 3 cols */}
+        <div className="sm:col-span-3 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm space-y-3">
+          {/* Header */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-green-600 flex items-center justify-center shrink-0">
+              <Globe className="w-4 h-4 text-white" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-800">Load from URL</p>
-              <p className="text-[11px] text-slate-500 leading-tight">Paste any image link — Unsplash, CDN, news sites, etc.</p>
+              <p className="text-sm font-bold text-black">Load from URL</p>
+              <p className="text-xs text-gray-500">Paste any image link — CDN, news sites, Unsplash, etc.</p>
             </div>
           </div>
 
+          {/* Input row */}
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
+              <LinkIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
               <input
                 type="url"
                 value={inputUrl}
                 onChange={(e) => { setInputUrl(e.target.value); setUrlError(null); setUrlSuccess(false); }}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleLoadFromUrl(); }}
-                placeholder="https://example.com/photo.jpg"
-                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/10 text-xs text-slate-800 placeholder-slate-400 focus:outline-none transition-all font-mono"
+                placeholder="https://example.com/image.jpg"
+                className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-gray-50 border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/15 text-xs text-black placeholder-gray-400 focus:outline-none transition-all font-mono"
               />
             </div>
             <button
               type="button"
               onClick={() => handleLoadFromUrl()}
               disabled={isLoadingUrl || !inputUrl.trim()}
-              className="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-sm shadow-violet-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0 cursor-pointer"
+              className="px-4 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0 cursor-pointer"
             >
               {isLoadingUrl ? (
                 <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -219,28 +202,28 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
               ) : (
                 <ArrowRight className="w-3.5 h-3.5" />
               )}
-              <span>{isLoadingUrl ? 'Loading...' : 'Load'}</span>
+              <span>{isLoadingUrl ? 'Loading...' : urlSuccess ? 'Loaded!' : 'Load'}</span>
             </button>
           </div>
 
           {/* Error */}
           {urlError && (
-            <div className="flex items-start gap-2 p-2.5 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
+            <div className="flex items-start gap-2 p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs">
               <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
               <span className="leading-snug">{urlError}</span>
             </div>
           )}
 
-          {/* Quick sample URLs */}
+          {/* Quick presets */}
           <div className="flex flex-wrap gap-1.5 items-center">
-            <span className="text-[10px] text-slate-400 font-medium shrink-0">Try:</span>
+            <span className="text-[10px] text-gray-400 font-medium">Try:</span>
             {SAMPLE_URLS.map((s) => (
               <button
                 key={s.label}
                 type="button"
                 disabled={isLoadingUrl}
                 onClick={() => { setInputUrl(s.url); handleLoadFromUrl(s.url); }}
-                className="px-2 py-0.5 rounded-lg bg-slate-100 hover:bg-violet-50 hover:text-violet-700 hover:border-violet-200 border border-slate-200 text-[10px] text-slate-600 transition-colors cursor-pointer disabled:opacity-50"
+                className="px-2.5 py-0.5 rounded-lg text-[11px] font-medium bg-green-50 text-green-700 border border-green-200 hover:bg-green-100 transition-colors cursor-pointer disabled:opacity-50"
               >
                 {s.label}
               </button>
@@ -248,53 +231,64 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
           </div>
         </div>
 
-        {/* Sample Image — takes 2/5 */}
-        <div className="sm:col-span-2 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-4 shadow-sm flex flex-col justify-between gap-3">
+        {/* Sample Image — 2 cols */}
+        <div className="sm:col-span-2 bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex flex-col gap-4 justify-between">
           <div className="flex items-start gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center shrink-0">
-              <Sparkles className="w-4 h-4 text-amber-600" />
+            <div className="w-8 h-8 rounded-xl bg-green-100 border border-green-200 flex items-center justify-center shrink-0">
+              <Sparkles className="w-4 h-4 text-green-700" />
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-800">No image?</p>
-              <p className="text-[11px] text-slate-500 leading-tight">Generate a demo image to try all editing features instantly.</p>
+              <p className="text-sm font-bold text-black">No image yet?</p>
+              <p className="text-xs text-gray-500 leading-snug">Generate a demo image to explore all editing tools instantly.</p>
             </div>
           </div>
-          <button
-            onClick={handleLoadSample}
-            disabled={isLoadingSample}
-            className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-white text-xs font-bold shadow-sm shadow-amber-500/30 transition-all cursor-pointer disabled:opacity-60"
-          >
-            <Zap className="w-3.5 h-3.5" />
-            {isLoadingSample ? 'Generating...' : 'Generate Sample'}
-          </button>
+
+          <div className="space-y-2">
+            <button
+              onClick={handleLoadSample}
+              disabled={isLoadingSample}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-green-600 hover:bg-green-500 text-white text-sm font-bold shadow-sm transition-all cursor-pointer disabled:opacity-60"
+            >
+              <Zap className="w-4 h-4" />
+              {isLoadingSample ? 'Generating...' : 'Try Demo Image'}
+            </button>
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full flex items-center justify-center gap-2 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-black text-xs font-semibold transition-all cursor-pointer"
+            >
+              <FolderOpen className="w-3.5 h-3.5" />
+              Browse Files
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* ── Feature Info Row ── */}
-      <div className="grid grid-cols-3 gap-3">
-        {FEATURES.map(({ icon: Icon, label, desc, color }) => (
-          <div
-            key={label}
-            className={`p-3.5 rounded-xl border flex items-start gap-2.5
-              ${color === 'emerald' ? 'bg-emerald-50 border-emerald-200' : ''}
-              ${color === 'violet' ? 'bg-violet-50 border-violet-200' : ''}
-              ${color === 'amber' ? 'bg-amber-50 border-amber-200' : ''}
-            `}
-          >
-            <div className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0
-              ${color === 'emerald' ? 'bg-emerald-100 border border-emerald-200' : ''}
-              ${color === 'violet' ? 'bg-violet-100 border border-violet-200' : ''}
-              ${color === 'amber' ? 'bg-amber-100 border border-amber-200' : ''}
-            `}>
-              <Icon className={`w-4 h-4
-                ${color === 'emerald' ? 'text-emerald-600' : ''}
-                ${color === 'violet' ? 'text-violet-600' : ''}
-                ${color === 'amber' ? 'text-amber-600' : ''}
-              `} />
+      {/* ── Feature Info Cards ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        {[
+          {
+            icon: ShieldCheck,
+            title: '100% Private & Local',
+            desc: 'Your images never leave your device. All processing happens inside your browser.',
+          },
+          {
+            icon: ImageIcon,
+            title: '9 Shape Masks',
+            desc: 'Crop into Circle, Squircle, Heart, Star, Hexagon, Diamond, Shield & more.',
+          },
+          {
+            icon: Zap,
+            title: 'Target KB Reducer',
+            desc: 'Set an exact KB target or slide the quality bar to shrink any image instantly.',
+          },
+        ].map(({ icon: Icon, title, desc }) => (
+          <div key={title} className="flex items-start gap-3 p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+            <div className="w-9 h-9 rounded-xl bg-green-600 flex items-center justify-center shrink-0 shadow-sm">
+              <Icon className="w-4 h-4 text-white" />
             </div>
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-800 leading-tight">{label}</p>
-              <p className="text-[10px] text-slate-500 mt-0.5 leading-snug">{desc}</p>
+            <div>
+              <p className="text-xs font-bold text-black">{title}</p>
+              <p className="text-[11px] text-gray-500 mt-0.5 leading-relaxed">{desc}</p>
             </div>
           </div>
         ))}

@@ -123,17 +123,17 @@ export const ImageStudio: React.FC = () => {
       {/* ── Hero Heading for Image Studio ── */}
       {!imageInfo && (
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-100 border border-violet-200 text-violet-700 text-xs font-bold shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 border border-green-300 text-green-700 text-xs font-bold shadow-sm">
             <span>🖼️ 100% Client-Side In-Browser Image Studio</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-black leading-tight">
             Resize, Compress &amp;{' '}
-            <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+            <span className="text-green-600">
               Crop Into Shapes
             </span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
             Reduce file size to exact KB targets, crop into viral shapes (Circle, Squircle, Heart, Star, Hexagon, Shield), customize borders, and apply instant enhancements.
           </p>
         </div>
