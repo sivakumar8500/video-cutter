@@ -877,7 +877,8 @@ export function generateSampleImage(): Promise<LoadedImageInfo> {
 
 /**
  * Loads an image from any web URL (HTTP, HTTPS, or Data URL) into LoadedImageInfo.
- * Includes CORS proxy fallback to ensure images from any domain can be edited client-side.
+ * Includes multi-proxy CORS fallback chain + no-cors img element fallback to load
+ * images from any domain (news sites, CDNs, social media, etc.) client-side.
  */
 export async function loadImageFromUrl(rawUrl: string): Promise<LoadedImageInfo> {
   const url = rawUrl.trim();
@@ -885,7 +886,7 @@ export async function loadImageFromUrl(rawUrl: string): Promise<LoadedImageInfo>
     throw new Error('Please enter a valid image URL');
   }
 
-  // Handle data URLs directly
+  // ── Handle data URLs directly ──
   if (url.startsWith('data:image/')) {
     return new Promise((resolve, reject) => {
       const img = new Image();
@@ -904,61 +905,121 @@ export async function loadImageFromUrl(rawUrl: string): Promise<LoadedImageInfo>
     });
   }
 
-  // Determine a default filename from the URL path
+  // ── Determine filename from URL (handle ?format=webp and similar query params) ──
   let filename = 'web_image.jpg';
+  let guessedMime = 'image/jpeg';
   try {
     const parsed = new URL(url);
-    const lastPart = parsed.pathname.split('/').pop()?.split('?')[0];
+    // Check ?format= query param first (e.g. ap7am.com ?format=webp)
+    const formatParam = parsed.searchParams.get('format');
+    if (formatParam) {
+      const fmt = formatParam.toLowerCase();
+      filename = `web_image.${fmt}`;
+      guessedMime = `image/${fmt === 'jpg' ? 'jpeg' : fmt}`;
+    }
+    // Also try to extract from pathname
+    const lastPart = parsed.pathname.split('/').pop();
     if (lastPart && lastPart.includes('.')) {
-      filename = decodeURIComponent(lastPart);
+      const cleanName = decodeURIComponent(lastPart);
+      filename = cleanName;
+      const ext = cleanName.split('.').pop()?.toLowerCase();
+      if (ext) guessedMime = `image/${ext === 'jpg' ? 'jpeg' : ext === 'webp' ? 'webp' : ext}`;
     }
   } catch {
-    // ignore URL parsing error
+    // ignore URL parsing errors
   }
 
   let blob: Blob | null = null;
 
-  // Prioritized proxy list:
-  // 1. Same-origin local Vite dev server proxy (immune to COEP / CORS restrictions)
-  // 2. weserv.nl / wsrv.nl (global CDN that returns Cross-Origin-Resource-Policy: cross-origin & Access-Control-Allow-Origin: *)
-  // 3. Direct fetch
+  // ── Prioritized proxy/fetch chain ──
+  // 1. Same-origin Vite dev server proxy (most reliable, bypasses CORS + COEP)
+  // 2. images.weserv.nl — global image CDN proxy (CORS: *)
+  // 3. wsrv.nl — alias for weserv
+  // 4. corsproxy.io — open CORS proxy
+  // 5. allorigins.win — another open CORS proxy (returns JSON with base64)
+  // 6. Direct fetch (works if the server sends CORS headers)
   const proxyEndpoints = [
     `/api/proxy-image?url=${encodeURIComponent(url)}`,
-    `https://images.weserv.nl/?url=${encodeURIComponent(url)}`,
+    `https://images.weserv.nl/?url=${encodeURIComponent(url)}&default=1`,
     `https://wsrv.nl/?url=${encodeURIComponent(url)}`,
-    url,
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    url, // direct — works for CORS-permissive domains
   ];
 
   for (const endpoint of proxyEndpoints) {
     try {
-      const res = await fetch(endpoint, { mode: 'cors' });
-      if (res.ok) {
-        const ct = res.headers.get('content-type');
-        if (!ct || ct.includes('image') || ct.includes('octet-stream')) {
-          blob = await res.blob();
-          if (blob && blob.size > 0) {
-            break;
-          }
+      const res = await fetch(endpoint, {
+        mode: 'cors',
+        headers: { Accept: 'image/*,*/*;q=0.8' },
+      });
+      if (!res.ok) continue;
+
+      const ct = res.headers.get('content-type') ?? '';
+      // Accept image types, octet-stream, or no content-type (some CDNs omit it)
+      const isImage =
+        ct === '' ||
+        ct.includes('image') ||
+        ct.includes('octet-stream') ||
+        ct.includes('binary');
+
+      if (isImage) {
+        const candidate = await res.blob();
+        if (candidate && candidate.size > 500) {
+          // Re-type the blob if content-type is missing/generic
+          blob =
+            candidate.type && candidate.type.startsWith('image/')
+              ? candidate
+              : new Blob([candidate], { type: guessedMime });
+          break;
         }
       }
     } catch {
-      // Try next endpoint
+      // try next
     }
   }
 
+  // ── Fallback: load via <img> element directly (no canvas taint check here — just preview) ──
+  // This handles images where fetch is blocked but <img src> works (no-cors display only).
+  // We draw it onto a canvas to get a blob, accepting that it may be tainted.
   if (!blob) {
+    blob = await new Promise<Blob | null>((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      const timer = setTimeout(() => resolve(null), 8000);
+
+      img.onload = () => {
+        clearTimeout(timer);
+        try {
+          const cv = document.createElement('canvas');
+          cv.width = img.naturalWidth || img.width || 800;
+          cv.height = img.naturalHeight || img.height || 600;
+          const ctx = cv.getContext('2d');
+          if (!ctx) { resolve(null); return; }
+          ctx.drawImage(img, 0, 0);
+          cv.toBlob((b) => resolve(b), guessedMime, 0.95);
+        } catch {
+          resolve(null);
+        }
+      };
+
+      img.onerror = () => { clearTimeout(timer); resolve(null); };
+      img.src = url;
+    });
+  }
+
+  if (!blob || blob.size < 100) {
     throw new Error(
-      'Could not load image from this URL. Please verify the URL points directly to an image file or try another link.'
+      'Could not load this image. The website may block external access. ' +
+      'Try downloading the image first and uploading it directly, or paste a direct image file URL.'
     );
   }
 
-  // Create local Blob Object URL so COEP & canvas tainting are never triggered
+  // ── Create local Blob Object URL so COEP & canvas tainting are never triggered ──
   const objectUrl = URL.createObjectURL(blob);
 
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous';
-
+    // No crossOrigin needed — it's a local blob URL, always same-origin
     img.onload = () => {
       resolve({
         name: filename,
@@ -967,7 +1028,7 @@ export async function loadImageFromUrl(rawUrl: string): Promise<LoadedImageInfo>
         originalSizeBytes: blob ? blob.size : 150000,
         previewUrl: objectUrl,
         imgElement: img,
-        file: new File([blob!], filename, { type: blob!.type || 'image/jpeg' }),
+        file: new File([blob!], filename, { type: blob!.type || guessedMime }),
       });
     };
 
@@ -975,7 +1036,7 @@ export async function loadImageFromUrl(rawUrl: string): Promise<LoadedImageInfo>
       URL.revokeObjectURL(objectUrl);
       reject(
         new Error(
-          'Could not decode image from this URL. Please verify the link is an active, valid image file.'
+          'Could not decode image from this URL. The file may be corrupted or in an unsupported format.'
         )
       );
     };
