@@ -115,8 +115,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      {/* Drag & Drop Zone */}
+    <div className="max-w-4xl mx-auto space-y-5">
+
+      {/* ── Drag & Drop Zone ── */}
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -125,9 +126,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         onDragLeave={() => setIsDragging(false)}
         onDrop={handleDrop}
         onClick={() => fileInputRef.current?.click()}
-        className={`relative group cursor-pointer rounded-3xl border-2 border-dashed p-10 sm:p-14 text-center transition-all duration-300 ${isDragging
-          ? 'border-cyan-500 bg-cyan-50/50 scale-[1.01] shadow-xl'
-          : 'border-slate-300 hover:border-cyan-500 bg-white hover:bg-slate-50/70 shadow-sm'
+        className={`relative group cursor-pointer rounded-3xl border-2 border-dashed p-10 sm:p-14 text-center transition-all duration-300 overflow-hidden
+          ${isDragging
+            ? 'border-violet-500 bg-violet-50 scale-[1.01] shadow-xl shadow-violet-200/60'
+            : 'border-violet-300/60 hover:border-violet-500 bg-gradient-to-br from-violet-50 via-white to-indigo-50/70 hover:shadow-xl hover:shadow-violet-100/60'
           }`}
       >
         <input
@@ -138,68 +140,73 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
           className="hidden"
         />
 
-        <div className="flex flex-col items-center justify-center space-y-4">
+        {/* Background decorative orbs */}
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-violet-200/40 to-transparent rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-indigo-200/30 to-transparent rounded-full blur-2xl pointer-events-none" />
+
+        <div className="relative flex flex-col items-center justify-center space-y-5">
+          {/* Upload Icon */}
           <div className="relative">
-            <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-2xl blur-lg opacity-25 group-hover:opacity-40 transition duration-300"></div>
-            <div className="relative w-16 h-16 rounded-2xl bg-cyan-50 border border-cyan-200 flex items-center justify-center text-cyan-600 group-hover:scale-110 transition-transform duration-200">
-              <UploadCloud className="w-8 h-8" />
+            <div className="absolute -inset-3 bg-gradient-to-r from-violet-500 to-indigo-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition duration-300" />
+            <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-violet-500/35 group-hover:scale-110 transition-transform duration-200">
+              <UploadCloud className="w-9 h-9" />
             </div>
           </div>
 
-          <div className="space-y-1">
-            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          {/* Text */}
+          <div className="space-y-1.5">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
               Drop your image here, or{' '}
-              <span className="text-cyan-600 underline decoration-cyan-500/40 underline-offset-4">
-                browse
+              <span className="text-violet-600 underline decoration-violet-400/50 underline-offset-4 decoration-2">
+                browse files
               </span>
             </h3>
-            <p className="text-sm text-slate-600 max-w-md mx-auto">
-              Supports PNG, JPG, WebP, SVG, and GIF. 100% private in-browser editing.
+            <p className="text-sm text-slate-500 max-w-sm mx-auto leading-relaxed">
+              PNG · JPG · WebP · SVG · GIF &nbsp;·&nbsp; 100% private in-browser editing
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+          {/* Feature Pills */}
+          <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-violet-100 text-violet-700 border border-violet-200/80 shadow-sm">
               🔲 Custom Dimensions
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200/80 shadow-sm">
               ⭕ Shape Cropping
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-fuchsia-100 text-fuchsia-700 border border-fuchsia-200/80 shadow-sm">
               ⚡ KB Size Reducer
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
-              🎨 Color & Filters
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-pink-100 text-pink-700 border border-pink-200/80 shadow-sm">
+              🎨 Color &amp; Filters
             </span>
           </div>
         </div>
       </div>
 
-      {/* Option 2: Paste Any Image URL */}
-      <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-600">
-              <Globe className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-                <span>Load Image from Web URL</span>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-cyan-50 text-cyan-700 border border-cyan-200 uppercase tracking-wider">
-                  Any Link
-                </span>
-              </h4>
-              <p className="text-xs text-slate-600">
-                Paste any online image URL (Unsplash, Pexels, CDN, or web link) to preview & edit.
-              </p>
-            </div>
+      {/* ── Load from Web URL ── */}
+      <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-indigo-100 border border-indigo-200 flex items-center justify-center text-indigo-600 shrink-0">
+            <Globe className="w-5 h-5" />
+          </div>
+          <div>
+            <h4 className="text-sm font-bold text-slate-800 flex items-center gap-2">
+              Load Image from Web URL
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 border border-indigo-200 uppercase tracking-wider">
+                Any Link
+              </span>
+            </h4>
+            <p className="text-xs text-slate-500">
+              Paste any online image URL (Unsplash, Pexels, CDN, or web link) to preview &amp; edit.
+            </p>
           </div>
         </div>
 
-        {/* URL Input Bar */}
-        <div className="space-y-2">
-          <div className="flex flex-col sm:flex-row items-center gap-2">
-            <div className="relative flex-1 w-full">
+        {/* URL Input */}
+        <div className="space-y-2.5">
+          <div className="flex flex-col sm:flex-row items-stretch gap-2">
+            <div className="relative flex-1">
               <LinkIcon className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="url"
@@ -209,45 +216,43 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
                   if (urlError) setUrlError(null);
                 }}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleLoadFromUrl();
-                  }
+                  if (e.key === 'Enter') handleLoadFromUrl();
                 }}
                 placeholder="Paste image link e.g. https://images.unsplash.com/photo-..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 focus:border-cyan-500 text-xs text-slate-900 placeholder-slate-400 focus:outline-none transition-all font-mono"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/15 text-xs text-slate-800 placeholder-slate-400 focus:outline-none transition-all font-mono"
               />
             </div>
             <button
               type="button"
               onClick={() => handleLoadFromUrl()}
               disabled={isLoadingUrl || !inputUrl.trim()}
-              className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-cyan-500/20 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
+              className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-violet-500/25 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-all shrink-0"
             >
               {isLoadingUrl ? (
                 <>
-                  <div className="w-3.5 h-3.5 border-2 border-white/20 border-t-white rounded-full animate-spin" />
-                  <span>Fetching Image...</span>
+                  <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <span>Fetching...</span>
                 </>
               ) : (
                 <>
-                  <span>Load & Edit</span>
+                  <span>Load &amp; Edit</span>
                   <ArrowRight className="w-4 h-4" />
                 </>
               )}
             </button>
           </div>
 
-          {/* Error Message */}
+          {/* Error */}
           {urlError && (
-            <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{urlError}</span>
             </div>
           )}
 
-          {/* Quick Preset URLs */}
-          <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-            <span className="text-[11px] text-slate-500 font-medium">Quick Examples:</span>
+          {/* Quick sample URLs */}
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="text-[11px] text-slate-400 font-medium">Quick Examples:</span>
             {SAMPLE_URLS.map((sample) => (
               <button
                 key={sample.label}
@@ -257,7 +262,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
                   handleLoadFromUrl(sample.url);
                 }}
                 disabled={isLoadingUrl}
-                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-cyan-50 hover:text-cyan-700 border border-slate-200 text-[11px] text-slate-700 transition-all cursor-pointer disabled:opacity-50"
+                className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-violet-50 hover:text-violet-700 hover:border-violet-200 border border-slate-200 text-[11px] text-slate-600 transition-all cursor-pointer disabled:opacity-50"
               >
                 {sample.label}
               </button>
@@ -266,15 +271,15 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         </div>
       </div>
 
-      {/* Or Try Sample Image Button */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+      {/* ── Try Sample Image ── */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/80 shadow-sm">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-600">
+          <div className="w-10 h-10 rounded-xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-amber-600 shrink-0">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <h4 className="text-sm font-semibold text-slate-900">Don't have an image ready?</h4>
-            <p className="text-xs text-slate-600">
+            <h4 className="text-sm font-semibold text-slate-800">Don't have an image ready?</h4>
+            <p className="text-xs text-slate-500 mt-0.5">
               Generate a high-res sample artwork to explore resizing, shapes, and filters.
             </p>
           </div>
@@ -283,43 +288,50 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageLoaded }) =
         <button
           onClick={handleLoadSample}
           disabled={isLoadingSample}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 text-white text-sm font-semibold shadow-md shadow-cyan-500/20 transition-all cursor-pointer disabled:opacity-50"
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white text-sm font-semibold shadow-md shadow-amber-500/25 transition-all cursor-pointer disabled:opacity-50"
         >
           <Zap className="w-4 h-4" />
           <span>{isLoadingSample ? 'Generating Sample...' : 'Try Demo Sample Image'}</span>
         </button>
       </div>
 
-      {/* Features Overview Badges */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
-          <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+      {/* ── Feature Info Cards ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3">
+          <div className="w-8 h-8 rounded-lg bg-emerald-100 border border-emerald-200 flex items-center justify-center shrink-0 mt-0.5">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          </div>
           <div>
-            <h5 className="text-xs font-bold text-slate-900">100% Local & Secure</h5>
-            <p className="text-[11px] text-slate-600">
+            <h5 className="text-xs font-bold text-slate-800">100% Local &amp; Secure</h5>
+            <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
               Images never leave your device. All resizing and masking happen client-side.
             </p>
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
-          <ImageIcon className="w-5 h-5 text-cyan-600 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-violet-50 border border-violet-200 flex items-start gap-3">
+          <div className="w-8 h-8 rounded-lg bg-violet-100 border border-violet-200 flex items-center justify-center shrink-0 mt-0.5">
+            <ImageIcon className="w-4 h-4 text-violet-600" />
+          </div>
           <div>
-            <h5 className="text-xs font-bold text-slate-900">9 Viral Shapes</h5>
-            <p className="text-[11px] text-slate-600">
-              Crop into Circle, Squircle, Heart, Star, Hexagon, Diamond, or Shield with borders.
+            <h5 className="text-xs font-bold text-slate-800">9 Viral Shapes</h5>
+            <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
+              Crop into Circle, Squircle, Heart, Star, Hexagon, Diamond, or Shield.
             </p>
           </div>
         </div>
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-xs flex items-start gap-3">
-          <Zap className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 flex items-start gap-3">
+          <div className="w-8 h-8 rounded-lg bg-amber-100 border border-amber-200 flex items-center justify-center shrink-0 mt-0.5">
+            <Zap className="w-4 h-4 text-amber-600" />
+          </div>
           <div>
-            <h5 className="text-xs font-bold text-slate-900">Target KB Reducer</h5>
-            <p className="text-[11px] text-slate-600">
+            <h5 className="text-xs font-bold text-slate-800">Target KB Reducer</h5>
+            <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">
               Specify your target file size in KB or drag the quality slider for instant shrinkage.
             </p>
           </div>
         </div>
       </div>
+
     </div>
   );
 };

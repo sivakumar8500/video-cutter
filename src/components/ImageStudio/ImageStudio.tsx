@@ -120,17 +120,20 @@ export const ImageStudio: React.FC = () => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
-      {/* Hero Heading for Image Studio */}
+      {/* ── Hero Heading for Image Studio ── */}
       {!imageInfo && (
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold">
-            <span>✨ 100% Client-Side In-Browser Image Studio</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-100 border border-violet-200 text-violet-700 text-xs font-bold shadow-sm">
+            <span>🖼️ 100% Client-Side In-Browser Image Studio</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Resize, Compress & Crop Any Image Into Shapes
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            Resize, Compress &amp;{' '}
+            <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
+              Crop Into Shapes
+            </span>
           </h1>
-          <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
             Reduce file size to exact KB targets, crop into viral shapes (Circle, Squircle, Heart, Star, Hexagon, Shield), customize borders, and apply instant enhancements.
           </p>
         </div>
