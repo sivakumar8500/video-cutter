@@ -133,7 +133,7 @@ export const ImageStudio: React.FC = () => {
               Crop Into Shapes
             </span>
           </h1>
-          <p className="text-sm sm:text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Reduce file size to exact KB targets, crop into viral shapes (Circle, Squircle, Heart, Star, Hexagon, Shield), customize borders, and apply instant enhancements.
           </p>
         </div>
