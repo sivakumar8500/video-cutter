@@ -429,7 +429,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
   return (
     <div
       ref={containerRef}
-      className="bg-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 space-y-6 shadow-xl flex flex-col justify-between"
+      className="bg-white border border-slate-200/90 rounded-3xl p-5 sm:p-6 space-y-6 shadow-sm flex flex-col justify-between"
     >
       {/* Top Header: Comparison stats & actions */}
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200">
@@ -452,7 +452,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
               </span>
             )}
           </h3>
-          <p className="text-xs text-slate-500 flex flex-wrap items-center gap-2 mt-0.5">
+          <p className="text-xs text-green-700 flex flex-wrap items-center gap-2 mt-0.5">
             <span className="font-medium text-slate-700">{config.resize.width} × {config.resize.height} px</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-mono border border-emerald-200 font-bold">
               {Math.round((config.resize.quality || 0.95) * 100)}% Q
@@ -509,7 +509,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
               onClick={handleQuickQualityBoost}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 config.resize.scalePercent > 100 || (config.adjustments.sharpness ?? 0) > 0
-                  ? 'bg-emerald-600 text-white border-emerald-500 font-bold shadow-md shadow-emerald-600/20'
+                  ? 'bg-emerald-600 text-black border-emerald-500 font-bold shadow-md shadow-emerald-600/20'
                   : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200'
               }`}
               title="Toggle 2x HD Quality Boost & Sharpness"
@@ -529,7 +529,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
               onClick={() => setShowUrlBar(!showUrlBar)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${
                 showUrlBar
-                  ? 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-600/20'
+                  ? 'bg-emerald-600 text-black border-emerald-500 shadow-md shadow-emerald-600/20'
                   : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-200'
               }`}
               title="Load image from URL"
@@ -562,14 +562,14 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
             <button
               type="button"
               onClick={() => setShowUrlBar(false)}
-              className="text-slate-400 hover:text-slate-700 cursor-pointer"
+              className="text-green-700 hover:text-slate-700 cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
           <div className="flex items-center gap-2">
             <div className="relative flex-1">
-              <LinkIcon className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <LinkIcon className="w-3.5 h-3.5 text-green-700 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="url"
                 value={urlInput}
@@ -588,7 +588,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
               type="button"
               onClick={() => handleFetchUrl()}
               disabled={isLoadingUrl || !urlInput.trim()}
-              className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-all shrink-0 shadow-sm shadow-emerald-600/20"
+              className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-black font-bold text-xs flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-all shrink-0 shadow-sm shadow-emerald-600/20"
             >
               {isLoadingUrl ? (
                 <>
@@ -613,7 +613,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
       )}
 
       {/* Canvas Viewport Area */}
-      <div className="relative min-h-[360px] sm:min-h-[440px] rounded-2xl bg-[#070b13] border border-slate-800/80 overflow-hidden flex items-center justify-center p-6 select-none group">
+      <div className="relative min-h-[360px] sm:min-h-[440px] rounded-2xl bg-green-50 border border-green-200 overflow-hidden flex items-center justify-center p-6 select-none group">
         {/* Subtle checkerboard for alpha transparency */}
         <div
           className="absolute inset-0 opacity-15 pointer-events-none"
@@ -626,13 +626,13 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
 
         {/* Floating Hint: Move via Cursor or Crop Mode */}
         {!config.crop?.active ? (
-          <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-slate-200 text-[11px] text-emerald-800 backdrop-blur-md shadow-md">
+          <div className="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 border border-slate-200 text-[11px] text-emerald-800 shadow-md">
             <span>✋ Click & drag to move image</span>
-            <span className="text-slate-400">•</span>
+            <span className="text-green-700">•</span>
             <span>Scroll to zoom</span>
           </div>
         ) : (
-          <div className="absolute top-3 left-3 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-600 border border-emerald-500 text-[11px] text-white backdrop-blur-md shadow-lg font-semibold">
+          <div className="absolute top-3 left-3 z-30 flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-600 border border-emerald-500 text-[11px] text-black shadow-lg font-semibold">
             <Crop className="w-3.5 h-3.5" />
             <span>Drag box or handles to crop</span>
           </div>
@@ -640,7 +640,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
 
         {/* Position coordinate indicator when moved */}
         {hasCustomPosition && !config.crop?.active && (
-          <div className="absolute top-3 right-3 z-20 pointer-events-none px-2.5 py-1 rounded-full bg-white/90 border border-slate-200 text-[10px] font-mono text-slate-700 backdrop-blur-md shadow-xs">
+          <div className="absolute top-3 right-3 z-20 pointer-events-none px-2.5 py-1 rounded-full bg-white/90 border border-slate-200 text-[10px] font-mono text-slate-700 shadow-xs">
             X: {config.adjustments.offsetX}px | Y: {config.adjustments.offsetY}px |{' '}
             {Math.round((config.adjustments.zoom || 1) * 100)}%
           </div>
@@ -755,7 +755,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
             onMouseUp={() => setShowOriginal(false)}
             onTouchStart={() => setShowOriginal(true)}
             onTouchEnd={() => setShowOriginal(false)}
-            className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-900 shadow-md backdrop-blur-md cursor-pointer transition-all"
+            className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white/90 hover:bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-slate-900 shadow-md cursor-pointer transition-all"
           >
             <Eye className="w-3.5 h-3.5 text-emerald-600" />
             <span>Hold for Original</span>
@@ -764,7 +764,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
 
         {/* Quick Inner Photo Adjustment Toolbar when Frame is active */}
         {config.frame?.enabled && !config.crop?.active && (
-          <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1.5 p-1.5 rounded-xl bg-white/95 border border-slate-200 backdrop-blur-md shadow-xl text-xs">
+          <div className="absolute bottom-3 right-3 z-20 flex items-center gap-1.5 p-1.5 rounded-xl bg-white/95 border border-slate-200 shadow-sm text-xs">
             <span className="text-[10px] text-emerald-700 font-bold px-1.5 uppercase hidden sm:inline">
               Inner Photo:
             </span>
@@ -892,7 +892,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
           <div className="absolute bottom-4 z-30 flex items-center gap-2 bg-white/95 border border-slate-200 p-2 rounded-2xl shadow-2xl backdrop-blur-md">
             <button
               onClick={handleApplyCrop}
-              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-black text-xs font-bold rounded-xl shadow-lg shadow-emerald-500/20 flex items-center gap-1.5 cursor-pointer"
             >
               <Check className="w-4 h-4" />
               <span>Apply Crop</span>
@@ -915,11 +915,11 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
       {/* File Size & Resolution Comparison Metric Ribbon */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-200/80">
         <div>
-          <div className="text-[10px] uppercase font-bold text-slate-500">Original</div>
+          <div className="text-[10px] uppercase font-bold text-green-700">Original</div>
           <div className="text-xs sm:text-sm font-bold text-slate-800">
             {imageInfo.originalWidth} × {imageInfo.originalHeight}
           </div>
-          <div className="text-[11px] text-slate-500">
+          <div className="text-[11px] text-green-700">
             {formatFileSize(imageInfo.originalSizeBytes)}
           </div>
         </div>
@@ -935,10 +935,10 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
         </div>
 
         <div className="col-span-2 sm:col-span-1 flex items-center justify-between sm:flex-col sm:items-start sm:justify-center border-t sm:border-t-0 sm:border-l border-emerald-200/70 pt-2 sm:pt-0 sm:pl-3">
-          <div className="text-[10px] uppercase font-bold text-slate-500">Format</div>
+          <div className="text-[10px] uppercase font-bold text-green-700">Format</div>
           <div className="inline-flex items-center gap-1 text-xs font-bold text-slate-800 uppercase">
             <span>{config.exportFormat.replace('image/', '')}</span>
-            <span className="text-slate-500 font-normal">
+            <span className="text-green-700 font-normal">
               ({Math.round(config.resize.quality * 100)}% Q)
             </span>
           </div>
@@ -950,7 +950,7 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
         <button
           onClick={handleDownload}
           disabled={isExporting}
-          className="w-full sm:flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-600 hover:from-emerald-500 hover:via-emerald-500 hover:to-teal-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          className="w-full sm:flex-1 py-3.5 px-6 rounded-2xl bg-gradient-to-r from-emerald-600 via-emerald-600 to-teal-600 hover:from-emerald-500 hover:via-emerald-500 hover:to-teal-500 text-black font-bold text-sm shadow-sm shadow-emerald-600/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
         >
           <Download className="w-4 h-4" />
           <span>
