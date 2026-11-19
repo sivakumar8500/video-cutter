@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Film,
   Image as ImageIcon,
   FileText,
   QrCode,
   ArrowRight,
-  Play,
-  Pause,
   Scissors,
-  RotateCw,
   Music,
+  ShieldCheck,
+  Zap,
+  Globe,
+  Download,
+  Layers,
+  Sparkles,
+  Smartphone,
+  Lock,
+  Eye,
+  CheckCircle2,
+  Maximize2,
+  VolumeX,
+  FileCheck,
+  Palette,
+  ScanLine,
+  Sliders,
+  Share2,
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
 
@@ -19,758 +33,782 @@ interface HomePageProps {
 }
 
 export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
-  // Video Scrubber Simulation State
-  const [isPlayingSim, setIsPlayingSim] = useState(true);
-  const [playheadPos, setPlayheadPos] = useState(38);
-  const [activeStudioTab, setActiveStudioTab] = useState<'video' | 'media' | 'image' | 'pdf' | 'qr'>('video');
+  const [active3dIndex, setActive3dIndex] = useState(0);
 
-  // Thermodynamic / Precision Temperature Slider State (Oryzo.ai T=0.1, T=1, T=10)
-  const [tempMode, setTempMode] = useState<'deterministic' | 'balanced' | 'extreme'>('deterministic');
-
-  // Smart Flip Encryption State (Oryzo.ai #encryption input flip)
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [encryptInput, setEncryptInput] = useState('LEGAL_CONTRACT_2026.PDF');
-
-  // Friction / Speed Zoom Box State (Oryzo.ai #grip)
-  const [frictionAngle, setFrictionAngle] = useState(0);
-
-  // Product Selection Tier State (Oryzo, Oryzo Pro, Oryzo Pro Max)
-  const [selectedProductTier, setSelectedProductTier] = useState<0 | 1 | 2>(1);
-
-  // FAQ Accordion State
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  // Playhead scrubber loop
-  useEffect(() => {
-    if (!isPlayingSim) return;
-    const interval = setInterval(() => {
-      setPlayheadPos((prev) => (prev >= 96 ? 4 : prev + 1));
-    }, 120);
-    return () => clearInterval(interval);
-  }, [isPlayingSim]);
+  const modules = [
+    {
+      id: 'video-cutter' as ActiveTab,
+      name: 'Video Cutter',
+      tagline: 'Lossless 4K & Vertical Shorts',
+      icon: Scissors,
+      badge: 'FFmpeg WASM',
+      color: 'bg-green-600',
+      lightBg: 'bg-green-50',
+      borderColor: 'border-green-300',
+    },
+    {
+      id: 'media-tools' as ActiveTab,
+      name: 'Media Tools',
+      tagline: 'URL Downloader & Audio Extractor',
+      icon: Music,
+      badge: 'Lossless MP3',
+      color: 'bg-emerald-600',
+      lightBg: 'bg-emerald-50',
+      borderColor: 'border-emerald-300',
+    },
+    {
+      id: 'image-studio' as ActiveTab,
+      name: 'Image Studio',
+      tagline: '9 Shape Masks & KB Reducer',
+      icon: ImageIcon,
+      badge: '9 Shapes',
+      color: 'bg-teal-600',
+      lightBg: 'bg-teal-50',
+      borderColor: 'border-teal-300',
+    },
+    {
+      id: 'pdf-studio' as ActiveTab,
+      name: '32 PDF Tools',
+      tagline: 'Merge, Split, Protect & Convert',
+      icon: FileText,
+      badge: '32 In-1 Engine',
+      color: 'bg-green-700',
+      lightBg: 'bg-green-50',
+      borderColor: 'border-green-300',
+    },
+    {
+      id: 'qr' as ActiveTab,
+      name: 'QR Studio',
+      tagline: 'Custom Vector QR & Scanner',
+      icon: QrCode,
+      badge: '15+ Protocols',
+      color: 'bg-green-600',
+      lightBg: 'bg-green-50',
+      borderColor: 'border-green-300',
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-white text-black selection:bg-green-500/30 selection:text-black font-sans overflow-x-hidden pb-24">
-      {/* Top Ambient Horizon Glow (Warm Studio Light) */}
+    <div className="min-h-screen bg-white text-black selection:bg-green-200 selection:text-black font-sans overflow-x-hidden pb-24">
+      {/* Dynamic 3D Animation Styles */}
+      <style>{`
+        @keyframes float3d-1 {
+          0%, 100% { transform: translateY(0px) rotateX(6deg) rotateY(-8deg); }
+          50% { transform: translateY(-16px) rotateX(-6deg) rotateY(10deg); }
+        }
+        @keyframes float3d-2 {
+          0%, 100% { transform: translateY(-10px) rotateX(-6deg) rotateY(10deg); }
+          50% { transform: translateY(8px) rotateX(8deg) rotateY(-6deg); }
+        }
+        @keyframes float3d-3 {
+          0%, 100% { transform: translateY(0px) rotateX(10deg) rotateY(6deg); }
+          50% { transform: translateY(-20px) rotateX(-8deg) rotateY(-8deg); }
+        }
+        @keyframes pulseSoft {
+          0%, 100% { transform: scale(1); opacity: 0.8; }
+          50% { transform: scale(1.08); opacity: 1; }
+        }
+        .animate-float-1 { animation: float3d-1 4.5s ease-in-out infinite; }
+        .animate-float-2 { animation: float3d-2 5.2s ease-in-out infinite; }
+        .animate-float-3 { animation: float3d-3 4.8s ease-in-out infinite; }
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+      `}</style>
+
+      {/* Top Ambient Glow */}
       <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[900px] h-[350px] bg-gradient-to-b from-green-500/10 via-white to-transparent blur-3xl pointer-events-none z-0" />
 
-      {/* ================= 1. HERO SECTION (#hero) ================= */}
-      <section id="hero" className="relative z-10 pt-12 sm:pt-20 pb-16 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
-        {/* Top Tagline Row with Logo Reference */}
-        <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-widest text-green-700 border-b border-green-200 pb-4">
+      {/* ========================================================================= */}
+      {/* SECTION 1: HERO & GRAND APPLICATION OVERVIEW WITH 3D ICONS ANIMATION */}
+      {/* ========================================================================= */}
+      <section className="relative z-10 pt-12 sm:pt-20 pb-20 px-4 sm:px-8 max-w-6xl mx-auto space-y-12">
+        {/* Status Pill */}
+        <div className="flex flex-wrap items-center justify-between gap-4 text-xs font-mono tracking-widest text-green-800 border-b border-green-200 pb-4">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            <span className="uppercase font-bold text-black">Made for creators. Built for hardware.</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+            <span className="uppercase font-bold text-black">100% IN-BROWSER MULTIMEDIA &amp; DOCUMENT SUITE</span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] text-green-700">
-            <span>[ 100% IN-BROWSER ]</span>
-            <span>[ 0 BYTES SERVER UPLOAD ]</span>
-            <span>[ FFmpeg WASM ]</span>
-          </div>
-        </div>
-
-        {/* Hero Copy */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-8 space-y-6">
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black leading-[1.05]">
-              Designed to slice, crop, <br className="hidden sm:inline" />
-              insulate &amp; generate in all <br className="hidden sm:inline" />
-              the <span className="text-green-600 font-bold">right ways.</span>
-            </h1>
-            <p className="text-base sm:text-lg text-green-700 max-w-2xl leading-relaxed font-normal">
-              VidCuts makes the simplest media task feel considered. 4K lossless video cutting, shape-masked image avatars, 32 client-side PDF tools, and precision vector QR codes running entirely in your browser memory.
-            </p>
-          </div>
-
-          {/* Hero Editorial Column */}
-          <div className="lg:col-span-4 space-y-4 lg:pl-6 lg:border-l border-green-200">
-            <div className="space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-green-600 font-bold block">
-                CREATIVE STUDIO
-              </span>
-              <h4 className="text-sm font-bold text-black leading-snug">
-                Engineered by Reeyansh Tech Solutions, the high-performance media lab.
-              </h4>
-            </div>
-            <div className="o-dashline my-2" />
-            <p className="text-xs text-green-700 leading-relaxed font-mono">
-              The world&apos;s most unnecessarily sophisticated in-browser media suite.
-            </p>
-            <div className="pt-2 flex items-center gap-2">
-              <a
-                href="#video-cutter"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate('video-cutter');
-                }}
-                className="w-full py-2.5 rounded-full bg-green-900 hover:bg-black text-white font-black text-xs uppercase tracking-wider transition-all cursor-pointer flex items-center justify-center gap-2 shadow-sm"
-                title="Launch Video Cutter &amp; Splitter Tool"
-              >
-                <span>Open Video Cutter</span>
-                <ArrowRight className="w-3.5 h-3.5 text-green-500" />
-              </a>
-            </div>
+          <div className="flex items-center gap-4 text-[11px] text-green-700 font-semibold">
+            <span>[ ZERO SERVER UPLOADS ]</span>
+            <span>[ CLIENT-SIDE WASM ]</span>
+            <span>[ HARDWARE ACCELERATED ]</span>
           </div>
         </div>
 
-        {/* ================= HERO VIDEO / INTERACTIVE VIEWPORT (#hero-video-wrapper) ================= */}
-        <div className="relative rounded-3xl overflow-hidden bg-white glow-oryzo-video border border-green-200 p-4 sm:p-8 space-y-6 shadow-sm">
-          {/* Studio Selector Tabs */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-green-200 pb-4">
-            <div className="flex items-center gap-2">
-              {[
-                { id: 'video' as const, label: 'Video Slicer', icon: Film },
-                { id: 'media' as const, label: 'Media & Audio Tools', icon: Music },
-                { id: 'image' as const, label: 'Image Studio', icon: ImageIcon },
-                { id: 'pdf' as const, label: '32 PDF Tools', icon: FileText },
-                { id: 'qr' as const, label: 'QR Vector Matrix', icon: QrCode },
-              ].map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeStudioTab === tab.id;
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveStudioTab(tab.id)}
-                    className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer flex items-center gap-2 ${isActive
-                      ? 'bg-green-900 text-white font-bold shadow-xs'
-                      : 'bg-white text-green-800 hover:text-black hover:bg-green-50 border border-green-200'
-                      }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{tab.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setIsPlayingSim(!isPlayingSim)}
-                className="px-3 py-1.5 rounded-full bg-white hover:bg-green-50 text-black text-xs font-mono border border-green-200 flex items-center gap-1.5 cursor-pointer shadow-xs"
-              >
-                {isPlayingSim ? <Pause className="w-3 h-3 text-green-600" /> : <Play className="w-3 h-3 text-green-600" />}
-                <span>{isPlayingSim ? 'PAUSE SCRUB' : 'PLAY SCRUB'}</span>
-              </button>
-            </div>
+        {/* Hero Title & Big Explanation */}
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-50 border border-green-300 text-green-700 text-xs font-bold shadow-xs">
+            <Sparkles className="w-4 h-4 text-green-600" />
+            <span>VidCuts All-In-One Creative &amp; Productivity Suite</span>
           </div>
 
-          {/* Interactive Live Canvas Stage */}
-          <div className="relative aspect-video max-h-[460px] w-full rounded-2xl overflow-hidden bg-black border border-green-50/10 flex items-center justify-center shadow-inner">
-            {/* Ambient Animated Mesh */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-green-50/40 via-white to-white opacity-90" />
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-black leading-[1.08]">
+            Your Complete{' '}
+            <span className="text-green-600 underline decoration-green-300 decoration-wavy underline-offset-8">
+              In-Browser
+            </span>{' '}
+            Media &amp; Document Studio
+          </h1>
 
-            {/* Pulsing Laser Split Points (00:30 and 01:00 WhatsApp / Reels Status cuts) */}
-            <div className="absolute inset-y-0 left-[30%] w-0.5 bg-green-500 shadow-[0_0_12px_#F59E0B] flex flex-col justify-between py-3 items-center z-20 pointer-events-none">
-              <span className="text-[9px] font-mono font-bold bg-green-500 text-black px-1 rounded-xs">CUT 1</span>
-              <Scissors className="w-3.5 h-3.5 text-green-500" />
-              <span className="text-[9px] font-mono font-semibold text-green-600">00:30</span>
-            </div>
-
-            <div className="absolute inset-y-0 left-[60%] w-0.5 bg-green-500 shadow-[0_0_12px_#F59E0B] flex flex-col justify-between py-3 items-center z-20 pointer-events-none">
-              <span className="text-[9px] font-mono font-bold bg-green-500 text-black px-1 rounded-xs">CUT 2</span>
-              <Scissors className="w-3.5 h-3.5 text-green-500" />
-              <span className="text-[9px] font-mono font-semibold text-green-600">01:00</span>
-            </div>
-
-            {/* Dynamic Scrubbing Playhead Line */}
-            <div
-              className="absolute inset-y-0 w-0.5 bg-green-900 shadow-[0_0_8px_rgba(43,20,13,0.3)] z-20 pointer-events-none"
-              style={{ left: `${playheadPos}%` }}
-            >
-              <div className="w-3.5 h-3.5 rounded-full bg-green-900 -ml-1.5 -mt-1 shadow-md border-2 border-white" />
-            </div>
-
-            {/* Animated Waveform Visualizer */}
-            <div className="absolute inset-x-8 bottom-6 h-16 flex items-end justify-between gap-1 opacity-70 z-10 pointer-events-none">
-              {[40, 65, 30, 85, 95, 45, 75, 80, 55, 90, 60, 35, 70, 88, 50, 78, 62, 92, 40, 68, 85, 48, 80, 58, 42, 70, 92, 65, 50].map((h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 bg-gradient-to-t from-green-500 to-green-500 rounded-t-xs"
-                  style={{
-                    height: isPlayingSim ? `${((h + playheadPos) % 85) + 15}%` : `${h}%`,
-                    transition: 'height 0.15s ease',
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Center Stage Info Overlay */}
-            <div className="relative z-10 text-center space-y-2 p-6 bg-white/90 backdrop-blur-md rounded-2xl border border-green-200 max-w-md shadow-md">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-green-600 font-bold block">
-                HARDWARE PLAYHEAD ACTIVE
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-black uppercase tracking-wide">
-                {activeStudioTab === 'video' && 'Lossless 4K Keyframe Slicing'}
-                {activeStudioTab === 'media' && 'URL Video Downloader, Audio Extractor & Muter'}
-                {activeStudioTab === 'image' && 'Shape Mask & 1:1 Aspect Crop'}
-                {activeStudioTab === 'pdf' && '32 PDF Engine with AES-256 Lock'}
-                {activeStudioTab === 'qr' && 'Vector QR Matrix with 9-Pos Logo'}
-              </h3>
-              <p className="text-xs text-green-700 font-mono">
-                Playhead: 00:{playheadPos < 10 ? `0${playheadPos}` : playheadPos} / 01:30 • 60.0 FPS Local
-              </p>
-              <div className="pt-2">
-                <a
-                  href={`#${activeStudioTab === 'video' ? 'video-cutter' : activeStudioTab === 'media' ? 'media-tools' : activeStudioTab === 'image' ? 'image-studio' : activeStudioTab === 'pdf' ? 'pdf-studio' : 'qr'}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (activeStudioTab === 'video') onNavigate('video-cutter');
-                    else if (activeStudioTab === 'media') onNavigate('media-tools');
-                    else if (activeStudioTab === 'image') onNavigate('image-studio');
-                    else if (activeStudioTab === 'pdf') onNavigate('pdf-studio');
-                    else if (activeStudioTab === 'qr') onNavigate('qr');
-                  }}
-                  className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-green-900 hover:bg-black text-white font-extrabold text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105 shadow-xs"
-                  title="Launch selected studio tool"
-                >
-                  <span>Launch Full Studio →</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= 2. VIDCUTS CORE ARCHITECTURE (#architecture) ================= */}
-      <section id="architecture" className="relative py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-green-200 space-y-12">
-        <div className="space-y-4">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            VIDCUTS-1 ARCHITECTURE
-          </span>
-          <h2 className="text-3xl sm:text-6xl font-extrabold text-black leading-tight">
-            isn&apos;t just <br />
-            a video cutter.
-          </h2>
-          <div className="text-base sm:text-xl text-green-700 font-normal max-w-2xl leading-relaxed">
-            VidCuts isn&apos;t just a simple trimmer. It&apos;s the result of unprecedented WebAssembly breakthroughs that shift heavy media decoding straight into your browser memory.
-          </div>
-        </div>
-
-        {/* Instructions & disclaimer */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y border-green-200 font-mono text-xs text-green-700">
-          <div className="flex items-center gap-3">
-            <span className="text-lg">👆</span>
-            <span>Hover and scrub the playhead live to inspect keyframe cuts</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span>* Zero cloud compute. 0 bytes uploaded to external servers.</span>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= 3. THERMODYNAMIC & PRECISION STABILITY SLIDER (#features) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-green-200 space-y-12">
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div className="space-y-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-              PRECISION GRADING
-            </span>
-            <h3 className="text-2xl sm:text-4xl font-extrabold text-slate-900">
-              Thermodynamic Stability
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-600 max-w-xl">
-              From heavy 4K 60fps recordings to 100-page scanned bank PDFs - VidCuts stays perfectly stable in RAM.
-            </p>
-          </div>
-
-          {/* Precision Grading Slider Bar (T=0.1, T=1, T=10) */}
-          <div className="p-1.5 rounded-2xl bg-slate-100 border border-slate-200 flex items-center gap-1.5">
-            {[
-              { id: 'deterministic' as const, label: 'Lossless\nT = 0.1' },
-              { id: 'balanced' as const, label: 'Balanced\nT = 1.0' },
-              { id: 'extreme' as const, label: '4K Extreme\nT = 10.0' },
-            ].map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTempMode(t.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-mono transition-all cursor-pointer text-center leading-tight whitespace-pre-line ${tempMode === t.id
-                  ? 'bg-green-500 text-slate-950 font-extrabold shadow-sm'
-                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
-                  }`}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Mathematical Equations & Schematics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
-            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
-              Constant lift via geometry
-            </span>
-            <div className="h-10 flex items-center text-xs font-mono font-semibold text-green-600">
-              {'ΔS = ∫ (dQ / T) ≥ 0  [Lossless Stream]'}
-            </div>
-            <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-slate-900">Lossless Exact-Keyframe Cuts</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Never re-encodes untouched frames. Retains 100% original video bitrate and colors.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
-            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
-              Circularity (circle = 1.0)
-            </span>
-            <div className="h-10 flex items-center text-xs font-mono font-semibold text-green-600">
-              {'RoPE: Roundness Optimization & Perimeter Masking'}
-            </div>
-            <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-slate-900">Now 37.9% More Geometric</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Shape masks for Heart, Hexagon, Star, and Circle with transparent PNG export for social avatars.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm hover:shadow-md transition space-y-4">
-            <span className="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">
-              THERMAL DIFFUSION MODEL (TDM)
-            </span>
-            <div className="h-10 flex items-center text-xs font-mono font-semibold text-green-600">
-              {'AES-256 GCM ⊕ IndexedDB Local Vault'}
-            </div>
-            <div className="o-dashline my-2" />
-            <h4 className="text-sm font-bold text-slate-900">Client-Side Password Security</h4>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              Encrypt and compress sensitive contracts directly in RAM with zero cloud leakage.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= 4. SMART FLIP ENCRYPTION (#encryption) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-green-200 space-y-8">
-        <div className="text-center space-y-3">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            SECURE COMMUNICATIONS SIMPLIFIED
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black">
-            Smart Flip Encryption
-          </h2>
-          <p className="text-xs sm:text-sm text-green-700 max-w-lg mx-auto">
-            Write or select a document. Click flip. Instantly encrypt with AES-256 directly in browser RAM - until you flip it back.
+          <p className="text-base sm:text-lg text-green-800 max-w-3xl mx-auto leading-relaxed">
+            VidCuts is an ultra-fast, privacy-first multimedia workstation running entirely in your browser memory.
+            Cut &amp; split 4K videos losslessly, download web clips &amp; extract clean audio, crop photos into geometric shapes with target KB compression, process confidential PDFs across 32 tools, and generate custom vector QR codes — with <strong>0 bytes ever uploaded to any external server</strong>.
           </p>
-        </div>
 
-        {/* The Interactive Flip Field */}
-        <div className="p-8 rounded-3xl bg-white border border-green-200 space-y-6 shadow-xs">
-          <div className="space-y-2">
-            <label className="text-xs font-mono text-green-700 block">Target File Stream:</label>
-            <input
-              type="text"
-              value={encryptInput}
-              onChange={(e) => setEncryptInput(e.target.value)}
-              className="w-full bg-white border border-green-200 rounded-xl px-4 py-3 text-sm font-mono text-black focus:border-green-400 outline-none"
-            />
-          </div>
-
-          {/* Flipped Output Display */}
-          <div className="p-4 rounded-xl bg-white border border-dashed border-green-200 font-mono text-xs flex justify-between items-center">
-            <span className="text-green-700">Status:</span>
-            <span className={`font-bold ${isFlipped ? 'text-green-600' : 'text-black'}`}>
-              {isFlipped ? '🔒 AES-256 CIPHERTEXT ENCRYPTED' : '📄 PLAINTEXT LOCAL STREAM'}
-            </span>
-          </div>
-
-          <div className="flex justify-center pt-2">
+          {/* Quick CTA Buttons */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
             <button
-              onClick={() => setIsFlipped(!isFlipped)}
-              className="px-8 py-3.5 rounded-full bg-green-900 hover:bg-black text-white font-black text-xs uppercase tracking-wider btn-flipper flex items-center gap-2 cursor-pointer shadow-xs"
+              onClick={() => onNavigate('video-cutter')}
+              className="px-6 py-3.5 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
             >
-              <RotateCw className="w-4 h-4 text-green-500" />
-              <span>{isFlipped ? 'Decode & Stream Lossless' : 'Encode & Encrypt Message'}</span>
+              <Scissors className="w-4 h-4" />
+              <span>Launch Video Cutter</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => onNavigate('pdf-studio')}
+              className="px-6 py-3.5 rounded-2xl bg-white hover:bg-green-50 text-green-800 font-bold text-sm border-2 border-green-300 shadow-xs flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+            >
+              <FileText className="w-4 h-4 text-green-600" />
+              <span>Explore 32 PDF Tools</span>
+            </button>
+            <button
+              onClick={() => onNavigate('image-studio')}
+              className="px-6 py-3.5 rounded-2xl bg-white hover:bg-green-50 text-green-800 font-bold text-sm border-2 border-green-300 shadow-xs flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+            >
+              <ImageIcon className="w-4 h-4 text-green-600" />
+              <span>Image Studio</span>
             </button>
           </div>
         </div>
-      </section>
 
-      {/* ================= 5. GRIP & ZOOM FRICTION BOX (#grip) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-green-200 space-y-8">
-        <div className="text-center space-y-3">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            PRECISION GRIP, ZERO DRAMA
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black">
-            Grip-Locked Anti-Lag Technology
-          </h2>
-          <p className="text-xs sm:text-sm text-green-700 max-w-md mx-auto">
-            Hardware acceleration so responsive your video timeline locks to your mouse cursor without missing a frame.
-          </p>
-        </div>
+        {/* 3D FLOATING ICONS INTERACTIVE SHOWCASE */}
+        <div className="relative pt-8 pb-4">
+          <div className="perspective-1000 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 preserve-3d">
+              {modules.map((m, idx) => {
+                const Icon = m.icon;
+                const animClass =
+                  idx % 3 === 0 ? 'animate-float-1' : idx % 3 === 1 ? 'animate-float-2' : 'animate-float-3';
+                const isSelected = active3dIndex === idx;
 
-        {/* Interactive Zoom & Friction Box */}
-        <div className="p-8 rounded-3xl bg-white border border-green-200 flex flex-col sm:flex-row items-center justify-between gap-8 shadow-xs">
-          <div className="space-y-4 max-w-sm">
-            <div className="space-y-1">
-              <span className="text-xs font-mono text-green-700">Hardware Speed Coeff (est):</span>
-              <div className="text-4xl font-mono font-black text-green-600">0.98</div>
-            </div>
-            <p className="text-xs text-green-700 leading-relaxed font-mono">
-              WebAssembly multithreading enables concurrent demuxing and frame extraction without GPU memory spikes.
-            </p>
-          </div>
+                return (
+                  <div
+                    key={m.id}
+                    onClick={() => {
+                      setActive3dIndex(idx);
+                      onNavigate(m.id);
+                    }}
+                    onMouseEnter={() => setActive3dIndex(idx)}
+                    className={`${animClass} cursor-pointer group rounded-3xl p-5 bg-white border-2 ${
+                      isSelected ? 'border-green-500 shadow-xl shadow-green-500/20 scale-105' : 'border-green-200 shadow-md hover:border-green-400'
+                    } transition-all duration-300 flex flex-col items-center text-center space-y-3`}
+                    style={{ animationDelay: `${idx * 0.3}s` }}
+                  >
+                    {/* 3D Floating Icon Orb */}
+                    <div className="relative">
+                      <div className="w-16 h-16 rounded-2xl bg-green-600 text-white flex items-center justify-center shadow-lg shadow-green-600/30 group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
+                        <Icon className="w-8 h-8" />
+                      </div>
+                      <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full text-[9px] font-bold bg-green-100 text-green-800 border border-green-300 shadow-xs">
+                        {m.badge}
+                      </span>
+                    </div>
 
-          {/* Interactive Dial Control */}
-          <div className="flex flex-col items-center space-y-3">
-            <div
-              onClick={() => setFrictionAngle((a) => (a + 45) % 360)}
-              className="w-32 h-32 rounded-full border-4 border-dashed border-green-200 hover:border-green-400 flex items-center justify-center cursor-pointer transition-transform duration-300 bg-white"
-              style={{ transform: `rotate(${frictionAngle}deg)` }}
-            >
-              <div className="w-4 h-4 rounded-full bg-green-500" />
-            </div>
-            <span className="text-[11px] font-mono text-green-700">CLICK DIAL TO RECALIBRATE</span>
-          </div>
-        </div>
-      </section>
+                    <div>
+                      <h3 className="text-sm font-extrabold text-black group-hover:text-green-600 transition-colors">
+                        {m.name}
+                      </h3>
+                      <p className="text-[11px] text-green-700 leading-tight mt-0.5">
+                        {m.tagline}
+                      </p>
+                    </div>
 
-      {/* ================= 6. ZERO-CLOUD SUSTAINABILITY (#sustainability) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-green-200 space-y-10">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            100% CLIENT HARDWARE
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black">
-            Zero-Cloud Sustainability
-          </h2>
-          <p className="text-xs sm:text-sm text-green-700 max-w-md mx-auto">
-            No remote cloud compute. No server tokens. Say &ldquo;please&rdquo; and &ldquo;thank you&rdquo; as much as you want, guilt-free.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-8 rounded-2xl bg-white border border-green-200 space-y-4 shadow-xs">
-            <h3 className="text-lg font-bold text-black">Average Time to First Slice</h3>
-            <p className="text-xs text-green-700 leading-relaxed font-mono">
-              Starts processing in under 0.8 seconds since zero bytes wait in upload queues.
-            </p>
-            <div className="text-5xl font-mono font-black text-black pt-2">
-              0.8<span className="text-lg text-green-600">s</span>
-            </div>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-white border border-green-200 space-y-4 shadow-xs">
-            <h3 className="text-lg font-bold text-black">Cloud Network Latency</h3>
-            <p className="text-xs text-green-700 leading-relaxed font-mono">
-              Because all tools execute in client RAM, network roundtrips are mathematically eliminated.
-            </p>
-            <div className="text-5xl font-mono font-black text-black pt-2">
-              0.0<span className="text-lg text-green-600">ms</span>
-            </div>
-          </div>
-
-          <div className="p-8 rounded-2xl bg-white border border-green-200 space-y-4 shadow-xs">
-            <h3 className="text-lg font-bold text-black">Server Power Draw in Use</h3>
-            <p className="text-xs text-green-700 leading-relaxed font-mono">
-              Zero cloud GPU clusters running 24/7. Your machine does the work efficiently.
-            </p>
-            <div className="text-5xl font-mono font-black text-green-600 pt-2">
-              0.00<span className="text-lg text-black">W</span>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-green-600 group-hover:translate-x-1 transition-transform">
+                      <span>Open</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ================= 7. REVIEWS TABLE (#testimonies) ================= */}
-      <section className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-green-200 space-y-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-green-700 pb-3 border-b border-green-200">
-          <span className="text-black font-bold">Rating &amp; Reviews</span>
-          <span>Community Reviews [ 364 ]</span>
-          <span className="text-green-600 font-bold">[ 4.9 / 5 ] ★★★★★</span>
-          <span className="text-black">VidCuts in use</span>
-        </div>
-
-        <div className="divide-y divide-green-200">
+        {/* Stats Row */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-green-200">
           {[
-            {
-              quote: '"This is the best video cutter that I\'ve ever used. Slices 4K files in seconds without waiting for cloud queues."',
-              author: 'Edan K.',
-              role: 'NASA astronaut wannabe',
-              rating: '[ 5 / 5 ]',
-            },
-            {
-              quote: '"My 16:9 recordings? Converted to 9:16 Shorts with blurred backdrop padding in one click. No watermarks."',
-              author: 'Gol D. Roger',
-              role: 'Old-school Pirate & Streamer',
-              rating: '[ 4.9 / 5 ]',
-            },
-            {
-              quote: '"We are so cooked. Hollywood is not ready for an in-browser media suite this fast and private."',
-              author: 'Jamie R.',
-              role: 'AI Influencer & Creator',
-              rating: '[ 5 / 5 ]',
-            },
-            {
-              quote: '"I generated tabletop Wi-Fi QR codes with our cafe logo in 10 seconds. Customers just tap and connect."',
-              author: 'Priya K.',
-              role: 'Cafe Owner & Freelancer',
-              rating: '[ 5 / 5 ]',
-            },
-          ].map((rev, idx) => (
-            <div key={idx} className="py-8 flex flex-col sm:flex-row justify-between gap-6 items-start">
-              <div className="space-y-2 max-w-2xl">
-                <span className="text-xs font-mono text-green-600">{rev.rating}</span>
-                <p className="text-lg sm:text-xl font-serif italic text-black leading-relaxed">
-                  {rev.quote}
-                </p>
-                <div className="text-xs font-mono text-green-700 pt-1">
-                  <strong>{rev.author}</strong> — <span>{rev.role}</span>
-                </div>
-              </div>
-              <span className="text-xs font-mono text-green-700 shrink-0 bg-green-50 px-3 py-1 rounded-full border border-green-200">
-                Verified Local
-              </span>
+            { label: 'Lossless Video Cuts', val: '4K 60FPS', sub: 'FFmpeg WASM stream' },
+            { label: 'Document Operations', val: '32 PDF Tools', sub: 'AES-256 in RAM' },
+            { label: 'Geometric Shape Crops', val: '9 Shapes', sub: 'Instant transparent PNG' },
+            { label: 'Private & Local', val: '100% Client-Side', sub: '0 bytes cloud storage' },
+          ].map((stat, i) => (
+            <div key={i} className="p-4 rounded-2xl bg-green-50/60 border border-green-200 text-center">
+              <span className="text-xs font-mono uppercase text-green-700 block">{stat.label}</span>
+              <span className="text-xl sm:text-2xl font-black text-black block mt-0.5">{stat.val}</span>
+              <span className="text-[11px] text-green-600 block">{stat.sub}</span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ================= 8. PRODUCT TIERS & COMPARE (#editions) ================= */}
-      <section id="editions" className="py-20 px-4 sm:px-8 max-w-5xl mx-auto border-t border-green-200 space-y-10">
-        <div className="text-center space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            CHOOSE YOUR OWN
-          </span>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black">
-            VidCuts Suite Editions
-          </h2>
-          <div className="flex justify-center gap-3 pt-4">
-            {['VidCuts', 'VidCuts Pro', 'VidCuts Studio'].map((tier, idx) => (
-              <button
-                key={tier}
-                onClick={() => setSelectedProductTier(idx as 0 | 1 | 2)}
-                className={`px-5 py-2 rounded-full text-xs font-mono uppercase tracking-wider transition-all cursor-pointer ${selectedProductTier === idx
-                  ? 'bg-green-900 text-white font-extrabold shadow-xs'
-                  : 'bg-white text-green-700 hover:text-black border border-green-200'
-                  }`}
-              >
-                {tier}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* ========================================================================= */}
+      {/* SECTION 2: VIDEO CUTTER & SPLITTER */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 bg-green-50/40 border-t border-green-200">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Explanation Column */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-bold">
+              <Scissors className="w-3.5 h-3.5 text-green-600" />
+              <span>Section 01 • Video Precision Engine</span>
+            </div>
 
-        {/* Compare Table */}
-        <div className="p-6 rounded-3xl bg-white border border-green-200 shadow-xs overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs">
-            <thead>
-              <tr className="border-b border-green-200 text-green-600">
-                <th className="pb-4">Feature Metric</th>
-                <th className="pb-4">VidCuts</th>
-                <th className="pb-4">VidCuts Pro</th>
-                <th className="pb-4">VidCuts Studio</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-green-200 text-black">
-              <tr>
-                <td className="py-3 font-bold text-black">Processing Mode:</td>
-                <td className="py-3">100% In-Browser</td>
-                <td className="py-3">100% In-Browser</td>
-                <td className="py-3">100% In-Browser</td>
-              </tr>
-              <tr>
-                <td className="py-3 font-bold text-black">Cloud Uploads:</td>
-                <td className="py-3 text-green-600 font-semibold">None (0 MB)</td>
-                <td className="py-3 text-green-600 font-semibold">None (0 MB)</td>
-                <td className="py-3 text-green-600 font-semibold">None (0 MB)</td>
-              </tr>
-              <tr>
-                <td className="py-3 font-bold text-black">Watermarks:</td>
-                <td className="py-3 text-green-600 font-semibold">Never</td>
-                <td className="py-3 text-green-600 font-semibold">Never</td>
-                <td className="py-3 text-green-600 font-semibold">Never</td>
-              </tr>
-              <tr>
-                <td className="py-3 font-bold text-black">Tool Count:</td>
-                <td className="py-3">Video Cutter</td>
-                <td className="py-3">Video + Image + QR</td>
-                <td className="py-3 text-green-600 font-bold">All 32 PDF + Full Suite</td>
-              </tr>
-              <tr>
-                <td className="py-3 font-bold text-black">Cost / Subscription:</td>
-                <td className="py-3 text-black font-bold">$0 Free</td>
-                <td className="py-3 text-black font-bold">$0 Free</td>
-                <td className="py-3 text-black font-bold">$0 Free Forever</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-black leading-tight">
+              Lossless 4K Video Cutter &amp; Social Shorts Converter
+            </h2>
 
-      {/* ================= 9. BIBTEX ABSTRACT (#technical-paper) ================= */}
-      <section id="technical-paper" className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-green-200 space-y-8">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            OUR SOTA IN-BROWSER ARCHITECTURE
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-black">
-            Abstract &amp; Peer Review
-          </h2>
-        </div>
+            <p className="text-sm sm:text-base text-green-800 leading-relaxed">
+              Slice large video recordings into perfectly timed segments without quality degradation. VidCuts uses hardware-accelerated FFmpeg WebAssembly to cut keyframes directly in browser memory — preserving 100% of the original video codec, bitrate, and color palette with zero re-encoding lag.
+            </p>
 
-        <div className="p-6 rounded-2xl bg-white border border-green-200 space-y-4 font-mono text-xs text-green-700 leading-relaxed shadow-xs">
-          <p>
-            We present <strong>VidCuts-1</strong>, an open-architecture client-side media suite for rendering, lossless cutting, shape masking, and cryptographic PDF protection. VidCuts-1 faithfully reproduces key workstation behaviors with zero cloud dependencies.
-          </p>
-          <div className="o-dashline my-2" />
-          <div className="italic text-black">
-            &ldquo;VidCuts-1 is the fastest client-side media tool out there. Trust me bro.&rdquo;
-            <span className="block text-[10px] text-green-600 mt-1">- Anonymous Creator on Reddit</span>
-          </div>
-          <div className="o-dashline my-2" />
-          <pre className="p-4 rounded-xl bg-white border border-green-200 text-[11px] text-black overflow-x-auto">
-            {`@misc{vidcuts2026,
-  title  = {VidCuts-1: High-Performance Client-Side Media Suite},
-  author = {Reeyansh Tech Solutions},
-  year   = {2026},
-  note   = {100% In-Browser Hardware Acceleration. Zero Cloud Uploads.}
-}`}
-          </pre>
-        </div>
-      </section>
-
-      {/* ================= 10. REAL FAQ SECTION (#faq) ================= */}
-      <section id="faq" className="py-20 px-4 sm:px-8 max-w-4xl mx-auto border-t border-green-200 space-y-8">
-        <div className="space-y-2">
-          <span className="text-xs font-mono uppercase tracking-widest text-green-600 font-bold block">
-            DIRECT ANSWERS
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-black">
-            Frequently Asked Questions
-          </h2>
-        </div>
-
-        <div className="space-y-3">
-          {[
-            {
-              q: 'How does VidCuts process videos without uploading them to a remote server?',
-              a: 'VidCuts uses WebAssembly (FFmpeg compiled directly into browser code), HTML5 Canvas, and pdf-lib. When you select a video, image, or PDF file, your browser reads the file directly on your local device and performs all processing in local RAM.',
-            },
-            {
-              q: 'Can I split a video into consecutive 30-second clips for WhatsApp Status?',
-              a: 'Yes. In the Video Cutter, click "Split by Duration" and enter 30 seconds. VidCuts automatically cuts your video into consecutive 30-second clips with exact keyframe accuracy. You can download all clips in a single ZIP file.',
-            },
-            {
-              q: 'How do I convert horizontal 16:9 videos into vertical 9:16 Shorts with blurred background?',
-              a: 'Choose "9:16 Vertical" mode in the Video Cutter. VidCuts centers your original video and fills the top and bottom letterbox bars with a dynamically blurred reflection of the video itself.',
-            },
-            {
-              q: 'Can I crop an image into a circle, heart, or hexagon for social profile avatars?',
-              a: 'Yes. In Image Studio, open the Shape Mask tool and pick Circle, Heart, Star, Hexagon, or Diamond. You can adjust border padding and export a clean transparent PNG ready for social media avatars.',
-            },
-            {
-              q: 'How can I compress a large 50MB PDF under 1MB for portal uploads?',
-              a: 'Open PDF Tools and choose "Compress PDF". VidCuts strips redundant internal metadata, downsamples oversized scanned images, and optimizes font tables locally, shrinking file size by up to 97%.',
-            },
-            {
-              q: 'Can I place my business logo inside a QR code and position it?',
-              a: 'Yes. In QR Code Studio, open the "Logo" subtab. You can drag and drop your local logo file and use the 9-position alignment grid to place it in the center or corners, and fine-tune its position with horizontal and vertical shift sliders.',
-            },
-          ].map((item, idx) => {
-            const isOpen = openFaq === idx;
-            return (
-              <div
-                key={idx}
-                className="border border-green-200 rounded-2xl overflow-hidden bg-white transition-all shadow-xs"
-              >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white"
-                >
-                  <span className="text-xs sm:text-sm font-bold text-black">
-                    {item.q}
-                  </span>
-                  <span className="text-green-600 font-bold text-sm shrink-0">
-                    {isOpen ? '−' : '+'}
-                  </span>
-                </button>
-                {isOpen && (
-                  <div className="px-5 pb-5 text-xs text-green-700 leading-relaxed border-t border-green-200 pt-3">
-                    {item.a}
+            {/* Feature Checklist */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {[
+                { title: 'Exact Keyframe Slicing', desc: 'Lossless copy mode without recompression' },
+                { title: '1-Click Status Splits', desc: 'Auto-split into 30s WhatsApp & 60s Reels' },
+                { title: '16:9 to 9:16 Shorts', desc: 'Blurred background fill for vertical video' },
+                { title: 'Batch ZIP Export', desc: 'Download all generated parts in one archive' },
+                { title: 'Audio Retain or Mute', desc: 'Keep crystal clear sound or mute sound track' },
+                { title: 'Multi-Format Support', desc: 'MP4, MOV, WebM, MKV, AVI & FLV formats' },
+              ].map((feat, i) => (
+                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-green-200 shadow-xs">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-black">{feat.title}</h4>
+                    <p className="text-[11px] text-green-700">{feat.desc}</p>
                   </div>
-                )}
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => onNavigate('video-cutter')}
+                className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+              >
+                <span>Launch Video Cutter &amp; Splitter</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Visual Interactive Stage */}
+          <div className="lg:col-span-6">
+            <div className="p-6 rounded-3xl bg-white border-2 border-green-300 shadow-lg space-y-4">
+              <div className="flex items-center justify-between border-b border-green-200 pb-3">
+                <span className="text-xs font-mono font-bold text-green-800 uppercase flex items-center gap-2">
+                  <Film className="w-4 h-4 text-green-600" />
+                  TIMELINE PREVIEW SIMULATION
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-green-100 text-green-800 font-bold">
+                  60 FPS STREAM
+                </span>
               </div>
-            );
-          })}
+
+              {/* Mock Timeline Visual */}
+              <div className="space-y-3">
+                <div className="relative h-24 rounded-2xl bg-green-50 border border-green-200 overflow-hidden flex items-center justify-center p-4">
+                  <div className="absolute inset-x-4 flex items-end justify-between gap-1 h-12 opacity-80">
+                    {[35, 60, 45, 80, 95, 40, 70, 85, 50, 90, 65, 40, 75, 85, 60, 80, 70, 95, 45, 75, 85, 55, 80, 60, 45, 75, 90, 65].map((h, idx) => (
+                      <div
+                        key={idx}
+                        className="flex-1 bg-green-500 rounded-t-xs"
+                        style={{ height: `${h}%` }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Cut Marker 1 */}
+                  <div className="absolute left-[33%] inset-y-0 w-0.5 bg-green-600 flex flex-col justify-between py-1 items-center z-10">
+                    <span className="text-[8px] font-mono font-bold bg-green-600 text-white px-1 rounded-xs">PART 1</span>
+                    <Scissors className="w-3 h-3 text-green-700" />
+                    <span className="text-[8px] font-mono text-green-800 font-bold">00:30</span>
+                  </div>
+
+                  {/* Cut Marker 2 */}
+                  <div className="absolute left-[66%] inset-y-0 w-0.5 bg-green-600 flex flex-col justify-between py-1 items-center z-10">
+                    <span className="text-[8px] font-mono font-bold bg-green-600 text-white px-1 rounded-xs">PART 2</span>
+                    <Scissors className="w-3 h-3 text-green-700" />
+                    <span className="text-[8px] font-mono text-green-800 font-bold">01:00</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div className="p-2.5 rounded-xl bg-green-50 border border-green-200">
+                    <span className="text-[10px] text-green-700 font-semibold block">Piece 1</span>
+                    <span className="font-mono font-bold text-black">00:00 - 00:30</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-green-50 border border-green-200">
+                    <span className="text-[10px] text-green-700 font-semibold block">Piece 2</span>
+                    <span className="font-mono font-bold text-black">00:30 - 01:00</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-green-50 border border-green-200">
+                    <span className="text-[10px] text-green-700 font-semibold block">Piece 3</span>
+                    <span className="font-mono font-bold text-black">01:00 - 01:30</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ================= 11. FOOTER & SCROLL INDICATOR ================= */}
-      <footer className="py-20 px-4 sm:px-8 border-t border-green-200 text-center space-y-8">
-        {/* Spinning Dotted Circle Indicator */}
-        <div className="flex flex-col items-center justify-center space-y-3">
-          <div className="relative w-12 h-12 rounded-full border-2 border-dashed border-green-400 animate-spin-slow flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-green-900" />
+      {/* ========================================================================= */}
+      {/* SECTION 3: MEDIA TOOLS (DOWNLOADER, AUDIO EXTRACTOR, MUTER) */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 bg-white border-t border-green-200">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-bold">
+              <Music className="w-3.5 h-3.5 text-green-600" />
+              <span>Section 02 • Universal Media &amp; Audio Processing</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-black leading-tight">
+              Video Downloader, Audio Extractor &amp; Audio Muter
+            </h2>
+
+            <p className="text-sm sm:text-base text-green-800 leading-relaxed">
+              Handle online video streams and audio tracks with zero installations. Download web videos straight to local disk, extract clean MP3 audio tracks from podcasts and movies, or permanently mute video sound for background B-roll.
+            </p>
           </div>
-          <span className="text-[10px] font-mono uppercase tracking-widest text-green-700">
-            SCROLL TO EXPLORE
-          </span>
-        </div>
 
-        <div className="space-y-2 max-w-xl mx-auto">
-          <h3 className="text-2xl font-extrabold text-black">
-            Start Creating with VidCuts
-          </h3>
-          <p className="text-xs text-green-700 font-mono">
-            Zero cloud uploads. Zero software installs. 100% free forever.
-          </p>
-        </div>
+          {/* 3 Core Tools Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Tool 1 */}
+            <div className="p-6 rounded-3xl bg-green-50/50 border-2 border-green-200 hover:border-green-400 transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-green-600 text-white flex items-center justify-center shadow-md shadow-green-600/20">
+                <Globe className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-black">URL Video Downloader</h3>
+                <p className="text-xs text-green-800 mt-1 leading-relaxed">
+                  Paste any direct video URL, CDN stream, or web media file. Download and preview locally with automatic CORS proxy bypass.
+                </p>
+              </div>
+              <ul className="text-xs text-green-700 space-y-1.5 pt-2 border-t border-green-200">
+                <li className="flex items-center gap-2">✓ Direct HTTP &amp; HTTPS media grab</li>
+                <li className="flex items-center gap-2">✓ Auto-resolves MP4, WebM &amp; TS chunks</li>
+                <li className="flex items-center gap-2">✓ 1-click send to Video Cutter</li>
+              </ul>
+            </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <a
-            href="#video-cutter"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('video-cutter');
-            }}
-            className="px-6 py-2.5 rounded-full bg-green-900 hover:bg-black text-white font-black text-xs uppercase tracking-wider cursor-pointer transition-transform hover:scale-105 shadow-sm inline-flex items-center"
-            title="Launch Video Cutter &amp; Splitter Tool"
-          >
-            Launch Video Cutter
-          </a>
-          <a
-            href="#image-studio"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('image-studio');
-            }}
-            className="px-6 py-2.5 rounded-full bg-white hover:bg-green-50 text-black font-bold text-xs uppercase tracking-wider border border-green-200 cursor-pointer inline-flex items-center shadow-xs"
-            title="Launch Image Studio"
-          >
-            Image Studio
-          </a>
-          <a
-            href="#pdf-studio"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('pdf-studio');
-            }}
-            className="px-6 py-2.5 rounded-full bg-white hover:bg-green-50 text-black font-bold text-xs uppercase tracking-wider border border-green-200 cursor-pointer inline-flex items-center shadow-xs"
-            title="Launch 32 Client-Side PDF Tools"
-          >
-            32 PDF Tools
-          </a>
-          <a
-            href="#qr"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('qr');
-            }}
-            className="px-6 py-2.5 rounded-full bg-white hover:bg-green-50 text-black font-bold text-xs uppercase tracking-wider border border-green-200 cursor-pointer inline-flex items-center shadow-xs"
-            title="Launch Vector QR Code Studio"
-          >
-            QR Studio
-          </a>
-        </div>
+            {/* Tool 2 */}
+            <div className="p-6 rounded-3xl bg-green-50/50 border-2 border-green-200 hover:border-green-400 transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-600/20">
+                <Music className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-black">Audio Extractor (MP3 / AAC)</h3>
+                <p className="text-xs text-green-800 mt-1 leading-relaxed">
+                  Separate voice, music, and background audio from any video. Lossless export to MP3, WAV, or AAC format in seconds.
+                </p>
+              </div>
+              <ul className="text-xs text-green-700 space-y-1.5 pt-2 border-t border-green-200">
+                <li className="flex items-center gap-2">✓ High-fidelity 320 kbps sound export</li>
+                <li className="flex items-center gap-2">✓ Ideal for podcast clips &amp; soundtracks</li>
+                <li className="flex items-center gap-2">✓ Instant waveform inspection</li>
+              </ul>
+            </div>
 
-        <div className="pt-8 text-xs font-mono text-green-700 flex flex-col sm:flex-row justify-between items-center gap-4 max-w-4xl mx-auto border-t border-green-200">
-          <span>© 2026 VidCuts by Reeyansh Tech Solutions</span>
-          <span>HIGH-PERFORMANCE IN-BROWSER MEDIA LAB</span>
+            {/* Tool 3 */}
+            <div className="p-6 rounded-3xl bg-green-50/50 border-2 border-green-200 hover:border-green-400 transition-all space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center shadow-md shadow-teal-600/20">
+                <VolumeX className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-lg font-extrabold text-black">Video Muter / Track Stripper</h3>
+                <p className="text-xs text-green-800 mt-1 leading-relaxed">
+                  Permanently strip unwanted audio tracks from screen recordings or noisy camera clips. Retains 100% video quality without sound.
+                </p>
+              </div>
+              <ul className="text-xs text-green-700 space-y-1.5 pt-2 border-t border-green-200">
+                <li className="flex items-center gap-2">✓ Zero video re-encoding speed</li>
+                <li className="flex items-center gap-2">✓ Instant B-roll preparation</li>
+                <li className="flex items-center gap-2">✓ Removes copyright audio strikes</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="text-center pt-2">
+            <button
+              onClick={() => onNavigate('media-tools')}
+              className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 inline-flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+            >
+              <span>Explore Media &amp; Audio Tools</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
-      </footer>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 4: IMAGE STUDIO (SHAPES, KB REDUCER, FILTERS) */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 bg-green-50/40 border-t border-green-200">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Shape Matrix Display */}
+          <div className="lg:col-span-6 order-2 lg:order-1">
+            <div className="p-6 rounded-3xl bg-white border-2 border-green-300 shadow-lg space-y-4">
+              <div className="flex items-center justify-between border-b border-green-200 pb-3">
+                <span className="text-xs font-mono font-bold text-green-800 uppercase flex items-center gap-2">
+                  <Palette className="w-4 h-4 text-green-600" />
+                  9 GEOMETRIC SHAPE MASKS &amp; BORDERS
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-green-100 text-green-800 font-bold">
+                  TRANSPARENT PNG
+                </span>
+              </div>
+
+              {/* 9 Shapes Showcase */}
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { name: 'Circle', icon: '⭕' },
+                  { name: 'Squircle', icon: '🔲' },
+                  { name: 'Heart', icon: '❤️' },
+                  { name: 'Star', icon: '⭐' },
+                  { name: 'Hexagon', icon: '⬡' },
+                  { name: 'Diamond', icon: '💎' },
+                  { name: 'Shield', icon: '🛡️' },
+                  { name: 'Rounded', icon: '▢' },
+                  { name: 'Rectangle', icon: '▭' },
+                ].map((s, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 rounded-2xl bg-green-50/60 border border-green-200 flex flex-col items-center justify-center text-center hover:bg-green-100/60 transition-colors cursor-pointer"
+                  >
+                    <span className="text-xl">{s.icon}</span>
+                    <span className="text-[11px] font-bold text-black mt-1">{s.name}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* KB Reducer Banner */}
+              <div className="p-3.5 rounded-2xl bg-green-100/80 border border-green-300 flex items-center justify-between">
+                <div>
+                  <span className="text-xs font-bold text-black block">Exact Target KB Reducer</span>
+                  <span className="text-[11px] text-green-700">Shrink images to &lt; 50 KB or 100 KB for passport &amp; job portals</span>
+                </div>
+                <span className="px-3 py-1 rounded-xl bg-green-600 text-white text-xs font-mono font-bold">
+                  BINARY SEARCH
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Text Column */}
+          <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-bold">
+              <ImageIcon className="w-3.5 h-3.5 text-green-600" />
+              <span>Section 03 • Photo &amp; Avatar Studio</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-black leading-tight">
+              Crop Photos Into Shapes &amp; Target Exact File Size
+            </h2>
+
+            <p className="text-sm sm:text-base text-green-800 leading-relaxed">
+              Transform boring square pictures into stunning social profile pictures and avatars. Crop into circles, hearts, stars, or squircles with customized border thickness and colors. Need to upload a passport photo under 50 KB? Type the exact number and let VidCuts optimize quality automatically.
+            </p>
+
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-green-800 font-semibold pt-1">
+              <li className="flex items-center gap-2">✓ 9 Viral Geometric Shape Masks</li>
+              <li className="flex items-center gap-2">✓ Precision Target KB File Reducer</li>
+              <li className="flex items-center gap-2">✓ Contrast, Brightness &amp; Sepia filters</li>
+              <li className="flex items-center gap-2">✓ Unsharp Mask edge sharpening</li>
+              <li className="flex items-center gap-2">✓ Birthday &amp; Celebration photo frames</li>
+              <li className="flex items-center gap-2">✓ Custom text &amp; QR code watermarks</li>
+            </ul>
+
+            <div className="pt-2">
+              <button
+                onClick={() => onNavigate('image-studio')}
+                className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+              >
+                <span>Open Image Studio</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 5: PDF STUDIO (32 POWER TOOLS) */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 bg-white border-t border-green-200">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-bold">
+              <FileText className="w-3.5 h-3.5 text-green-600" />
+              <span>Section 04 • 32 In-Browser PDF Tools</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-black leading-tight">
+              32 Complete PDF Tools — 100% Free &amp; Confidential
+            </h2>
+
+            <p className="text-sm sm:text-base text-green-800 leading-relaxed">
+              Never upload your confidential tax returns, bank statements, or legal contracts to third-party servers again. VidCuts executes all 32 PDF operations directly on your local device with zero server transmission.
+            </p>
+          </div>
+
+          {/* 32 PDF Tools Categorized Display */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Group 1: Organize */}
+            <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
+              <div className="flex items-center gap-2">
+                <Layers className="w-4 h-4 text-green-600" />
+                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                  Organize &amp; Edit
+                </h4>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                {['Merge Multiple PDFs', 'Split PDF by Range', 'Rotate PDF Pages', 'Reorder & Rearrange', 'Delete Selected Pages', 'Extract Specific Pages'].map((t, idx) => (
+                  <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
+                    <span>{t}</span>
+                    <span className="text-[10px] text-green-600 font-bold">PDF</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Group 2: Security & Protection */}
+            <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
+              <div className="flex items-center gap-2">
+                <Lock className="w-4 h-4 text-green-600" />
+                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                  Security &amp; Privacy
+                </h4>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                {['AES-256 Encrypt & Protect', 'Remove PDF Password', 'Add Custom Watermark', 'Blackout & Redact', 'Flatten Form Fields', 'Sanitize Metadata'].map((t, idx) => (
+                  <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
+                    <span>{t}</span>
+                    <span className="text-[10px] text-green-600 font-bold">LOCK</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Group 3: Conversion */}
+            <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
+              <div className="flex items-center gap-2">
+                <Share2 className="w-4 h-4 text-green-600" />
+                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                  Conversion &amp; Export
+                </h4>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                {['PDF to PNG / JPG Images', 'Images to PDF Maker', 'Grayscale B&W Converter', 'Extract Text & Words', 'Extract Images from PDF', 'Crop PDF Page Box'].map((t, idx) => (
+                  <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
+                    <span>{t}</span>
+                    <span className="text-[10px] text-green-600 font-bold">CONVERT</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Group 4: Optimization */}
+            <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
+              <div className="flex items-center gap-2">
+                <Zap className="w-4 h-4 text-green-600" />
+                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                  Optimize &amp; Stamp
+                </h4>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                {['Compress PDF Size', 'Add Page Numbers (B/T)', 'Add Header & Footer Text', 'Deskew Crooked Scans', 'N-Up 2/4 Pages per Sheet', 'Compare Two PDFs'].map((t, idx) => (
+                  <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
+                    <span>{t}</span>
+                    <span className="text-[10px] text-green-600 font-bold">BOOST</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center pt-2">
+            <button
+              onClick={() => onNavigate('pdf-studio')}
+              className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 inline-flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+            >
+              <span>Launch 32 PDF Tools Studio</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 6: QR STUDIO & CAMERA SCANNER */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 px-4 sm:px-8 bg-green-50/40 border-t border-green-200">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          {/* Left Text */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-bold">
+              <QrCode className="w-3.5 h-3.5 text-green-600" />
+              <span>Section 05 • Vector QR Studio &amp; Scanner</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-black leading-tight">
+              Vector QR Code Generator &amp; Built-In Camera Scanner
+            </h2>
+
+            <p className="text-sm sm:text-base text-green-800 leading-relaxed">
+              Design branded vector QR codes for restaurants, business cards, Wi-Fi networks, and marketing campaigns. Embed your custom company logo, pick gradient dots, and download scalable SVG vector files that never pixelate on print billboards. Plus, scan any QR code instantly with your device camera!
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              {[
+                { title: '15+ QR Protocols', desc: 'WiFi, vCard, Email, SMS, WhatsApp & UPI' },
+                { title: 'Embedded Center Logo', desc: 'Upload custom PNG/SVG logo with auto padding' },
+                { title: 'Lossless Vector SVG', desc: 'Infinite zoom print-ready format' },
+                { title: 'Built-In Camera Scanner', desc: 'Scan codes with webcam or phone lens' },
+                { title: 'Eye Frame & Dot Styling', desc: 'Custom rounded, square, or diamond dots' },
+                { title: 'Error Correction M/Q/H', desc: 'Scannable even if 30% obstructed' },
+              ].map((feat, i) => (
+                <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-green-200 shadow-xs">
+                  <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-xs font-bold text-black">{feat.title}</h4>
+                    <p className="text-[11px] text-green-700">{feat.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => onNavigate('qr')}
+                className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
+              >
+                <span>Launch Vector QR Studio</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Visual QR Stage */}
+          <div className="lg:col-span-6">
+            <div className="p-8 rounded-3xl bg-white border-2 border-green-300 shadow-lg flex flex-col items-center text-center space-y-4">
+              <div className="w-56 h-56 rounded-2xl bg-white p-4 border-2 border-green-400 shadow-md flex items-center justify-center relative">
+                {/* Stylized QR Matrix Pattern Representation */}
+                <div className="w-full h-full border-4 border-black p-2 flex flex-col justify-between">
+                  <div className="flex justify-between">
+                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-green-600" />
+                    </div>
+                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-green-600" />
+                    </div>
+                  </div>
+                  {/* Center Logo */}
+                  <div className="mx-auto w-12 h-12 rounded-xl bg-green-600 text-white flex items-center justify-center font-black text-xs shadow-md border-2 border-white">
+                    VC
+                  </div>
+                  <div className="flex justify-between items-end">
+                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
+                      <div className="w-4 h-4 bg-green-600" />
+                    </div>
+                    <div className="w-8 h-8 grid grid-cols-2 gap-1 p-1">
+                      <div className="bg-black" />
+                      <div className="bg-green-600" />
+                      <div className="bg-green-600" />
+                      <div className="bg-black" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <span className="text-xs font-mono font-bold text-black uppercase block">
+                  Reeyansh Tech Solutions • Custom Vector Matrix
+                </span>
+                <span className="text-[11px] text-green-700 block">
+                  Export SVG, PNG 4K or Read Live from Camera
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* SECTION 7: WHY VIDCUTS & GRAND CALL TO ACTION */}
+      {/* ========================================================================= */}
+      <section className="py-20 px-4 sm:px-8 max-w-6xl mx-auto border-t border-green-200 space-y-12">
+        <div className="p-8 sm:p-12 rounded-3xl bg-green-600 text-white shadow-xl space-y-8 text-center">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-mono font-bold uppercase tracking-wider inline-block">
+              Privacy First Guarantee
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-black leading-tight text-white">
+              Zero Uploads. Zero Cloud Storage. Zero Fees.
+            </h2>
+            <p className="text-sm sm:text-base text-green-100 max-w-2xl mx-auto leading-relaxed">
+              Every tool on VidCuts utilizes browser WebAssembly and local memory to process your photos, videos, and legal PDFs. Your personal media never touches our servers.
+            </p>
+          </div>
+
+          {/* 4 Pillars Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
+              <ShieldCheck className="w-6 h-6 mx-auto text-green-200 mb-1" />
+              <h4 className="text-xs font-bold text-white uppercase">100% Private</h4>
+              <p className="text-[10px] text-green-100 mt-0.5">Files stay on your machine</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
+              <Zap className="w-6 h-6 mx-auto text-green-200 mb-1" />
+              <h4 className="text-xs font-bold text-white uppercase">Local Speed</h4>
+              <p className="text-[10px] text-green-100 mt-0.5">Instant hardware computation</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
+              <CheckCircle2 className="w-6 h-6 mx-auto text-green-200 mb-1" />
+              <h4 className="text-xs font-bold text-white uppercase">Always Free</h4>
+              <p className="text-[10px] text-green-100 mt-0.5">No login, credit card, or limits</p>
+            </div>
+            <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
+              <Globe className="w-6 h-6 mx-auto text-green-200 mb-1" />
+              <h4 className="text-xs font-bold text-white uppercase">Offline Capable</h4>
+              <p className="text-[10px] text-green-100 mt-0.5">Runs offline once cached</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <button
+              onClick={() => onNavigate('video-cutter')}
+              className="px-6 py-3 rounded-2xl bg-white text-green-800 font-extrabold text-sm hover:bg-green-50 shadow-md cursor-pointer transition-all hover:scale-105"
+            >
+              Start Cutting Video →
+            </button>
+            <button
+              onClick={() => onNavigate('pdf-studio')}
+              className="px-6 py-3 rounded-2xl bg-green-800 text-white font-extrabold text-sm hover:bg-green-900 border border-white/20 shadow-md cursor-pointer transition-all hover:scale-105"
+            >
+              Open 32 PDF Tools →
+            </button>
+            <button
+              onClick={() => onNavigate('qr')}
+              className="px-6 py-3 rounded-2xl bg-green-800 text-white font-extrabold text-sm hover:bg-green-900 border border-white/20 shadow-md cursor-pointer transition-all hover:scale-105"
+            >
+              Create QR Code →
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
