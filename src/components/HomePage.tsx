@@ -19,6 +19,7 @@ import {
   Share2,
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
+import { QR3DLaserScanner } from './QR3DLaserScanner';
 
 interface HomePageProps {
   onNavigate: (tab: ActiveTab) => void;
@@ -694,47 +695,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Right Visual QR Stage */}
-          <div className="lg:col-span-6">
-            <div className="p-8 rounded-3xl bg-white border-2 border-green-300 shadow-lg flex flex-col items-center text-center space-y-4">
-              <div className="w-56 h-56 rounded-2xl bg-white p-4 border-2 border-green-400 shadow-md flex items-center justify-center relative">
-                {/* Stylized QR Matrix Pattern Representation */}
-                <div className="w-full h-full border-4 border-black p-2 flex flex-col justify-between">
-                  <div className="flex justify-between">
-                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
-                      <div className="w-4 h-4 bg-green-600" />
-                    </div>
-                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
-                      <div className="w-4 h-4 bg-green-600" />
-                    </div>
-                  </div>
-                  {/* Center Logo */}
-                  <div className="mx-auto w-12 h-12 rounded-xl bg-green-600 text-white flex items-center justify-center font-black text-xs shadow-md border-2 border-white">
-                    VC
-                  </div>
-                  <div className="flex justify-between items-end">
-                    <div className="w-10 h-10 border-4 border-green-600 flex items-center justify-center">
-                      <div className="w-4 h-4 bg-green-600" />
-                    </div>
-                    <div className="w-8 h-8 grid grid-cols-2 gap-1 p-1">
-                      <div className="bg-black" />
-                      <div className="bg-green-600" />
-                      <div className="bg-green-600" />
-                      <div className="bg-black" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-xs font-mono font-bold text-black uppercase block">
-                  Reeyansh Tech Solutions • Custom Vector Matrix
-                </span>
-                <span className="text-[11px] text-green-700 block">
-                  Export SVG, PNG 4K or Read Live from Camera
-                </span>
-              </div>
-            </div>
+          {/* Right Visual 3D QR Laser Scanner Stage */}
+          <div className="lg:col-span-6 w-full">
+            <QR3DLaserScanner
+              targetUrl="https://www.vidcuts.online"
+              onOpenStudio={() => onNavigate('qr')}
+            />
           </div>
         </div>
       </section>
