@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
 import { QR3DLaserScanner } from './QR3DLaserScanner';
+import { AdBanner } from './AdBanner';
 
 interface HomePageProps {
   onNavigate: (tab: ActiveTab) => void;
@@ -447,6 +448,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
+      {/* Mid-Page Responsive Ad Banner */}
+      <div className="max-w-6xl mx-auto px-4 py-2">
+        <AdBanner />
+      </div>
+
       {/* ========================================================================= */}
       {/* SECTION 4: IMAGE STUDIO (SHAPES, KB REDUCER, FILTERS) */}
       {/* ========================================================================= */}
@@ -644,6 +650,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </section>
+
+      {/* Mid-Page Responsive Ad Banner */}
+      <div className="max-w-6xl mx-auto px-4 py-2">
+        <AdBanner />
+      </div>
 
       {/* ========================================================================= */}
       {/* SECTION 6: QR STUDIO & CAMERA SCANNER */}

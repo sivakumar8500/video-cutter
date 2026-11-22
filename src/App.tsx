@@ -15,6 +15,7 @@ import { QrStudio } from './components/QrStudio/QrStudio';
 import { HomePage } from './components/HomePage';
 import { BatchConvertView } from './components/BatchConvertView';
 import { MediaToolsStudio } from './components/MediaTools/MediaToolsStudio';
+import { AdBanner } from './components/AdBanner';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
 import type {
@@ -409,6 +410,9 @@ export function App() {
                       onOpenBatchConverter={() => setCutterMode('batch')}
                     />
 
+                    {/* Mid-Page AdSense Unit */}
+                    <AdBanner />
+
                     {/* Full SEO & Educational Content Section */}
                     <SeoContentSection />
                   </div>
@@ -474,7 +478,7 @@ export function App() {
 
         {/* TAB: Media Tools (URL Downloader, Video to Audio, Audio Remover) */}
         {activeTab === 'media-tools' && (
-          <section id="media-tools" aria-label="Media Tools &amp; Audio Studio">
+          <section id="media-tools" aria-label="Media Tools &amp; Audio Studio" className="space-y-6">
             <MediaToolsStudio
               onSendToVideoCutter={(metadata) => {
                 handleVideoSelected(metadata);
@@ -482,31 +486,35 @@ export function App() {
                 setCutterMode('single');
               }}
             />
+            <AdBanner />
           </section>
         )}
 
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
         {activeTab === 'image-studio' && (
-          <section id="image-studio" aria-label="Image Studio Photo Cropper">
+          <section id="image-studio" aria-label="Image Studio Photo Cropper" className="space-y-6">
             <ImageStudio />
+            <AdBanner />
           </section>
         )}
 
         {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
         {activeTab === 'pdf-studio' && (
-          <section id="pdf-studio" aria-label="32 Client-Side PDF Tools">
+          <section id="pdf-studio" aria-label="32 Client-Side PDF Tools" className="space-y-6">
             <PdfStudio />
+            <AdBanner />
           </section>
         )}
 
         {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
         {activeTab === 'qr' && (
-          <section id="qr" aria-label="Custom Vector QR Code Studio">
+          <section id="qr" aria-label="Custom Vector QR Code Studio" className="space-y-6">
             <QrStudio
               onSendToImageStudio={() => {
                 handleTabChange('image-studio');
               }}
             />
+            <AdBanner />
           </section>
         )}
 
