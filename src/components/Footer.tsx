@@ -16,6 +16,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   return (
     <footer aria-label="Site Footer" className="w-full border-t border-slate-200 bg-white mt-16 text-slate-600">
+      <h2 className="sr-only">Footer Directory &amp; Navigation</h2>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Company Brand & Logo */}
@@ -30,6 +31,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <img
                   src="./app-icon.png"
                   alt="VidCuts App Icon"
+                  width={48}
+                  height={48}
                   className="w-full h-full object-contain rounded-xl drop-shadow"
                 />
               </a>
@@ -57,7 +60,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                   >
                     <img
                       src="./reeyansh-logo.png"
-                      alt="Reeyansh"
+                      alt="Reeyansh Tech Solutions Logo"
+                      width={14}
+                      height={14}
                       className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                     />
                     <span>Reeyansh Tech Solutions</span>
@@ -258,7 +263,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           >
             <img
               src="./reeyansh-logo.png"
-              alt="Reeyansh Tech Solutions"
+              alt="Reeyansh Tech Solutions Logo"
+              width={20}
+              height={20}
               className="w-5 h-5 object-contain group-hover:scale-110 transition-transform"
             />
             <span>

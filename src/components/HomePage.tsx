@@ -194,9 +194,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 return (
                   <div
                     key={m.id}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Open ${m.name}: ${m.tagline}`}
                     onClick={() => {
                       setActive3dIndex(idx);
                       onNavigate(m.id);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setActive3dIndex(idx);
+                        onNavigate(m.id);
+                      }
                     }}
                     onMouseEnter={() => setActive3dIndex(idx)}
                     className={`${animClass} cursor-pointer group rounded-3xl p-5 bg-white border-2 ${
@@ -215,15 +225,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                     </div>
 
                     <div>
-                      <h3 className="text-sm font-extrabold text-black group-hover:text-green-600 transition-colors">
+                      <h2 className="text-sm font-extrabold text-black group-hover:text-green-800 transition-colors">
                         {m.name}
-                      </h3>
-                      <p className="text-[11px] text-green-700 leading-tight mt-0.5">
+                      </h2>
+                      <p className="text-[11px] text-green-800 leading-tight mt-0.5">
                         {m.tagline}
                       </p>
                     </div>
 
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-green-600 group-hover:translate-x-1 transition-transform">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-green-800 group-hover:translate-x-1 transition-transform">
                       <span>Open</span>
                       <ArrowRight className="w-3 h-3" />
                     </span>
@@ -243,9 +253,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             { label: 'Private & Local', val: '100% Client-Side', sub: '0 bytes cloud storage' },
           ].map((stat, i) => (
             <div key={i} className="p-4 rounded-2xl bg-green-50/60 border border-green-200 text-center">
-              <span className="text-xs font-mono uppercase text-green-700 block">{stat.label}</span>
+              <span className="text-xs font-mono uppercase text-green-800 font-semibold block">{stat.label}</span>
               <span className="text-xl sm:text-2xl font-black text-black block mt-0.5">{stat.val}</span>
-              <span className="text-[11px] text-green-600 block">{stat.sub}</span>
+              <span className="text-[11px] text-green-800 block font-medium">{stat.sub}</span>
             </div>
           ))}
         </div>
@@ -284,8 +294,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-green-200 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-black">{feat.title}</h4>
-                    <p className="text-[11px] text-green-700">{feat.desc}</p>
+                    <h3 className="text-xs font-bold text-black">{feat.title}</h3>
+                    <p className="text-[11px] text-green-800">{feat.desc}</p>
                   </div>
                 </div>
               ))}
@@ -574,15 +584,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-green-600" />
-                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                <h3 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
                   Organize &amp; Edit
-                </h4>
+                </h3>
               </div>
               <div className="space-y-1.5 text-xs">
                 {['Merge Multiple PDFs', 'Split PDF by Range', 'Rotate PDF Pages', 'Reorder & Rearrange', 'Delete Selected Pages', 'Extract Specific Pages'].map((t, idx) => (
                   <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
                     <span>{t}</span>
-                    <span className="text-[10px] text-green-600 font-bold">PDF</span>
+                    <span className="text-[10px] text-green-800 font-bold">PDF</span>
                   </div>
                 ))}
               </div>
@@ -592,15 +602,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
               <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4 text-green-600" />
-                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                <h3 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
                   Security &amp; Privacy
-                </h4>
+                </h3>
               </div>
               <div className="space-y-1.5 text-xs">
                 {['AES-256 Encrypt & Protect', 'Remove PDF Password', 'Add Custom Watermark', 'Blackout & Redact', 'Flatten Form Fields', 'Sanitize Metadata'].map((t, idx) => (
                   <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
                     <span>{t}</span>
-                    <span className="text-[10px] text-green-600 font-bold">LOCK</span>
+                    <span className="text-[10px] text-green-800 font-bold">LOCK</span>
                   </div>
                 ))}
               </div>
@@ -610,15 +620,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
               <div className="flex items-center gap-2">
                 <Share2 className="w-4 h-4 text-green-600" />
-                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                <h3 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
                   Conversion &amp; Export
-                </h4>
+                </h3>
               </div>
               <div className="space-y-1.5 text-xs">
                 {['PDF to PNG / JPG Images', 'Images to PDF Maker', 'Grayscale B&W Converter', 'Extract Text & Words', 'Extract Images from PDF', 'Crop PDF Page Box'].map((t, idx) => (
                   <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
                     <span>{t}</span>
-                    <span className="text-[10px] text-green-600 font-bold">CONVERT</span>
+                    <span className="text-[10px] text-green-800 font-bold">CONVERT</span>
                   </div>
                 ))}
               </div>
@@ -628,15 +638,15 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
             <div className="p-5 rounded-3xl bg-green-50/50 border border-green-200 space-y-3">
               <div className="flex items-center gap-2">
                 <Zap className="w-4 h-4 text-green-600" />
-                <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
+                <h3 className="text-xs font-mono uppercase tracking-wider font-bold text-black">
                   Optimize &amp; Stamp
-                </h4>
+                </h3>
               </div>
               <div className="space-y-1.5 text-xs">
                 {['Compress PDF Size', 'Add Page Numbers (B/T)', 'Add Header & Footer Text', 'Deskew Crooked Scans', 'N-Up 2/4 Pages per Sheet', 'Compare Two PDFs'].map((t, idx) => (
                   <div key={idx} className="p-2 rounded-xl bg-white border border-green-200/80 font-medium text-black flex items-center justify-between">
                     <span>{t}</span>
-                    <span className="text-[10px] text-green-600 font-bold">BOOST</span>
+                    <span className="text-[10px] text-green-800 font-bold">BOOST</span>
                   </div>
                 ))}
               </div>
@@ -692,8 +702,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
                 <div key={i} className="flex items-start gap-2.5 p-3 rounded-xl bg-white border border-green-200 shadow-xs">
                   <CheckCircle2 className="w-4 h-4 text-green-600 shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="text-xs font-bold text-black">{feat.title}</h4>
-                    <p className="text-[11px] text-green-700">{feat.desc}</p>
+                    <h3 className="text-xs font-bold text-black">{feat.title}</h3>
+                    <p className="text-[11px] text-green-800">{feat.desc}</p>
                   </div>
                 </div>
               ))}
@@ -752,22 +762,22 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
               <ShieldCheck className="w-6 h-6 mx-auto text-green-200 mb-1" />
-              <h4 className="text-xs font-bold text-white uppercase">100% Private</h4>
+              <h3 className="text-xs font-bold text-white uppercase">100% Private</h3>
               <p className="text-[10px] text-green-100 mt-0.5">Files stay on your machine</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
               <Zap className="w-6 h-6 mx-auto text-green-200 mb-1" />
-              <h4 className="text-xs font-bold text-white uppercase">Local Speed</h4>
+              <h3 className="text-xs font-bold text-white uppercase">Local Speed</h3>
               <p className="text-[10px] text-green-100 mt-0.5">Instant hardware computation</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
               <CheckCircle2 className="w-6 h-6 mx-auto text-green-200 mb-1" />
-              <h4 className="text-xs font-bold text-white uppercase">Always Free</h4>
+              <h3 className="text-xs font-bold text-white uppercase">Always Free</h3>
               <p className="text-[10px] text-green-100 mt-0.5">No login, credit card, or limits</p>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 backdrop-blur-xs border border-white/20">
               <Globe className="w-6 h-6 mx-auto text-green-200 mb-1" />
-              <h4 className="text-xs font-bold text-white uppercase">Offline Capable</h4>
+              <h3 className="text-xs font-bold text-white uppercase">Offline Capable</h3>
               <p className="text-[10px] text-green-100 mt-0.5">Runs offline once cached</p>
             </div>
           </div>

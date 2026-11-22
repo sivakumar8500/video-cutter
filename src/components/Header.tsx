@@ -39,6 +39,8 @@ export const Header: React.FC<HeaderProps> = ({
               <img
                 src="./app-icon.png"
                 alt="VidCuts App Icon"
+                width={44}
+                height={44}
                 className="w-full h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
               />
             </a>
@@ -64,7 +66,9 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                   <img
                     src="./reeyansh-logo.png"
-                    alt="Reeyansh"
+                    alt="Reeyansh Tech Solutions Logo"
+                    width={14}
+                    height={14}
                     className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                   />
                   <span className="text-[10px] font-bold tracking-wide">
@@ -73,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
                   <ExternalLink className="w-2.5 h-2.5 opacity-60 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
-              <p className="text-[11px] text-slate-500 hidden md:block">
+              <p className="text-[11px] text-slate-600 hidden md:block">
                 100% In-Browser Video, Image, PDF &amp; QR Suite
               </p>
             </div>
@@ -168,7 +172,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <span>PDF Tools</span>
               <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full ${
-                activeTab === 'pdf-studio' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                activeTab === 'pdf-studio' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
               }`}>
                 32
               </span>

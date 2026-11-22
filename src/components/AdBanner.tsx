@@ -29,7 +29,7 @@ export const AdBanner: React.FC<AdBannerProps> = ({
 
   return (
     <div className={`w-full my-6 flex flex-col items-center justify-center overflow-hidden ${className}`}>
-      <span className="text-[10px] uppercase font-mono tracking-widest text-slate-400 mb-1 select-none">
+      <span className="text-[10px] uppercase font-mono tracking-widest text-slate-600 mb-1 select-none font-semibold">
         Advertisement
       </span>
       <div className="w-full max-w-5xl flex justify-center items-center min-h-[100px] bg-slate-50/70 rounded-2xl border border-slate-200/60 p-2 shadow-2xs">

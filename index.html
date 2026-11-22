@@ -21,12 +21,18 @@
   <meta name="application-name" content="VidCuts by Reeyansh Tech Solutions" />
   <link rel="canonical" href="https://www.vidcuts.online/" />
 
-  <!-- Google AdSense Account Verification & Auto Ads -->
+  <!-- Google AdSense Account Verification & Optimized Non-Blocking Loader -->
   <meta name="google-adsense-account" content="ca-pub-5783404252931950" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783404252931950"
-    crossorigin="anonymous"></script>
-  <!-- AMP Ad Library -->
-  <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js"></script>
+  <script>
+    // Asynchronously load Google AdSense without blocking Core Web Vitals on mobile
+    window.addEventListener('DOMContentLoaded', function () {
+      var adsScript = document.createElement('script');
+      adsScript.async = true;
+      adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783404252931950";
+      adsScript.crossOrigin = "anonymous";
+      document.head.appendChild(adsScript);
+    });
+  </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
