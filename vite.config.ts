@@ -61,5 +61,32 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/three')) {
+            return 'vendor-three';
+          }
+          if (id.includes('node_modules/pdf-lib')) {
+            return 'vendor-pdf';
+          }
+          if (id.includes('node_modules/@ffmpeg')) {
+            return 'vendor-ffmpeg';
+          }
+          if (id.includes('node_modules/qrcode') || id.includes('node_modules/jsqr')) {
+            return 'vendor-qr';
+          }
+          if (id.includes('node_modules/lucide-react')) {
+            return 'vendor-icons';
+          }
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/scheduler/')) {
+            return 'vendor-react';
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000,
+  },
 })
 

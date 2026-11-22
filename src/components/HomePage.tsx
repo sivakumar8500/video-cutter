@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import {
   Film,
   Image as ImageIcon,
@@ -19,8 +19,12 @@ import {
   Share2,
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
-import { QR3DLaserScanner } from './QR3DLaserScanner';
 import { AdBanner } from './AdBanner';
+
+// Lazy load 3D Laser scanner so Three.js does not block initial HomePage rendering
+const QR3DLaserScanner = lazy(() =>
+  import('./QR3DLaserScanner').then((m) => ({ default: m.QR3DLaserScanner }))
+);
 
 interface HomePageProps {
   onNavigate: (tab: ActiveTab) => void;
@@ -708,10 +712,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
           {/* Right Visual 3D QR Laser Scanner Stage */}
           <div className="lg:col-span-6 w-full">
-            <QR3DLaserScanner
-              targetUrl="https://www.vidcuts.online"
-              onOpenStudio={() => onNavigate('qr')}
-            />
+            <Suspense
+              fallback={
+                <div className="w-full h-[460px] rounded-3xl bg-slate-900 border border-green-500/30 flex flex-col items-center justify-center text-center p-6 space-y-3">
+                  <div className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-xs font-mono text-green-400 tracking-wider">
+                    INITIALIZING 3D LASER MATRIX...
+                  </span>
+                </div>
+              }
+            >
+              <QR3DLaserScanner
+                targetUrl="https://www.vidcuts.online"
+                onOpenStudio={() => onNavigate('qr')}
+              />
+            </Suspense>
           </div>
         </div>
       </section>

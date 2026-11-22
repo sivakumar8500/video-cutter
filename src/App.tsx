@@ -1,20 +1,7 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react';
 import { Header, type ActiveTab } from './components/Header';
-import { VideoUploader } from './components/VideoUploader';
-import { VideoPlayerPreview } from './components/VideoPlayerPreview';
-import { SplitConfiguration } from './components/SplitConfiguration';
-import { TimelinePreview } from './components/TimelinePreview';
-import { ProcessingModal } from './components/ProcessingModal';
-import { CompletionView } from './components/CompletionView';
 import { Footer } from './components/Footer';
-import { SeoContentSection } from './components/SeoContentSection';
-import { ImageStudio } from './components/ImageStudio/ImageStudio';
-import { PdfStudio } from './components/PdfStudio/PdfStudio';
-import { FilesManagerView } from './components/FilesManagerView';
-import { QrStudio } from './components/QrStudio/QrStudio';
 import { HomePage } from './components/HomePage';
-import { BatchConvertView } from './components/BatchConvertView';
-import { MediaToolsStudio } from './components/MediaTools/MediaToolsStudio';
 import { AdBanner } from './components/AdBanner';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
@@ -29,7 +16,34 @@ import {
   getFileExtension,
   sanitizeBaseFilename,
 } from './utils/formatters';
-import { ffmpegService } from './services/ffmpegService';
+
+// Lazy-loaded studio modules for maximum mobile performance and minimal initial bundle size
+const VideoUploader = lazy(() => import('./components/VideoUploader').then((m) => ({ default: m.VideoUploader })));
+const VideoPlayerPreview = lazy(() => import('./components/VideoPlayerPreview').then((m) => ({ default: m.VideoPlayerPreview })));
+const SplitConfiguration = lazy(() => import('./components/SplitConfiguration').then((m) => ({ default: m.SplitConfiguration })));
+const TimelinePreview = lazy(() => import('./components/TimelinePreview').then((m) => ({ default: m.TimelinePreview })));
+const ProcessingModal = lazy(() => import('./components/ProcessingModal').then((m) => ({ default: m.ProcessingModal })));
+const CompletionView = lazy(() => import('./components/CompletionView').then((m) => ({ default: m.CompletionView })));
+const SeoContentSection = lazy(() => import('./components/SeoContentSection').then((m) => ({ default: m.SeoContentSection })));
+const ImageStudio = lazy(() => import('./components/ImageStudio/ImageStudio').then((m) => ({ default: m.ImageStudio })));
+const PdfStudio = lazy(() => import('./components/PdfStudio/PdfStudio').then((m) => ({ default: m.PdfStudio })));
+const FilesManagerView = lazy(() => import('./components/FilesManagerView').then((m) => ({ default: m.FilesManagerView })));
+const QrStudio = lazy(() => import('./components/QrStudio/QrStudio').then((m) => ({ default: m.QrStudio })));
+const BatchConvertView = lazy(() => import('./components/BatchConvertView').then((m) => ({ default: m.BatchConvertView })));
+const MediaToolsStudio = lazy(() => import('./components/MediaTools/MediaToolsStudio').then((m) => ({ default: m.MediaToolsStudio })));
+
+// Sleek fallback loader for lazy tabs
+const StudioLoader = ({ label = 'Loading Studio...' }: { label?: string }) => (
+  <div className="w-full min-h-[360px] flex flex-col items-center justify-center p-8 text-center space-y-4">
+    <div className="w-12 h-12 rounded-2xl bg-green-50 border border-green-200 flex items-center justify-center text-green-600 shadow-xs">
+      <div className="w-6 h-6 border-2 border-green-600 border-t-transparent rounded-full animate-spin" />
+    </div>
+    <div className="space-y-1">
+      <p className="text-sm font-bold text-black">{label}</p>
+      <p className="text-xs text-green-700 font-mono">100% In-Browser Privacy • Client-Side Only</p>
+    </div>
+  </div>
+);
 
 // Synchronous URL Hash to Tab Resolver for SEO and deep-linking
 const parseHashToTab = (): ActiveTab => {
@@ -149,7 +163,9 @@ export function App() {
   // Remove Video Handler
   const handleReset = useCallback(() => {
     if (progress.status === 'processing') {
-      ffmpegService.cancel();
+      import('./services/ffmpegService').then(({ ffmpegService }) => {
+        ffmpegService.cancel();
+      });
     }
     if (video?.previewUrl) {
       URL.revokeObjectURL(video.previewUrl);
@@ -204,6 +220,7 @@ export function App() {
     });
 
     try {
+      const { ffmpegService } = await import('./services/ffmpegService');
       const clips = await ffmpegService.splitVideo(
         video.file,
         segments,
@@ -243,7 +260,8 @@ export function App() {
   };
 
   // Cancel Process Handler
-  const handleCancelProcess = () => {
+  const handleCancelProcess = async () => {
+    const { ffmpegService } = await import('./services/ffmpegService');
     ffmpegService.cancel();
     setProgress((prev) => ({
       ...prev,
@@ -322,170 +340,174 @@ export function App() {
         {/* TAB 1: Video Cutter & Splitter */}
         {activeTab === 'video-cutter' && (
           <section id="video-cutter" aria-label="Video Cutter and Splitter">
-            {/* Mode Selector Switcher */}
-            <div className="flex items-center justify-center mb-6">
-              <div className="flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200 shadow-sm">
-                <button
-                  type="button"
-                  onClick={() => setCutterMode('single')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'single'
-                    ? 'bg-emerald-600 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                >
-                  <Scissors className="w-3.5 h-3.5 text-white" />
-                  <span>Video Splitter &amp; Cutter</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCutterMode('batch')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'batch'
-                    ? 'bg-emerald-600 text-white font-bold shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                >
-                  <Smartphone className="w-3.5 h-3.5" />
-                  <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
-                </button>
+            <Suspense fallback={<StudioLoader label="Loading Video Cutter & Splitter Engine..." />}>
+              {/* Mode Selector Switcher */}
+              <div className="flex items-center justify-center mb-6">
+                <div className="flex items-center p-1 rounded-2xl bg-slate-100 border border-slate-200 shadow-sm">
+                  <button
+                    type="button"
+                    onClick={() => setCutterMode('single')}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'single'
+                      ? 'bg-emerald-600 text-white shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                  >
+                    <Scissors className="w-3.5 h-3.5 text-white" />
+                    <span>Video Splitter &amp; Cutter</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setCutterMode('batch')}
+                    className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-2 ${cutterMode === 'batch'
+                      ? 'bg-emerald-600 text-white font-bold shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                  >
+                    <Smartphone className="w-3.5 h-3.5" />
+                    <span>Batch 16:9 → 9:16 Mode (Multiple Videos)</span>
+                  </button>
+                </div>
               </div>
-            </div>
 
-            {cutterMode === 'batch' ? (
-              <BatchConvertView
-                initialFiles={batchFiles}
-                onBackToSingle={() => {
-                  setCutterMode('single');
-                  setBatchFiles([]);
-                }}
-              />
-            ) : (
-              <>
-                {/* State 1: No video selected yet */}
-                {!video && (
-                  <div className="space-y-10 animate-in fade-in duration-300">
-                    {/* Hero Heading with Unique App Icon */}
-                    <div className="text-center max-w-3xl mx-auto space-y-4">
-                      <div className="flex flex-col items-center justify-center">
-                        <div className="relative group mb-3">
-                          <div className="absolute -inset-1.5 bg-[#F59E0B]/25 rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition duration-500"></div>
-                          <img
-                            src="./app-icon.png"
-                            alt="VidCuts App Icon"
-                            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-slate-200"
+              {cutterMode === 'batch' ? (
+                <BatchConvertView
+                  initialFiles={batchFiles}
+                  onBackToSingle={() => {
+                    setCutterMode('single');
+                    setBatchFiles([]);
+                  }}
+                />
+              ) : (
+                <>
+                  {/* State 1: No video selected yet */}
+                  {!video && (
+                    <div className="space-y-10 animate-in fade-in duration-300">
+                      {/* Hero Heading with Unique App Icon */}
+                      <div className="text-center max-w-3xl mx-auto space-y-4">
+                        <div className="flex flex-col items-center justify-center">
+                          <div className="relative group mb-3">
+                            <div className="absolute -inset-1.5 bg-[#F59E0B]/25 rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition duration-500"></div>
+                            <img
+                              src="./app-icon.png"
+                              alt="VidCuts App Icon"
+                              className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-slate-200"
+                            />
+                          </div>
+                          <a
+                            href="https://www.reeyanshtech.in/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] text-[#B45309] text-xs font-semibold transition-all cursor-pointer group shadow-xs"
+                            title="Visit Reeyansh Tech Solutions Official Website"
+                          >
+                            <img
+                              src="./reeyansh-logo.png"
+                              alt="Reeyansh"
+                              className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
+                            />
+                            <span>By Reeyansh Tech Solutions • 100% In-Browser &amp; Private</span>
+                            <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                          </a>
+                        </div>
+
+                        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                          Split Any Video Into Clips In Seconds
+                        </h1>
+                        <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
+                          Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion &amp; promotional cards.
+                          All processing happens 100% locally in your browser using FFmpeg WebAssembly.
+                        </p>
+                      </div>
+
+                      {/* Video Upload Dropzone */}
+                      <VideoUploader
+                        onVideoSelected={handleVideoSelected}
+                        onMultipleVideosSelected={(files) => {
+                          setBatchFiles(files);
+                          setCutterMode('batch');
+                        }}
+                        onOpenBatchConverter={() => setCutterMode('batch')}
+                      />
+
+                      {/* Mid-Page AdSense Unit */}
+                      <AdBanner />
+
+                      {/* Full SEO & Educational Content Section */}
+                      <SeoContentSection />
+                    </div>
+                  )}
+
+                  {/* State 2: Video loaded & ready to configure / preview */}
+                  {video && exportedClips.length === 0 && (
+                    <div className="space-y-8 animate-in fade-in duration-300">
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                        {/* Left Column: Video Preview Player & Split Controls */}
+                        <div className="lg:col-span-7 space-y-6">
+                          <VideoPlayerPreview
+                            metadata={video}
+                            seekTime={seekTime}
+                            onRemove={handleReset}
+                            onChangeVideo={handleReset}
+                            onCurrentTimeChange={setCurrentVideoTime}
+                          />
+
+                          <SplitConfiguration
+                            totalDuration={video.duration}
+                            config={config}
+                            onChangeConfig={setConfig}
+                            defaultBaseName={defaultBaseName}
+                            currentPlayheadTime={currentVideoTime}
+                            onSeek={(time) => setSeekTime(time)}
+                            videoPreviewUrl={video.previewUrl}
                           />
                         </div>
-                        <a
-                          href="https://www.reeyanshtech.in/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF3C7] hover:bg-[#FDE68A] border border-[#FDE68A] text-[#B45309] text-xs font-semibold transition-all cursor-pointer group shadow-xs"
-                          title="Visit Reeyansh Tech Solutions Official Website"
-                        >
-                          <img
-                            src="./reeyansh-logo.png"
-                            alt="Reeyansh"
-                            className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
+
+                        {/* Right Column: Timeline Visualization & Segment Cuts */}
+                        <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+                          <TimelinePreview
+                            totalDuration={video.duration}
+                            segments={segments}
+                            onSeek={(time) => setSeekTime(time)}
+                            onStartProcess={handleStartProcess}
+                            isProcessing={
+                              progress.status === 'processing' ||
+                              progress.status === 'loading-ffmpeg' ||
+                              progress.status === 'preparing-file'
+                            }
+                            isRangeMode={config.mode === 'range'}
                           />
-                          <span>By Reeyansh Tech Solutions • 100% In-Browser &amp; Private</span>
-                          <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-                        </a>
+                        </div>
                       </div>
-
-                      <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                        Split Any Video Into Clips In Seconds
-                      </h1>
-                      <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto">
-                        Split videos by piece count, duration, or exact minute ranges with optional 16:9 to 9:16 vertical conversion &amp; promotional cards.
-                        All processing happens 100% locally in your browser using FFmpeg WebAssembly.
-                      </p>
                     </div>
+                  )}
 
-                    {/* Video Upload Dropzone */}
-                    <VideoUploader
-                      onVideoSelected={handleVideoSelected}
-                      onMultipleVideosSelected={(files) => {
-                        setBatchFiles(files);
-                        setCutterMode('batch');
-                      }}
-                      onOpenBatchConverter={() => setCutterMode('batch')}
+                  {/* State 3: Completed splitting results */}
+                  {exportedClips.length > 0 && (
+                    <CompletionView
+                      clips={exportedClips}
+                      folderName={outputFolderName}
+                      onReset={handleReset}
+                      onUpdateClips={setExportedClips}
                     />
-
-                    {/* Mid-Page AdSense Unit */}
-                    <AdBanner />
-
-                    {/* Full SEO & Educational Content Section */}
-                    <SeoContentSection />
-                  </div>
-                )}
-
-                {/* State 2: Video loaded & ready to configure / preview */}
-                {video && exportedClips.length === 0 && (
-                  <div className="space-y-8 animate-in fade-in duration-300">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                      {/* Left Column: Video Preview Player & Split Controls */}
-                      <div className="lg:col-span-7 space-y-6">
-                        <VideoPlayerPreview
-                          metadata={video}
-                          seekTime={seekTime}
-                          onRemove={handleReset}
-                          onChangeVideo={handleReset}
-                          onCurrentTimeChange={setCurrentVideoTime}
-                        />
-
-                        <SplitConfiguration
-                          totalDuration={video.duration}
-                          config={config}
-                          onChangeConfig={setConfig}
-                          defaultBaseName={defaultBaseName}
-                          currentPlayheadTime={currentVideoTime}
-                          onSeek={(time) => setSeekTime(time)}
-                          videoPreviewUrl={video.previewUrl}
-                        />
-                      </div>
-
-                      {/* Right Column: Timeline Visualization & Segment Cuts */}
-                      <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
-                        <TimelinePreview
-                          totalDuration={video.duration}
-                          segments={segments}
-                          onSeek={(time) => setSeekTime(time)}
-                          onStartProcess={handleStartProcess}
-                          isProcessing={
-                            progress.status === 'processing' ||
-                            progress.status === 'loading-ffmpeg' ||
-                            progress.status === 'preparing-file'
-                          }
-                          isRangeMode={config.mode === 'range'}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* State 3: Completed splitting results */}
-                {exportedClips.length > 0 && (
-                  <CompletionView
-                    clips={exportedClips}
-                    folderName={outputFolderName}
-                    onReset={handleReset}
-                    onUpdateClips={setExportedClips}
-                  />
-                )}
-              </>
-            )}
+                  )}
+                </>
+              )}
+            </Suspense>
           </section>
         )}
 
         {/* TAB: Media Tools (URL Downloader, Video to Audio, Audio Remover) */}
         {activeTab === 'media-tools' && (
           <section id="media-tools" aria-label="Media Tools &amp; Audio Studio" className="space-y-6">
-            <MediaToolsStudio
-              onSendToVideoCutter={(metadata) => {
-                handleVideoSelected(metadata);
-                handleTabChange('video-cutter');
-                setCutterMode('single');
-              }}
-            />
+            <Suspense fallback={<StudioLoader label="Loading Media Tools..." />}>
+              <MediaToolsStudio
+                onSendToVideoCutter={(metadata) => {
+                  handleVideoSelected(metadata);
+                  handleTabChange('video-cutter');
+                  setCutterMode('single');
+                }}
+              />
+            </Suspense>
             <AdBanner />
           </section>
         )}
@@ -493,7 +515,9 @@ export function App() {
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
         {activeTab === 'image-studio' && (
           <section id="image-studio" aria-label="Image Studio Photo Cropper" className="space-y-6">
-            <ImageStudio />
+            <Suspense fallback={<StudioLoader label="Loading Image Studio & Shape Cropper..." />}>
+              <ImageStudio />
+            </Suspense>
             <AdBanner />
           </section>
         )}
@@ -501,7 +525,9 @@ export function App() {
         {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
         {activeTab === 'pdf-studio' && (
           <section id="pdf-studio" aria-label="32 Client-Side PDF Tools" className="space-y-6">
-            <PdfStudio />
+            <Suspense fallback={<StudioLoader label="Loading 32 Client-Side PDF Tools..." />}>
+              <PdfStudio />
+            </Suspense>
             <AdBanner />
           </section>
         )}
@@ -509,11 +535,13 @@ export function App() {
         {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
         {activeTab === 'qr' && (
           <section id="qr" aria-label="Custom Vector QR Code Studio" className="space-y-6">
-            <QrStudio
-              onSendToImageStudio={() => {
-                handleTabChange('image-studio');
-              }}
-            />
+            <Suspense fallback={<StudioLoader label="Loading Custom Vector QR Studio..." />}>
+              <QrStudio
+                onSendToImageStudio={() => {
+                  handleTabChange('image-studio');
+                }}
+              />
+            </Suspense>
             <AdBanner />
           </section>
         )}
@@ -521,12 +549,14 @@ export function App() {
         {/* TAB 5: Media & Files Manager */}
         {activeTab === 'files' && (
           <section id="files" aria-label="Local Media and Export Manager">
-            <FilesManagerView
-              activeVideo={video}
-              exportedClips={exportedClips}
-              onSelectVideoForCutter={handleVideoSelected}
-              onSwitchTab={handleTabChange}
-            />
+            <Suspense fallback={<StudioLoader label="Loading Media & Files Manager..." />}>
+              <FilesManagerView
+                activeVideo={video}
+                exportedClips={exportedClips}
+                onSelectVideoForCutter={handleVideoSelected}
+                onSwitchTab={handleTabChange}
+              />
+            </Suspense>
           </section>
         )}
       </main>
@@ -537,14 +567,16 @@ export function App() {
         progress.status === 'preparing-file' ||
         (progress.status === 'error' && exportedClips.length === 0) ||
         progress.status === 'cancelled') && (
-          <ProcessingModal
-            progress={progress}
-            onCancel={
-              progress.status === 'error' || progress.status === 'cancelled'
-                ? () => setProgress((p) => ({ ...p, status: 'idle' }))
-                : handleCancelProcess
-            }
-          />
+          <Suspense fallback={null}>
+            <ProcessingModal
+              progress={progress}
+              onCancel={
+                progress.status === 'error' || progress.status === 'cancelled'
+                  ? () => setProgress((p) => ({ ...p, status: 'idle' }))
+                  : handleCancelProcess
+              }
+            />
+          </Suspense>
         )}
 
       {/* Reeyansh Tech Solutions Footer & Copyright with Crawlable Link Navigation */}
