@@ -1,21 +1,21 @@
 # VidCuts — In-Browser Video Cutter, Media Studio, 32 PDF Tools & QR Generator
 > Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
-> Live Website: https://scuts.reeyanshtech.in/ (or https://sivakumar8500.github.io/video-cutter/)
+> Live Website: https://www.vidcuts.online/ (or https://sivakumar8500.github.io/video-cutter/)
 
 ## Overview
 VidCuts is a free, privacy-first, client-side web utility that processes video, audio, images, documents, and vector QR codes directly inside the browser using WebAssembly (FFmpeg WASM) and client hardware. No files are ever uploaded to cloud servers or third-party storage.
 
 ## Section & Deep Tool URLs (Crawlable Navigation)
-1. **Home Suite Overview**: `https://scuts.reeyanshtech.in/#home`
-2. **Video Cutter & 9:16 Shorts Engine**: `https://scuts.reeyanshtech.in/#video-cutter`
-3. **Media Tools (URL Downloader & Audio)**: `https://scuts.reeyanshtech.in/#media-tools`
-4. **Image Studio (Aspect Crops & Masks)**: `https://scuts.reeyanshtech.in/#image-studio`
-5. **32 Client-Side PDF Tools**: `https://scuts.reeyanshtech.in/#pdf-studio`
-6. **Vector QR Code Matrix & Scanner**: `https://scuts.reeyanshtech.in/#qr`
-7. **Local Files & Clip Manager**: `https://scuts.reeyanshtech.in/#files`
-8. **Frequently Asked Questions**: `https://scuts.reeyanshtech.in/#faq`
-9. **Architecture & Performance**: `https://scuts.reeyanshtech.in/#architecture`
-10. **Capability Comparison Matrix**: `https://scuts.reeyanshtech.in/#editions`
+1. **Home Suite Overview**: `https://www.vidcuts.online/#home`
+2. **Video Cutter & 9:16 Shorts Engine**: `https://www.vidcuts.online/#video-cutter`
+3. **Media Tools (URL Downloader & Audio)**: `https://www.vidcuts.online/#media-tools`
+4. **Image Studio (Aspect Crops & Masks)**: `https://www.vidcuts.online/#image-studio`
+5. **32 Client-Side PDF Tools**: `https://www.vidcuts.online/#pdf-studio`
+6. **Vector QR Code Matrix & Scanner**: `https://www.vidcuts.online/#qr`
+7. **Local Files & Clip Manager**: `https://www.vidcuts.online/#files`
+8. **Frequently Asked Questions**: `https://www.vidcuts.online/#faq`
+9. **Architecture & Performance**: `https://www.vidcuts.online/#architecture`
+10. **Capability Comparison Matrix**: `https://www.vidcuts.online/#editions`
 
 ## Core Capabilities
 1. **Split by Piece Count**: Divide any video evenly into N parts (e.g. 2, 4, 5, 10 clips) with exact timestamp boundaries.
@@ -45,6 +45,4 @@ VidCuts is a free, privacy-first, client-side web utility that processes video, 
 - Developed by: Reeyansh Tech Solutions
 - Official Website: https://www.reeyanshtech.in/
 - GitHub Repository: https://github.com/sivakumar8500/video-cutter
-- Live Application: https://scuts.reeyanshtech.in/
-
-
+- Live Application: https://www.vidcuts.online/

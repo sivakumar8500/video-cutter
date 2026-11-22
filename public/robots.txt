@@ -1,4 +1,4 @@
-# robots.txt for VidCuts (https://sivakumar8500.github.io/video-cutter/)
+# robots.txt for VidCuts (https://www.vidcuts.online/)
 # Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
 
 User-agent: *
@@ -36,4 +36,4 @@ User-agent: Cohere-ai
 Allow: /
 
 # Sitemap Location
-Sitemap: https://scuts.reeyanshtech.in/sitemap.xml
+Sitemap: https://www.vidcuts.online/sitemap.xml
