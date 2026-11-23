@@ -462,9 +462,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Mid-Page Responsive Ad Banner */}
+      {/* Mid-Page In-Feed Fluid Ad Unit (Slot #6721366060) */}
       <div className="max-w-6xl mx-auto px-4 py-2">
-        <AdBanner />
+        <AdBanner variant="in-feed" />
       </div>
 
       {/* ========================================================================= */}
@@ -665,9 +665,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Mid-Page Responsive Ad Banner */}
+      {/* Pre-Footer Display Responsive Ad Unit (Slot #7986346271) */}
       <div className="max-w-6xl mx-auto px-4 py-2">
-        <AdBanner />
+        <AdBanner variant="display" />
       </div>
 
       {/* ========================================================================= */}
