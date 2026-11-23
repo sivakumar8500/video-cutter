@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, lazy, Suspense, useRef, useEffect } from 'react';
 import {
   Film,
   Image as ImageIcon,
@@ -25,6 +25,66 @@ import { AdBanner } from './AdBanner';
 const QR3DLaserScanner = lazy(() =>
   import('./QR3DLaserScanner').then((m) => ({ default: m.QR3DLaserScanner }))
 );
+
+// Viewport-triggered component: Three.js and QRCode modules NEVER download until scrolled into view
+const LazyQR3DScanner: React.FC<{ targetUrl: string; onOpenStudio: () => void }> = ({
+  targetUrl,
+  onOpenStudio,
+}) => {
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setShouldLoad(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '300px' }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={containerRef} className="w-full min-h-[460px]">
+      {shouldLoad ? (
+        <Suspense
+          fallback={
+            <div className="w-full h-[460px] rounded-3xl bg-slate-900 border border-green-500/30 flex flex-col items-center justify-center text-center p-6 space-y-3">
+              <div className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
+              <span className="text-xs font-mono text-green-400 tracking-wider">
+                INITIALIZING 3D LASER MATRIX...
+              </span>
+            </div>
+          }
+        >
+          <QR3DLaserScanner targetUrl={targetUrl} onOpenStudio={onOpenStudio} />
+        </Suspense>
+      ) : (
+        <div className="w-full h-[460px] rounded-3xl bg-slate-900/60 border border-slate-800 flex flex-col items-center justify-center text-center p-6 space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400">
+            <QrCode className="w-6 h-6" />
+          </div>
+          <span className="text-xs font-mono text-slate-400 tracking-wider">
+            3D LASER PREVIEW READY
+          </span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 interface HomePageProps {
   onNavigate: (tab: ActiveTab) => void;
@@ -722,21 +782,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
           {/* Right Visual 3D QR Laser Scanner Stage */}
           <div className="lg:col-span-6 w-full">
-            <Suspense
-              fallback={
-                <div className="w-full h-[460px] rounded-3xl bg-slate-900 border border-green-500/30 flex flex-col items-center justify-center text-center p-6 space-y-3">
-                  <div className="w-8 h-8 border-2 border-green-400 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-xs font-mono text-green-400 tracking-wider">
-                    INITIALIZING 3D LASER MATRIX...
-                  </span>
-                </div>
-              }
-            >
-              <QR3DLaserScanner
-                targetUrl="https://www.vidcuts.online"
-                onOpenStudio={() => onNavigate('qr')}
-              />
-            </Suspense>
+            <LazyQR3DScanner
+              targetUrl="https://www.vidcuts.online"
+              onOpenStudio={() => onNavigate('qr')}
+            />
           </div>
         </div>
       </section>

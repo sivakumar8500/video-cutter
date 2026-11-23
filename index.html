@@ -21,10 +21,35 @@
   <meta name="application-name" content="VidCuts by Reeyansh Tech Solutions" />
   <link rel="canonical" href="https://www.vidcuts.online/" />
 
-  <!-- Google AdSense Account Verification & Official Script Tag -->
+  <!-- Google AdSense Account Verification (Required for Domain Approval) -->
   <meta name="google-adsense-account" content="ca-pub-5783404252931950" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783404252931950"
-    crossorigin="anonymous"></script>
+  <script>
+    (function() {
+      var adsLoaded = false;
+      function loadGoogleAdSense() {
+        if (adsLoaded) return;
+        adsLoaded = true;
+        ['scroll', 'touchstart', 'mousemove', 'click', 'keydown'].forEach(function(ev) {
+          window.removeEventListener(ev, loadGoogleAdSense);
+        });
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783404252931950";
+        s.crossOrigin = "anonymous";
+        document.head.appendChild(s);
+      }
+      // Listen for first user interaction to load AdSense without blocking FCP/LCP
+      ['scroll', 'touchstart', 'mousemove', 'click', 'keydown'].forEach(function(ev) {
+        window.addEventListener(ev, loadGoogleAdSense, { once: true, passive: true });
+      });
+      // Fallback: load after initial paint window so idle users still receive ads
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(function() { setTimeout(loadGoogleAdSense, 3800); });
+      } else {
+        setTimeout(loadGoogleAdSense, 4200);
+      }
+    })();
+  </script>
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />

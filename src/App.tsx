@@ -388,8 +388,10 @@ export function App() {
                           <div className="relative group mb-3">
                             <div className="absolute -inset-1.5 bg-[#F59E0B]/25 rounded-3xl blur-lg opacity-60 group-hover:opacity-100 transition duration-500"></div>
                             <img
-                              src="./app-icon.png"
+                              src="./app-icon-small.png"
                               alt="VidCuts App Icon"
+                              width={96}
+                              height={96}
                               className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-slate-200"
                             />
                           </div>
@@ -401,8 +403,10 @@ export function App() {
                             title="Visit Reeyansh Tech Solutions Official Website"
                           >
                             <img
-                              src="./reeyansh-logo.png"
+                              src="./reeyansh-logo-small.png"
                               alt="Reeyansh"
+                              width={14}
+                              height={14}
                               className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                             />
                             <span>By Reeyansh Tech Solutions • 100% In-Browser &amp; Private</span>

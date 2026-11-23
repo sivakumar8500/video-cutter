@@ -125,12 +125,12 @@ export const Header: React.FC<HeaderProps> = ({
                   e.preventDefault();
                   onTabChange('home');
                 }}
-                className="relative group flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white p-1 shadow-sm border border-slate-200 shrink-0 cursor-pointer"
+                className="relative group flex items-center justify-center min-w-[48px] min-h-[48px] w-12 h-12 rounded-xl bg-white p-1 shadow-sm border border-slate-200 shrink-0 cursor-pointer"
                 title="VidCuts - In-Browser Media Suite Home"
                 aria-label="VidCuts Home"
               >
                 <img
-                  src="./app-icon.png"
+                  src="./app-icon-small.png"
                   alt="VidCuts App Icon"
                   width={44}
                   height={44}
@@ -154,11 +154,11 @@ export const Header: React.FC<HeaderProps> = ({
                     href="https://www.reeyanshtech.in/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hidden sm:flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition-all cursor-pointer group"
+                    className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition-all cursor-pointer group"
                     title="Visit Reeyansh Tech Solutions Official Website"
                   >
                     <img
-                      src="./reeyansh-logo.png"
+                      src="./reeyansh-logo-small.png"
                       alt="Reeyansh Tech Solutions Logo"
                       width={14}
                       height={14}
@@ -305,11 +305,11 @@ export const Header: React.FC<HeaderProps> = ({
                 </button>
               )}
 
-              {/* Mobile Drawer Toggle Hamburger Button (Visible only on < md) */}
+              {/* Mobile Drawer Toggle Hamburger Button (Visible only on < md, min 48x48 tap target) */}
               <button
                 type="button"
                 onClick={() => setIsDrawerOpen(true)}
-                className="md:hidden flex items-center justify-center w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
+                className="md:hidden flex items-center justify-center min-w-[48px] min-h-[48px] w-12 h-12 rounded-xl bg-slate-100 hover:bg-slate-200 active:bg-slate-300 text-slate-800 border border-slate-200 transition-colors cursor-pointer shadow-2xs"
                 aria-label="Open navigation menu"
                 aria-expanded={isDrawerOpen}
               >
@@ -351,7 +351,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-slate-50/70">
             <div className="flex items-center gap-2.5">
               <img
-                src="./app-icon.png"
+                src="./app-icon-small.png"
                 alt="VidCuts App Icon"
                 width={38}
                 height={38}
@@ -371,7 +371,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={() => setIsDrawerOpen(false)}
-              className="flex items-center justify-center w-9 h-9 rounded-xl bg-slate-200/70 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"
+              className="flex items-center justify-center min-w-[48px] min-h-[48px] w-12 h-12 rounded-xl bg-slate-200/70 hover:bg-slate-200 text-slate-700 hover:text-slate-900 transition-colors cursor-pointer"
               aria-label="Close navigation menu"
             >
               <X className="w-5 h-5" />
@@ -464,7 +464,7 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <div className="flex items-center gap-2">
                 <img
-                  src="./reeyansh-logo.png"
+                  src="./reeyansh-logo-small.png"
                   alt="Reeyansh Tech Solutions Logo"
                   width={18}
                   height={18}
