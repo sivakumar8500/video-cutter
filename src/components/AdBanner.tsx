@@ -20,8 +20,8 @@ interface AdBannerProps {
 }
 
 export const AdBanner: React.FC<AdBannerProps> = ({
-  slot = TEST_AD_CONFIG.banner.slot, // '6300978111'
-  client = TEST_AD_CONFIG.banner.client, // 'ca-pub-3940256099942544'
+  slot = '7986346271',
+  client = 'ca-pub-5783404252931950',
   format = 'auto',
   className = '',
   adUnitType = 'banner',
