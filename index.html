@@ -24,14 +24,21 @@
   <!-- Google AdSense Account Verification & Optimized Non-Blocking Loader -->
   <meta name="google-adsense-account" content="ca-pub-5783404252931950" />
   <script>
-    // Asynchronously load Google AdSense without blocking Core Web Vitals on mobile
-    window.addEventListener('DOMContentLoaded', function () {
+    // Asynchronously load Google AdSense for live & test ads
+    function initAdSense() {
+      if (document.querySelector('script[src*="pagead2.googlesyndication.com"]')) return;
       var adsScript = document.createElement('script');
       adsScript.async = true;
       adsScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5783404252931950";
       adsScript.crossOrigin = "anonymous";
+      adsScript.setAttribute('data-ad-client', 'ca-pub-5783404252931950');
       document.head.appendChild(adsScript);
-    });
+    }
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', initAdSense);
+    } else {
+      initAdSense();
+    }
   </script>
 
   <!-- Open Graph / Facebook -->
