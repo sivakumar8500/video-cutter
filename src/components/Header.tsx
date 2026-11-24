@@ -22,14 +22,18 @@ export type ActiveTab =
   | 'home'
   | 'video-cutter'
   | 'media-tools'
-  | 'image-studio'
-  | 'pdf-studio'
-  | 'qr'
-  | 'files'
+  | 'image-tools'
+  | 'pdf-tools'
+  | 'qr-code-generator'
+  | 'file-tools'
   | 'privacy'
   | 'terms'
   | 'about'
-  | 'contact';
+  | 'contact'
+  | 'image-studio'
+  | 'pdf-studio'
+  | 'qr'
+  | 'files';
 
 interface HeaderProps {
   hasVideo: boolean;
@@ -72,50 +76,57 @@ export const Header: React.FC<HeaderProps> = ({
   const navItems = [
     {
       id: 'home' as ActiveTab,
-      label: 'Home Overview',
+      label: 'Homepage',
       desc: 'Suite overview & feature highlights',
+      path: '/',
       icon: Home,
       badge: 'Home',
     },
     {
       id: 'video-cutter' as ActiveTab,
-      label: 'Video Cutter',
+      label: 'Free Online Video Cutter',
       desc: 'Lossless 4K & 9:16 Shorts converter',
+      path: '/video-cutter/',
       icon: Scissors,
       badge: 'FFmpeg',
     },
     {
       id: 'media-tools' as ActiveTab,
-      label: 'Media Tools',
+      label: 'Online Media Conversion Tools',
       desc: 'URL Downloader & Audio Extractor',
+      path: '/media-tools/',
       icon: Music,
       badge: 'MP3/AAC',
     },
     {
-      id: 'image-studio' as ActiveTab,
-      label: 'Image Studio',
+      id: 'image-tools' as ActiveTab,
+      label: 'Free Online Image Editor',
       desc: 'Aspect crop & 9 geometric shapes',
+      path: '/image-tools/',
       icon: ImageIcon,
       badge: 'Shapes',
     },
     {
-      id: 'pdf-studio' as ActiveTab,
-      label: '32 PDF Tools',
+      id: 'pdf-tools' as ActiveTab,
+      label: '32 Free Online PDF Tools',
       desc: 'Merge, split, protect & convert PDFs',
+      path: '/pdf-tools/',
       icon: FileText,
       badge: '32 In 1',
     },
     {
-      id: 'qr' as ActiveTab,
-      label: 'QR Code Studio',
+      id: 'qr-code-generator' as ActiveTab,
+      label: 'Free QR Code Generator',
       desc: 'Custom vector matrix & laser scanner',
+      path: '/qr-code-generator/',
       icon: QrCode,
       badge: 'Vector',
     },
     {
-      id: 'files' as ActiveTab,
-      label: 'Files & Exports',
+      id: 'file-tools' as ActiveTab,
+      label: 'File Tools',
       desc: 'Local browser media & clip manager',
+      path: '/file-tools/',
       icon: FolderDown,
       badge: 'Manager',
     },
@@ -139,7 +150,7 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Brand Logo & Name */}
             <div className="flex items-center gap-3">
               <a
-                href="#home"
+                href="/"
                 onClick={(e) => {
                   e.preventDefault();
                   onTabChange('home');
@@ -162,7 +173,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div>
                 <div className="flex items-center gap-2">
                   <a
-                    href="#home"
+                    href="/"
                     onClick={(e) => {
                       e.preventDefault();
                       onTabChange('home');
@@ -204,108 +215,108 @@ export const Header: React.FC<HeaderProps> = ({
             {/* Desktop Navigation Tabs Menu (Hidden on mobile screens < md) */}
             <nav aria-label="Main Navigation" className="hidden md:flex items-center gap-1 sm:gap-1.5 lg:gap-2">
               <a
-                href="#home"
+                href="/"
                 onClick={(e) => {
                   e.preventDefault();
                   onTabChange('home');
                 }}
                 aria-current={activeTab === 'home' ? 'page' : undefined}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                   activeTab === 'home'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="VidCuts Home Overview"
+                title="VidCuts Homepage"
               >
-                <span>Home</span>
+                <span>Homepage</span>
               </a>
 
               <a
-                href="#video-cutter"
+                href="/video-cutter/"
                 onClick={(e) => {
                   e.preventDefault();
                   onTabChange('video-cutter');
                 }}
                 aria-current={activeTab === 'video-cutter' ? 'page' : undefined}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                   activeTab === 'video-cutter'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="Video Cutter &amp; Splitter Tool"
+                title="Free Online Video Cutter"
               >
                 <span>Video Cutter</span>
               </a>
 
               <a
-                href="#media-tools"
+                href="/media-tools/"
                 onClick={(e) => {
                   e.preventDefault();
                   onTabChange('media-tools');
                 }}
                 aria-current={activeTab === 'media-tools' ? 'page' : undefined}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
                   activeTab === 'media-tools'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="Media Tools - URL Downloader, Audio Extractor &amp; Remover"
+                title="Online Media Conversion Tools"
               >
                 <span>Media Tools</span>
               </a>
 
               <a
-                href="#image-studio"
+                href="/image-tools/"
                 onClick={(e) => {
                   e.preventDefault();
-                  onTabChange('image-studio');
+                  onTabChange('image-tools');
                 }}
-                aria-current={activeTab === 'image-studio' ? 'page' : undefined}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
-                  activeTab === 'image-studio'
+                aria-current={activeTab === 'image-tools' || activeTab === 'image-studio' ? 'page' : undefined}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
+                  activeTab === 'image-tools' || activeTab === 'image-studio'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="Image Studio - Aspect Crop &amp; Shape Mask Editor"
+                title="Free Online Image Editor"
               >
-                <span>Image Studio</span>
+                <span>Image Editor</span>
               </a>
 
               <a
-                href="#pdf-studio"
+                href="/pdf-tools/"
                 onClick={(e) => {
                   e.preventDefault();
-                  onTabChange('pdf-studio');
+                  onTabChange('pdf-tools');
                 }}
-                aria-current={activeTab === 'pdf-studio' ? 'page' : undefined}
-                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer ${
-                  activeTab === 'pdf-studio'
+                aria-current={activeTab === 'pdf-tools' || activeTab === 'pdf-studio' ? 'page' : undefined}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer ${
+                  activeTab === 'pdf-tools' || activeTab === 'pdf-studio'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="32 Client-Side PDF Tools Suite"
+                title="32 Free Online PDF Tools"
               >
                 <span>PDF Tools</span>
                 <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded-full ${
-                  activeTab === 'pdf-studio' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  activeTab === 'pdf-tools' || activeTab === 'pdf-studio' ? 'bg-white/20 text-white' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                 }`}>
                   32
                 </span>
               </a>
 
               <a
-                href="#qr"
+                href="/qr-code-generator/"
                 onClick={(e) => {
                   e.preventDefault();
-                  onTabChange('qr');
+                  onTabChange('qr-code-generator');
                 }}
-                aria-current={activeTab === 'qr' ? 'page' : undefined}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
-                  activeTab === 'qr'
+                aria-current={activeTab === 'qr-code-generator' || activeTab === 'qr' ? 'page' : undefined}
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer inline-flex items-center ${
+                  activeTab === 'qr-code-generator' || activeTab === 'qr'
                     ? 'bg-emerald-600 text-white font-bold shadow-sm shadow-emerald-600/25'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                 }`}
-                title="Custom Vector QR Code Studio &amp; Scanner"
+                title="Free QR Code Generator"
               >
                 <span>QR Code</span>
               </a>
@@ -431,12 +442,17 @@ export const Header: React.FC<HeaderProps> = ({
 
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              const isActive =
+                activeTab === item.id ||
+                (item.id === 'image-tools' && activeTab === 'image-studio') ||
+                (item.id === 'pdf-tools' && activeTab === 'pdf-studio') ||
+                (item.id === 'qr-code-generator' && activeTab === 'qr') ||
+                (item.id === 'file-tools' && activeTab === 'files');
 
               return (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={item.path}
                   onClick={(e) => {
                     e.preventDefault();
                     handleNavigate(item.id);
@@ -496,38 +512,50 @@ export const Header: React.FC<HeaderProps> = ({
                 Company &amp; Legal
               </div>
               <div className="grid grid-cols-2 gap-1 px-1 mt-1">
-                <button
-                  type="button"
-                  onClick={() => handleLegal('privacy')}
+                <a
+                  href="/privacy/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLegal('privacy');
+                  }}
                   className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
                 >
                   <Lock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span>Privacy Policy</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleLegal('terms')}
+                </a>
+                <a
+                  href="/terms/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLegal('terms');
+                  }}
                   className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
                 >
                   <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span>Terms &amp; Use</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleLegal('about')}
+                </a>
+                <a
+                  href="/about/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLegal('about');
+                  }}
                   className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
                 >
                   <Info className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span>About Us</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleLegal('contact')}
+                </a>
+                <a
+                  href="/contact/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLegal('contact');
+                  }}
                   className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
                 >
                   <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                   <span>Contact Us</span>
-                </button>
+                </a>
               </div>
             </div>
           </div>

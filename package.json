@@ -7,6 +7,7 @@
     "dev": "vite",
     "prebuild": "mkdir -p public/ffmpeg && cp node_modules/@ffmpeg/core/dist/esm/ffmpeg-core.* public/ffmpeg/ 2>/dev/null || true",
     "build": "tsc -b && vite build",
+    "postbuild": "node scripts/generate-static-routes.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

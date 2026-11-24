@@ -27,13 +27,26 @@ const STUDIO_TABS: {
   badge?: string;
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
-  { id: 'video-cutter', label: 'Video Cutter', badge: '4K', icon: Scissors },
-  { id: 'media-tools', label: 'Media Tools', badge: 'Audio', icon: Music },
-  { id: 'image-studio', label: 'Image Studio', badge: 'Shapes', icon: ImageIcon },
-  { id: 'pdf-studio', label: '32 PDF Tools', badge: '32', icon: FileText },
-  { id: 'qr', label: 'QR Studio', badge: 'Vector', icon: QrCode },
-  { id: 'files', label: 'Files Manager', icon: FolderDown },
+  { id: 'video-cutter', label: 'Free Online Video Cutter', badge: '4K', icon: Scissors },
+  { id: 'media-tools', label: 'Online Media Conversion Tools', badge: 'Audio', icon: Music },
+  { id: 'image-tools', label: 'Free Online Image Editor', badge: 'Shapes', icon: ImageIcon },
+  { id: 'pdf-tools', label: '32 Free Online PDF Tools', badge: '32', icon: FileText },
+  { id: 'qr-code-generator', label: 'Free QR Code Generator', badge: 'Vector', icon: QrCode },
+  { id: 'file-tools', label: 'File Tools', icon: FolderDown },
 ];
+
+const isTabActive = (tabId: ActiveTab, currentTab: ActiveTab) => {
+  if (tabId === currentTab) return true;
+  if (tabId === 'image-tools' && currentTab === 'image-studio') return true;
+  if (tabId === 'image-studio' && currentTab === 'image-tools') return true;
+  if (tabId === 'pdf-tools' && currentTab === 'pdf-studio') return true;
+  if (tabId === 'pdf-studio' && currentTab === 'pdf-tools') return true;
+  if (tabId === 'qr-code-generator' && currentTab === 'qr') return true;
+  if (tabId === 'qr' && currentTab === 'qr-code-generator') return true;
+  if (tabId === 'file-tools' && currentTab === 'files') return true;
+  if (tabId === 'files' && currentTab === 'file-tools') return true;
+  return false;
+};
 
 export const StudioPageHeader: React.FC<StudioPageHeaderProps> = ({
   activeTab,
@@ -88,7 +101,7 @@ export const StudioPageHeader: React.FC<StudioPageHeaderProps> = ({
         <div className="pt-4 border-t border-slate-100 flex items-center gap-2 overflow-x-auto pb-1">
           {STUDIO_TABS.map((tab) => {
             const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
+            const isActive = isTabActive(tab.id, activeTab);
             return (
               <button
                 key={tab.id}

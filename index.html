@@ -4,11 +4,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/" />
+  <script>
+    (function() {
+      var redirect = sessionStorage.getItem('redirect_path');
+      if (redirect) {
+        sessionStorage.removeItem('redirect_path');
+        window.history.replaceState(null, '', redirect);
+      }
+    })();
+  </script>
 
   <!-- Primary SEO Meta Tags -->
-  <title>VidCuts — Free Video, Image, PDF &amp; QR Suite | Reeyansh</title>
+  <title>VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools &amp; QR Generator | Reeyansh Tech Solutions</title>
   <meta name="title"
-    content="VidCuts — Free Video, Image, PDF &amp; QR Suite | Reeyansh" />
+    content="VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools &amp; QR Generator | Reeyansh Tech Solutions" />
   <meta name="description"
     content="100% private in-browser creative & document suite. Split videos by pieces or duration, convert 16:9 to 9:16 Shorts with blur, edit and crop photos, merge/split/compress/convert all 32 PDF formats, and generate custom QR codes. Zero cloud uploads, zero watermarks, 100% free by Reeyansh Tech Solutions." />
   <meta name="keywords"
@@ -53,7 +63,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.vidcuts.online/" />
-  <meta property="og:title" content="VidCuts — Free In-Browser Video, Image, PDF & QR Suite" />
+  <meta property="og:title" content="VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools &amp; QR Generator | Reeyansh Tech Solutions" />
   <meta property="og:description"
     content="Split videos into equal parts or minute intervals, convert 16:9 to 9:16 vertical Shorts, edit photos with custom aspect crops, use all 32 PDF tools, and design custom QR codes. 100% private, zero uploads." />
   <meta property="og:image" content="https://www.vidcuts.online/app-icon.png" />
@@ -67,7 +77,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.vidcuts.online/" />
-  <meta name="twitter:title" content="VidCuts — Free In-Browser Video, Image, PDF & QR Suite" />
+  <meta name="twitter:title" content="VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools &amp; QR Generator | Reeyansh Tech Solutions" />
   <meta name="twitter:description"
     content="Split videos into parts or 30s clips, make 9:16 Reels, edit photos, process 32 PDF tools, and build QR codes with logos. 100% client-side privacy." />
   <meta name="twitter:image" content="https://www.vidcuts.online/app-icon.png" />

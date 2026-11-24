@@ -47,51 +47,103 @@ const StudioLoader = ({ label = 'Loading Studio...' }: { label?: string }) => (
   </div>
 );
 
-// Synchronous URL Hash to Tab Resolver for SEO and deep-linking
-const parseHashToTab = (): ActiveTab => {
+// Clean URL Path & Hash to Tab Resolver for SEO, GitHub Pages subpaths, and client history
+const resolveRouteToTab = (): ActiveTab => {
   if (typeof window === 'undefined') return 'home';
+
+  // 1. Check path (e.g. /video-cutter/, /media-tools/, etc.)
+  const rawPath = window.location.pathname.toLowerCase().replace(/^\/|\/$/g, '');
+  if (rawPath) {
+    if (rawPath === 'video-cutter' || rawPath === 'video' || rawPath === 'cutter') return 'video-cutter';
+    if (rawPath === 'media-tools' || rawPath === 'media' || rawPath === 'tools') return 'media-tools';
+    if (rawPath === 'image-tools' || rawPath === 'image-studio' || rawPath === 'image') return 'image-tools';
+    if (rawPath === 'pdf-tools' || rawPath === 'pdf-studio' || rawPath === 'pdf') return 'pdf-tools';
+    if (rawPath === 'qr-code-generator' || rawPath === 'qr' || rawPath === 'qr-code') return 'qr-code-generator';
+    if (rawPath === 'file-tools' || rawPath === 'files' || rawPath === 'manager') return 'file-tools';
+    if (rawPath === 'privacy' || rawPath === 'privacy-policy') return 'privacy';
+    if (rawPath === 'terms' || rawPath === 'terms-and-conditions' || rawPath === 'tos') return 'terms';
+    if (rawPath === 'about' || rawPath === 'about-us') return 'about';
+    if (rawPath === 'contact' || rawPath === 'contact-us') return 'contact';
+  }
+
+  // 2. Check hash fallback (e.g. #video-cutter, #image-studio, etc.)
   const h = window.location.hash.toLowerCase().replace(/^#\/?/, '');
   if (h === 'video-cutter' || h === 'video' || h === 'cutter' || h === 'splitter') return 'video-cutter';
   if (h === 'media-tools' || h === 'tools' || h === 'downloader' || h === 'audio') return 'media-tools';
-  if (h === 'image-studio' || h === 'image' || h === 'photo') return 'image-studio';
-  if (h === 'pdf-studio' || h === 'pdf' || h === 'pdf-tools') return 'pdf-studio';
-  if (h === 'qr' || h === 'qr-studio' || h === 'qrcode') return 'qr';
-  if (h === 'files' || h === 'manager' || h === 'downloads') return 'files';
+  if (h === 'image-tools' || h === 'image-studio' || h === 'image' || h === 'photo') return 'image-tools';
+  if (h === 'pdf-tools' || h === 'pdf-studio' || h === 'pdf') return 'pdf-tools';
+  if (h === 'qr-code-generator' || h === 'qr' || h === 'qr-studio' || h === 'qrcode') return 'qr-code-generator';
+  if (h === 'file-tools' || h === 'files' || h === 'manager' || h === 'downloads') return 'file-tools';
   if (h === 'privacy' || h === 'privacy-policy') return 'privacy';
   if (h === 'terms' || h === 'terms-and-conditions' || h === 'tos') return 'terms';
   if (h === 'about' || h === 'about-us') return 'about';
   if (h === 'contact' || h === 'contact-us') return 'contact';
+
   return 'home';
+};
+
+const TAB_PATH_MAP: Record<ActiveTab, string> = {
+  home: '/',
+  'video-cutter': '/video-cutter/',
+  'media-tools': '/media-tools/',
+  'image-tools': '/image-tools/',
+  'image-studio': '/image-tools/',
+  'pdf-tools': '/pdf-tools/',
+  'pdf-studio': '/pdf-tools/',
+  'qr-code-generator': '/qr-code-generator/',
+  qr: '/qr-code-generator/',
+  'file-tools': '/file-tools/',
+  files: '/file-tools/',
+  privacy: '/privacy/',
+  terms: '/terms/',
+  about: '/about/',
+  contact: '/contact/',
 };
 
 // Dynamic per-section SEO Titles & Meta Descriptions for Search Engines
 const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
   home: {
-    title: 'VidCuts — Free Video, Image, PDF & QR Suite | Reeyansh',
+    title: 'VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools & QR Generator | Reeyansh Tech Solutions',
     desc: '100% private in-browser multimedia and document suite. Split videos, edit photos, process 32 PDF tools & create vector QR codes with zero server uploads.',
   },
   'video-cutter': {
-    title: 'Online Video Cutter & Splitter (Free, Lossless & 9:16 Shorts) — VidCuts',
+    title: 'Free Online Video Cutter & Lossless Splitter — VidCuts',
     desc: 'Split video files by pieces, duration, or custom minute ranges. Convert 16:9 to 9:16 vertical Shorts with blurred padding. 100% private in-browser FFmpeg.',
   },
   'media-tools': {
-    title: 'Media Tools — URL Video Downloader, Audio Extractor & Remover — VidCuts',
+    title: 'Online Media Conversion Tools & Audio Extractor — VidCuts',
     desc: 'Download videos directly from URL, extract clean audio to MP3/AAC, and mute video audio tracks directly in your browser.',
   },
-  'image-studio': {
-    title: 'Image Studio — Free Online Photo Cropper, Aspect Ratios & Shape Masks — VidCuts',
-    desc: 'Crop photos to exact social aspect ratios (1:1, 4:5, 16:9, 9:16) or mask into geometric shapes (circle, heart, hexagon, star) with instant transparent PNG export.',
+  'image-tools': {
+    title: 'Free Online Image Editor & Shape Cropper — VidCuts',
+    desc: 'Crop photos to exact social aspect ratios (1:1, 4:5, 16:9, 9:16) or mask into geometric shapes with instant transparent PNG export.',
   },
-  'pdf-studio': {
-    title: '32 PDF Tools — Free Client-Side PDF Merge, Split, Compress & Protect — VidCuts',
+  'image-studio': {
+    title: 'Free Online Image Editor & Shape Cropper — VidCuts',
+    desc: 'Crop photos to exact social aspect ratios (1:1, 4:5, 16:9, 9:16) or mask into geometric shapes with instant transparent PNG export.',
+  },
+  'pdf-tools': {
+    title: '32 Free Online PDF Tools (Merge, Split, Protect) — VidCuts',
     desc: 'Complete client-side PDF suite: Merge, split, compress, watermark, rotate, page number, and AES-256 encrypt confidential PDF files without uploading.',
   },
-  qr: {
-    title: 'Custom Vector QR Code Studio — Free QR Generator with Logo & Scanner — VidCuts',
+  'pdf-studio': {
+    title: '32 Free Online PDF Tools (Merge, Split, Protect) — VidCuts',
+    desc: 'Complete client-side PDF suite: Merge, split, compress, watermark, rotate, page number, and AES-256 encrypt confidential PDF files without uploading.',
+  },
+  'qr-code-generator': {
+    title: 'Free QR Code Generator with Logo & Scanner — VidCuts',
     desc: 'Generate branded vector QR codes with embedded logos, 15 protocols, custom colors, and built-in camera scanner. 100% private.',
   },
+  qr: {
+    title: 'Free QR Code Generator with Logo & Scanner — VidCuts',
+    desc: 'Generate branded vector QR codes with embedded logos, 15 protocols, custom colors, and built-in camera scanner. 100% private.',
+  },
+  'file-tools': {
+    title: 'Local File Tools & Media Export Manager — VidCuts',
+    desc: 'Manage, preview, and batch export your generated video clips, images, and document files.',
+  },
   files: {
-    title: 'Files & Local Clip Manager — VidCuts',
+    title: 'Local File Tools & Media Export Manager — VidCuts',
     desc: 'Manage, preview, and batch export your generated video clips, images, and document files.',
   },
   privacy: {
@@ -113,7 +165,7 @@ const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
 };
 
 export function App() {
-  const [activeTab, setActiveTab] = useState<ActiveTab>(parseHashToTab);
+  const [activeTab, setActiveTab] = useState<ActiveTab>(resolveRouteToTab);
   const [cutterMode, setCutterMode] = useState<'single' | 'batch'>('single');
   const [batchFiles, setBatchFiles] = useState<File[]>([]);
   const [video, setVideo] = useState<VideoMetadata | null>(null);
@@ -293,17 +345,17 @@ export function App() {
     }));
   };
 
-  // Two-way URL Hash navigation for Google crawling and back/forward browser history
+  // Multi-route navigation: responds to browser back/forward, subpaths, and hash change
   useEffect(() => {
-    const handleHashChange = () => {
-      const tab = parseHashToTab();
+    const handleLocationChange = () => {
+      const tab = resolveRouteToTab();
       setActiveTab(tab);
     };
-    window.addEventListener('hashchange', handleHashChange);
-    window.addEventListener('popstate', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
     return () => {
-      window.removeEventListener('hashchange', handleHashChange);
-      window.removeEventListener('popstate', handleHashChange);
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
     };
   }, []);
 
@@ -329,9 +381,9 @@ export function App() {
 
   const handleTabChange = useCallback((tab: ActiveTab) => {
     setActiveTab(tab);
-    const targetHash = `#${tab}`;
-    if (window.location.hash !== targetHash) {
-      window.location.hash = targetHash;
+    const targetPath = TAB_PATH_MAP[tab] || '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState(null, '', targetPath);
     }
     trackEvent('navigate_tab', { tab });
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -559,8 +611,8 @@ export function App() {
         )}
 
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
-        {activeTab === 'image-studio' && (
-          <section id="image-studio" aria-label="Image Studio Photo Cropper" className="space-y-6">
+        {(activeTab === 'image-tools' || activeTab === 'image-studio') && (
+          <section id="image-tools" aria-label="Image Studio Photo Cropper" className="space-y-6">
             <StudioPageHeader
               activeTab={activeTab}
               onNavigate={handleTabChange}
@@ -576,8 +628,8 @@ export function App() {
         )}
 
         {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
-        {activeTab === 'pdf-studio' && (
-          <section id="pdf-studio" aria-label="32 Client-Side PDF Tools" className="space-y-6">
+        {(activeTab === 'pdf-tools' || activeTab === 'pdf-studio') && (
+          <section id="pdf-tools" aria-label="32 Client-Side PDF Tools" className="space-y-6">
             <StudioPageHeader
               activeTab={activeTab}
               onNavigate={handleTabChange}
@@ -593,8 +645,8 @@ export function App() {
         )}
 
         {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
-        {activeTab === 'qr' && (
-          <section id="qr" aria-label="Custom Vector QR Code Studio" className="space-y-6">
+        {(activeTab === 'qr-code-generator' || activeTab === 'qr') && (
+          <section id="qr-code-generator" aria-label="Custom Vector QR Code Studio" className="space-y-6">
             <StudioPageHeader
               activeTab={activeTab}
               onNavigate={handleTabChange}
@@ -605,7 +657,7 @@ export function App() {
             <Suspense fallback={<StudioLoader label="Loading Custom Vector QR Studio..." />}>
               <QrStudio
                 onSendToImageStudio={() => {
-                  handleTabChange('image-studio');
+                  handleTabChange('image-tools');
                 }}
               />
             </Suspense>
@@ -614,8 +666,8 @@ export function App() {
         )}
 
         {/* TAB 5: Media & Files Manager */}
-        {activeTab === 'files' && (
-          <section id="files" aria-label="Local Media and Export Manager" className="space-y-6">
+        {(activeTab === 'file-tools' || activeTab === 'files') && (
+          <section id="file-tools" aria-label="Local Media and Export Manager" className="space-y-6">
             <StudioPageHeader
               activeTab={activeTab}
               onNavigate={handleTabChange}

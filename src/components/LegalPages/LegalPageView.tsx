@@ -609,15 +609,15 @@ export const LegalPageView: React.FC<LegalPageViewProps> = ({ page, onNavigate }
           </button>
           <button
             type="button"
-            onClick={() => onNavigate('image-studio')}
+            onClick={() => onNavigate('image-tools')}
             className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 hover:border-emerald-400 hover:text-emerald-700 transition-colors text-xs font-bold cursor-pointer shadow-2xs"
           >
             <ImageIcon className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>Image Studio</span>
+            <span>Image Editor</span>
           </button>
           <button
             type="button"
-            onClick={() => onNavigate('pdf-studio')}
+            onClick={() => onNavigate('pdf-tools')}
             className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 hover:border-emerald-400 hover:text-emerald-700 transition-colors text-xs font-bold cursor-pointer shadow-2xs"
           >
             <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
@@ -625,11 +625,11 @@ export const LegalPageView: React.FC<LegalPageViewProps> = ({ page, onNavigate }
           </button>
           <button
             type="button"
-            onClick={() => onNavigate('qr')}
+            onClick={() => onNavigate('qr-code-generator')}
             className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 text-slate-800 hover:border-emerald-400 hover:text-emerald-700 transition-colors text-xs font-bold cursor-pointer shadow-2xs"
           >
             <QrCode className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <span>QR Studio</span>
+            <span>QR Code</span>
           </button>
         </div>
       </section>

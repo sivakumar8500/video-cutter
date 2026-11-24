@@ -32,7 +32,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <a
-                href="#home"
+                href="/"
                 onClick={(e) => handleNav('home', e)}
                 className="flex items-center justify-center w-12 h-12 rounded-2xl bg-white p-1.5 border border-slate-200 shadow-xs shrink-0"
                 title="VidCuts Home"
@@ -51,7 +51,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <div>
                 <h3 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
                   <a
-                    href="#home"
+                    href="/"
                     onClick={(e) => handleNav('home', e)}
                     className="hover:text-emerald-600 transition-colors"
                   >
@@ -120,68 +120,68 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-2 text-xs">
               <li>
                 <a
-                  href="#video-cutter"
+                  href="/video-cutter/"
                   onClick={(e) => handleNav('video-cutter', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="Video Cutter &amp; Splitter Tool"
+                  title="Free Online Video Cutter"
                 >
                   <Film className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Video Cutter &amp; 9:16 Shorts</span>
+                  <span>Free Online Video Cutter</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="#media-tools"
+                  href="/media-tools/"
                   onClick={(e) => handleNav('media-tools', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="URL Video Downloader, Audio Extractor &amp; Remover"
+                  title="Online Media Conversion Tools"
                 >
                   <Music className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Media Tools &amp; Audio Extractor</span>
+                  <span>Online Media Conversion Tools</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="#image-studio"
-                  onClick={(e) => handleNav('image-studio', e)}
+                  href="/image-tools/"
+                  onClick={(e) => handleNav('image-tools', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="Image Studio - Aspect Ratio Crop &amp; Shape Mask"
+                  title="Free Online Image Editor"
                 >
                   <ImageIcon className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Image Studio &amp; Shape Crop</span>
+                  <span>Free Online Image Editor</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="#pdf-studio"
-                  onClick={(e) => handleNav('pdf-studio', e)}
+                  href="/pdf-tools/"
+                  onClick={(e) => handleNav('pdf-tools', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="32 Client-Side PDF Tools: Merge, Split, Compress &amp; Protect"
+                  title="32 Free Online PDF Tools"
                 >
                   <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>32 Client-Side PDF Tools</span>
+                  <span>32 Free Online PDF Tools</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="#qr"
-                  onClick={(e) => handleNav('qr', e)}
+                  href="/qr-code-generator/"
+                  onClick={(e) => handleNav('qr-code-generator', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="Custom Vector QR Code Studio with Logo"
+                  title="Free QR Code Generator"
                 >
                   <QrCode className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Vector QR Matrix Generator</span>
+                  <span>Free QR Code Generator</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="#files"
-                  onClick={(e) => handleNav('files', e)}
+                  href="/file-tools/"
+                  onClick={(e) => handleNav('file-tools', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors"
-                  title="Local Media &amp; Clips Manager"
+                  title="File Tools"
                 >
                   <Zap className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                  <span>Files &amp; Export Manager</span>
+                  <span>File Tools</span>
                 </a>
               </li>
             </ul>
@@ -259,7 +259,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <ul className="space-y-2 text-xs">
               <li>
                 <a
-                  href="#privacy"
+                  href="/privacy/"
                   onClick={(e) => handleLegal('privacy', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
                   title="Privacy Policy - 100% Client-Side Data Protection"
@@ -270,7 +270,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <a
-                  href="#terms"
+                  href="/terms/"
                   onClick={(e) => handleLegal('terms', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
                   title="Terms &amp; Conditions of Service"
@@ -281,7 +281,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <a
-                  href="#about"
+                  href="/about/"
                   onClick={(e) => handleLegal('about', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
                   title="About Us - Reeyansh Tech Solutions &amp; VidCuts Mission"
@@ -292,7 +292,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </li>
               <li>
                 <a
-                  href="#contact"
+                  href="/contact/"
                   onClick={(e) => handleLegal('contact', e)}
                   className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
                   title="Contact Us - Technical Support &amp; Inquiries"
@@ -345,7 +345,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-3 text-[11px] text-slate-600">
               <span className="hidden sm:inline text-slate-300">•</span>
               <a
-                href="#privacy"
+                href="/privacy/"
                 onClick={(e) => handleLegal('privacy', e)}
                 className="hover:text-emerald-600 transition-colors cursor-pointer"
               >
@@ -353,7 +353,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </a>
               <span className="text-slate-300">•</span>
               <a
-                href="#terms"
+                href="/terms/"
                 onClick={(e) => handleLegal('terms', e)}
                 className="hover:text-emerald-600 transition-colors cursor-pointer"
               >
@@ -361,7 +361,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </a>
               <span className="text-slate-300">•</span>
               <a
-                href="#about"
+                href="/about/"
                 onClick={(e) => handleLegal('about', e)}
                 className="hover:text-emerald-600 transition-colors cursor-pointer"
               >
@@ -369,7 +369,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               </a>
               <span className="text-slate-300">•</span>
               <a
-                href="#contact"
+                href="/contact/"
                 onClick={(e) => handleLegal('contact', e)}
                 className="hover:text-emerald-600 transition-colors cursor-pointer"
               >

@@ -3,22 +3,20 @@
 <head>
   <meta charset="utf-8">
   <title>VidCuts — Redirecting...</title>
-  <meta http-equiv="refresh" content="0; url=./">
   <script>
-    // GitHub Pages SPA redirect: if opened at /video-cutter/ or any subpath on custom domain, redirect to root
+    // GitHub Pages SPA redirect: preserve subpath and reload at root
     var path = window.location.pathname;
-    if (path.indexOf('video-cutter') !== -1) {
-      window.location.replace(window.location.origin + '/');
-    } else {
-      window.location.replace(window.location.origin + '/');
-    }
+    var search = window.location.search || '';
+    var hash = window.location.hash || '';
+    sessionStorage.setItem('redirect_path', path + search + hash);
+    window.location.replace(window.location.origin + '/');
   </script>
 </head>
-<body style="background:#0b0f19;color:#e2e8f0;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+<body style="background:#f8fafc;color:#0f172a;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
   <div style="text-align:center;">
-    <h2 style="color:#f97316;">VidCuts Video Cutter</h2>
-    <p>Redirecting to home page...</p>
-    <p><a href="/" style="color:#38bdf8;text-decoration:none;">Click here if you are not redirected automatically</a></p>
+    <h2 style="color:#059669;">VidCuts In-Browser Media Suite</h2>
+    <p>Loading requested page...</p>
+    <p><a href="/" style="color:#059669;text-decoration:underline;">Click here to return home</a></p>
   </div>
 </body>
 </html>

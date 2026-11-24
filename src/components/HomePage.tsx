@@ -116,8 +116,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       borderColor: 'border-emerald-300',
     },
     {
-      id: 'image-studio' as ActiveTab,
-      name: 'Image Studio',
+      id: 'image-tools' as ActiveTab,
+      name: 'Free Online Image Editor',
       tagline: '9 Shape Masks & KB Reducer',
       icon: ImageIcon,
       badge: '9 Shapes',
@@ -126,8 +126,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       borderColor: 'border-teal-300',
     },
     {
-      id: 'pdf-studio' as ActiveTab,
-      name: '32 PDF Tools',
+      id: 'pdf-tools' as ActiveTab,
+      name: '32 Free Online PDF Tools',
       tagline: 'Merge, Split, Protect & Convert',
       icon: FileText,
       badge: '32 In-1 Engine',
@@ -136,8 +136,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
       borderColor: 'border-green-300',
     },
     {
-      id: 'qr' as ActiveTab,
-      name: 'QR Studio',
+      id: 'qr-code-generator' as ActiveTab,
+      name: 'Free QR Code Generator',
       tagline: 'Custom Vector QR & Scanner',
       icon: QrCode,
       badge: '15+ Protocols',
@@ -225,18 +225,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => onNavigate('pdf-studio')}
+              onClick={() => onNavigate('pdf-tools')}
               className="px-6 py-3.5 rounded-2xl bg-white hover:bg-green-50 text-green-800 font-bold text-sm border-2 border-green-300 shadow-xs flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
             >
               <FileText className="w-4 h-4 text-green-600" />
               <span>Explore 32 PDF Tools</span>
             </button>
             <button
-              onClick={() => onNavigate('image-studio')}
+              onClick={() => onNavigate('image-tools')}
               className="px-6 py-3.5 rounded-2xl bg-white hover:bg-green-50 text-green-800 font-bold text-sm border-2 border-green-300 shadow-xs flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
             >
               <ImageIcon className="w-4 h-4 text-green-600" />
-              <span>Image Studio</span>
+              <span>Free Online Image Editor</span>
             </button>
           </div>
         </div>
@@ -607,10 +607,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
             <div className="pt-2">
               <button
-                onClick={() => onNavigate('image-studio')}
+                onClick={() => onNavigate('image-tools')}
                 className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
               >
-                <span>Open Image Studio</span>
+                <span>Open Image Editor</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -715,7 +715,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
           <div className="text-center pt-2">
             <button
-              onClick={() => onNavigate('pdf-studio')}
+              onClick={() => onNavigate('pdf-tools')}
               className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 inline-flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
             >
               <span>Launch 32 PDF Tools Studio</span>
@@ -771,10 +771,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
 
             <div className="pt-2">
               <button
-                onClick={() => onNavigate('qr')}
+                onClick={() => onNavigate('qr-code-generator')}
                 className="px-6 py-3 rounded-2xl bg-green-600 hover:bg-green-700 text-white font-bold text-sm shadow-md shadow-green-600/25 flex items-center gap-2 cursor-pointer transition-all hover:scale-105"
               >
-                <span>Launch Vector QR Studio</span>
+                <span>Launch Free QR Code Generator</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -784,7 +784,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           <div className="lg:col-span-6 w-full">
             <LazyQR3DScanner
               targetUrl="https://www.vidcuts.online"
-              onOpenStudio={() => onNavigate('qr')}
+              onOpenStudio={() => onNavigate('qr-code-generator')}
             />
           </div>
         </div>
@@ -839,13 +839,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
               Start Cutting Video →
             </button>
             <button
-              onClick={() => onNavigate('pdf-studio')}
+              onClick={() => onNavigate('pdf-tools')}
               className="px-6 py-3 rounded-2xl bg-green-800 text-white font-extrabold text-sm hover:bg-green-900 border border-white/20 shadow-md cursor-pointer transition-all hover:scale-105"
             >
               Open 32 PDF Tools →
             </button>
             <button
-              onClick={() => onNavigate('qr')}
+              onClick={() => onNavigate('qr-code-generator')}
               className="px-6 py-3 rounded-2xl bg-green-800 text-white font-extrabold text-sm hover:bg-green-900 border border-white/20 shadow-md cursor-pointer transition-all hover:scale-105"
             >
               Create QR Code →
