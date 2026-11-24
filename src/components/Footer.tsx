@@ -1,14 +1,12 @@
 import React from 'react';
 import { ShieldCheck, Zap, Scissors, Smartphone, Heart, Sparkles, ExternalLink, Film, Music, Image as ImageIcon, FileText, QrCode, Lock, Info, Mail } from 'lucide-react';
 import type { ActiveTab } from './Header';
-import type { LegalTab } from './LegalModal';
 
 interface FooterProps {
   onNavigate?: (tab: ActiveTab) => void;
-  onOpenLegal?: (tab: LegalTab) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLegal }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const handleNav = (tab: ActiveTab, e: React.MouseEvent) => {
     if (onNavigate) {
       e.preventDefault();
@@ -16,10 +14,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLegal }) => {
     }
   };
 
-  const handleLegal = (tab: LegalTab, e: React.MouseEvent) => {
+  const handleLegal = (tab: ActiveTab, e: React.MouseEvent) => {
     e.preventDefault();
-    if (onOpenLegal) {
-      onOpenLegal(tab);
+    if (onNavigate) {
+      onNavigate(tab);
     } else {
       window.location.hash = `#${tab}`;
     }

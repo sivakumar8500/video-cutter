@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react
 import { Header, type ActiveTab } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
-import { LegalModal, type LegalTab } from './components/LegalModal';
+import { LegalPageView } from './components/LegalPages/LegalPageView';
 import { AdBanner } from './components/AdBanner';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
@@ -56,6 +56,10 @@ const parseHashToTab = (): ActiveTab => {
   if (h === 'pdf-studio' || h === 'pdf' || h === 'pdf-tools') return 'pdf-studio';
   if (h === 'qr' || h === 'qr-studio' || h === 'qrcode') return 'qr';
   if (h === 'files' || h === 'manager' || h === 'downloads') return 'files';
+  if (h === 'privacy' || h === 'privacy-policy') return 'privacy';
+  if (h === 'terms' || h === 'terms-and-conditions' || h === 'tos') return 'terms';
+  if (h === 'about' || h === 'about-us') return 'about';
+  if (h === 'contact' || h === 'contact-us') return 'contact';
   return 'home';
 };
 
@@ -89,11 +93,26 @@ const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
     title: 'Files & Local Clip Manager — VidCuts',
     desc: 'Manage, preview, and batch export your generated video clips, images, and document files.',
   },
+  privacy: {
+    title: 'Privacy Policy — 100% In-Browser Zero Cloud Storage Guarantee | VidCuts',
+    desc: 'VidCuts client-side data protection and privacy policy. 100% in-browser WebAssembly processing with zero server uploads, developed by Reeyansh Tech Solutions.',
+  },
+  terms: {
+    title: 'Terms & Conditions — Client-Side Multimedia Suite Agreement | VidCuts',
+    desc: 'Terms of Service for VidCuts. Users retain 100% ownership of all processed video, image, document, and QR files. Provided by Reeyansh Tech Solutions.',
+  },
+  about: {
+    title: 'About Us — Reeyansh Tech Solutions & VidCuts Mission | VidCuts',
+    desc: 'About VidCuts and Reeyansh Tech Solutions: Empowering creators with sovereign, serverless multimedia and document editing software.',
+  },
+  contact: {
+    title: 'Contact Us — Support & Business Inquiries | VidCuts & Reeyansh Tech',
+    desc: 'Get in touch with the VidCuts and Reeyansh Tech Solutions team for support, feature feedback, bug reports, or business partnerships.',
+  },
 };
 
 export function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(parseHashToTab);
-  const [legalTab, setLegalTab] = useState<LegalTab | null>(null);
   const [cutterMode, setCutterMode] = useState<'single' | 'batch'>('single');
   const [batchFiles, setBatchFiles] = useState<File[]>([]);
   const [video, setVideo] = useState<VideoMetadata | null>(null);
@@ -276,21 +295,9 @@ export function App() {
   // Two-way URL Hash navigation for Google crawling and back/forward browser history
   useEffect(() => {
     const handleHashChange = () => {
-      const h = window.location.hash.toLowerCase().replace(/^#\/?/, '');
-      if (['privacy', 'terms', 'about', 'contact'].includes(h)) {
-        setLegalTab(h as LegalTab);
-        return;
-      }
       const tab = parseHashToTab();
       setActiveTab(tab);
     };
-
-    // Check if initial load landed on a legal hash
-    const initialH = window.location.hash.toLowerCase().replace(/^#\/?/, '');
-    if (['privacy', 'terms', 'about', 'contact'].includes(initialH)) {
-      setLegalTab(initialH as LegalTab);
-    }
-
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handleHashChange);
     return () => {
@@ -298,18 +305,6 @@ export function App() {
       window.removeEventListener('popstate', handleHashChange);
     };
   }, []);
-
-  const handleCloseLegal = useCallback(() => {
-    setLegalTab(null);
-    const currentH = window.location.hash.toLowerCase().replace(/^#\/?/, '');
-    if (['privacy', 'terms', 'about', 'contact'].includes(currentH)) {
-      window.history.replaceState(
-        null,
-        '',
-        window.location.pathname + (activeTab !== 'home' ? `#${activeTab}` : '')
-      );
-    }
-  }, [activeTab]);
 
   // Synchronize document title and meta description dynamically for Google Crawlers
   useEffect(() => {
@@ -349,7 +344,6 @@ export function App() {
         onReset={handleReset}
         activeTab={activeTab}
         onTabChange={handleTabChange}
-        onOpenLegal={(tab) => setLegalTab(tab)}
       />
 
       {/* Main Container */}
@@ -590,6 +584,20 @@ export function App() {
             </Suspense>
           </section>
         )}
+
+        {/* TAB 6: Dedicated Legal & Company Individual Pages Flow */}
+        {(activeTab === 'privacy' ||
+          activeTab === 'terms' ||
+          activeTab === 'about' ||
+          activeTab === 'contact') && (
+          <section id={activeTab} aria-label={`${activeTab} page`} className="space-y-6">
+            <LegalPageView
+              page={activeTab}
+              onNavigate={handleTabChange}
+            />
+            <AdBanner />
+          </section>
+        )}
       </main>
 
       {/* Processing Modal Overlay */}
@@ -611,17 +619,7 @@ export function App() {
         )}
 
       {/* Reeyansh Tech Solutions Footer & Copyright with Crawlable Link Navigation */}
-      <Footer
-        onNavigate={handleTabChange}
-        onOpenLegal={(tab) => setLegalTab(tab)}
-      />
-
-      {/* Compliance & Company Modal: Privacy Policy, Terms, About Us, Contact Us */}
-      <LegalModal
-        isOpen={!!legalTab}
-        initialTab={legalTab || 'privacy'}
-        onClose={handleCloseLegal}
-      />
+      <Footer onNavigate={handleTabChange} />
     </div>
   );
 }

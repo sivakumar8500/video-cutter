@@ -17,16 +17,25 @@ import {
   Info,
   Mail,
 } from 'lucide-react';
-import type { LegalTab } from './LegalModal';
 
-export type ActiveTab = 'home' | 'video-cutter' | 'media-tools' | 'image-studio' | 'pdf-studio' | 'qr' | 'files';
+export type ActiveTab =
+  | 'home'
+  | 'video-cutter'
+  | 'media-tools'
+  | 'image-studio'
+  | 'pdf-studio'
+  | 'qr'
+  | 'files'
+  | 'privacy'
+  | 'terms'
+  | 'about'
+  | 'contact';
 
 interface HeaderProps {
   hasVideo: boolean;
   onReset: () => void;
   activeTab: ActiveTab;
   onTabChange: (tab: ActiveTab) => void;
-  onOpenLegal?: (tab: LegalTab) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -34,7 +43,6 @@ export const Header: React.FC<HeaderProps> = ({
   onReset,
   activeTab,
   onTabChange,
-  onOpenLegal,
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -118,13 +126,9 @@ export const Header: React.FC<HeaderProps> = ({
     onTabChange(tab);
   };
 
-  const handleLegal = (tab: LegalTab) => {
+  const handleLegal = (tab: ActiveTab) => {
     setIsDrawerOpen(false);
-    if (onOpenLegal) {
-      onOpenLegal(tab);
-    } else {
-      window.location.hash = `#${tab}`;
-    }
+    onTabChange(tab);
   };
 
   return (
