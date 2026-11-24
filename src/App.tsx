@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react
 import { Header, type ActiveTab } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
+import { StudioPageHeader } from './components/StudioPageHeader';
 import { LegalPageView } from './components/LegalPages/LegalPageView';
 import { AdBanner } from './components/AdBanner';
 import { trackEvent } from './utils/analytics';
@@ -360,7 +361,14 @@ export function App() {
 
         {/* TAB 1: Video Cutter & Splitter */}
         {activeTab === 'video-cutter' && (
-          <section id="video-cutter" aria-label="Video Cutter and Splitter">
+          <section id="video-cutter" aria-label="Video Cutter and Splitter" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="FFmpeg WASM 4K Engine"
+              title="Video Cutter & Lossless Splitter"
+              subtitle="Slice videos into exact pieces or duration with lossless stream copy, 16:9 to 9:16 Shorts conversion, and promotional cards."
+            />
             <Suspense fallback={<StudioLoader label="Loading Video Cutter & Splitter Engine..." />}>
               {/* Mode Selector Switcher */}
               <div className="flex items-center justify-center mb-6">
@@ -524,6 +532,13 @@ export function App() {
         {/* TAB: Media Tools (URL Downloader, Video to Audio, Audio Remover) */}
         {activeTab === 'media-tools' && (
           <section id="media-tools" aria-label="Media Tools &amp; Audio Studio" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="Lossless Audio & URL Suite"
+              title="Media Tools & Audio Extractor"
+              subtitle="Download web video clips by URL, extract clean audio tracks to MP3/AAC, or mute audio streams directly in your browser."
+            />
             <Suspense fallback={<StudioLoader label="Loading Media Tools..." />}>
               <MediaToolsStudio
                 onSendToVideoCutter={(metadata) => {
@@ -540,6 +555,13 @@ export function App() {
         {/* TAB 2: Image Studio (Resize, Shapes & Filters) */}
         {activeTab === 'image-studio' && (
           <section id="image-studio" aria-label="Image Studio Photo Cropper" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="Aspect Ratio & 9 Shapes"
+              title="Image Studio & Shape Cropper"
+              subtitle="Crop photos to social aspect ratios (1:1, 4:5, 16:9, 9:16) or mask into 9 geometric shapes with transparent PNG export and target KB reducer."
+            />
             <Suspense fallback={<StudioLoader label="Loading Image Studio & Shape Cropper..." />}>
               <ImageStudio />
             </Suspense>
@@ -550,6 +572,13 @@ export function App() {
         {/* TAB 3: PDF Studio (All 32 iLovePDF Tools & Workflows) */}
         {activeTab === 'pdf-studio' && (
           <section id="pdf-studio" aria-label="32 Client-Side PDF Tools" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="32 In-1 Client-Side PDF Engine"
+              title="32 Client-Side PDF Tools Suite"
+              subtitle="Complete client-side PDF workstation: Merge, split, compress, watermark, rotate, page number, and AES-256 protect confidential documents."
+            />
             <Suspense fallback={<StudioLoader label="Loading 32 Client-Side PDF Tools..." />}>
               <PdfStudio />
             </Suspense>
@@ -560,6 +589,13 @@ export function App() {
         {/* TAB 4: QR Code Studio (Generate, Customize & Scan) */}
         {activeTab === 'qr' && (
           <section id="qr" aria-label="Custom Vector QR Code Studio" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="Vector Matrix & 3D Scanner"
+              title="Custom Vector QR Code Studio"
+              subtitle="Create branded vector QR codes with custom logos, 15 protocols, custom colors, patterns, and live camera laser scanner."
+            />
             <Suspense fallback={<StudioLoader label="Loading Custom Vector QR Studio..." />}>
               <QrStudio
                 onSendToImageStudio={() => {
@@ -573,7 +609,14 @@ export function App() {
 
         {/* TAB 5: Media & Files Manager */}
         {activeTab === 'files' && (
-          <section id="files" aria-label="Local Media and Export Manager">
+          <section id="files" aria-label="Local Media and Export Manager" className="space-y-6">
+            <StudioPageHeader
+              activeTab={activeTab}
+              onNavigate={handleTabChange}
+              badge="Local Media Manager"
+              title="Local Files & Export Manager"
+              subtitle="Review, preview, inspect, and batch export your generated clips, images, and document files stored securely in your browser."
+            />
             <Suspense fallback={<StudioLoader label="Loading Media & Files Manager..." />}>
               <FilesManagerView
                 activeVideo={video}
