@@ -79,12 +79,12 @@ h6:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-black"] *) {
 }
 
 /* Ensure headings with text-white on light canvases map to crisp bluish-gray */
-body h1.text-white:not(button *, .btn *),
-body h2.text-white:not(button *, .btn *),
-body h3.text-white:not(button *, .btn *),
-body h4.text-white:not(button *, .btn *),
-body h5.text-white:not(button *, .btn *),
-body h6.text-white:not(button *, .btn *) {
+body h1.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *),
+body h2.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *),
+body h3.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *),
+body h4.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *),
+body h5.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *),
+body h6.text-white:not(button *, .btn *, [class*="bg-gradient-to"] *, [class*="bg-slate-9"] *, [class*="bg-emerald-9"] *, [class*="bg-black"] *) {
   color: #0f172a !important;
 }
 

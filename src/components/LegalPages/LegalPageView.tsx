@@ -111,24 +111,23 @@ export const LegalPageView: React.FC<LegalPageViewProps> = ({ page, onNavigate }
         </div>
       </nav>
 
-      {/* Page Hero Header */}
-      <header className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-950 text-white p-6 sm:p-10 border border-emerald-900/40 shadow-xl">
-        <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-3xl space-y-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold tracking-wide uppercase">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+      {/* Page Hero Header: Clean Green & White Theme */}
+      <header className="rounded-3xl bg-white border border-slate-200 p-6 sm:p-10 shadow-xs">
+        <div className="max-w-3xl space-y-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold tracking-wide uppercase">
+            <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
             {currentMeta.badge}
           </span>
-          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             {currentMeta.title}
           </h1>
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
             {currentMeta.subtitle}
           </p>
         </div>
 
         {/* Quick Tabs Bar */}
-        <div className="relative z-10 mt-8 pt-6 border-t border-white/10 flex flex-wrap gap-2">
+        <div className="mt-8 pt-6 border-t border-slate-100 flex flex-wrap gap-2.5">
           {navTabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = page === tab.id;
@@ -137,13 +136,13 @@ export const LegalPageView: React.FC<LegalPageViewProps> = ({ page, onNavigate }
                 key={tab.id}
                 type="button"
                 onClick={() => onNavigate(tab.id as ActiveTab)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-900/50 scale-[1.02]'
-                    : 'bg-white/10 text-slate-300 hover:bg-white/15 hover:text-white'
+                    ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/30'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200'
                 }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-emerald-400'}`} />
+                <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-emerald-600'}`} />
                 <span>{tab.label}</span>
               </button>
             );
