@@ -13,7 +13,11 @@ import {
   QrCode,
   FolderDown,
   ChevronRight,
+  Lock,
+  Info,
+  Mail,
 } from 'lucide-react';
+import type { LegalTab } from './LegalModal';
 
 export type ActiveTab = 'home' | 'video-cutter' | 'media-tools' | 'image-studio' | 'pdf-studio' | 'qr' | 'files';
 
@@ -22,6 +26,7 @@ interface HeaderProps {
   onReset: () => void;
   activeTab: ActiveTab;
   onTabChange: (tab: ActiveTab) => void;
+  onOpenLegal?: (tab: LegalTab) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -29,6 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
   onReset,
   activeTab,
   onTabChange,
+  onOpenLegal,
 }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -110,6 +116,15 @@ export const Header: React.FC<HeaderProps> = ({
   const handleNavigate = (tab: ActiveTab) => {
     setIsDrawerOpen(false);
     onTabChange(tab);
+  };
+
+  const handleLegal = (tab: LegalTab) => {
+    setIsDrawerOpen(false);
+    if (onOpenLegal) {
+      onOpenLegal(tab);
+    } else {
+      window.location.hash = `#${tab}`;
+    }
   };
 
   return (
@@ -288,6 +303,23 @@ export const Header: React.FC<HeaderProps> = ({
 
             {/* Right Status Badges & Controls */}
             <div className="flex items-center gap-2 sm:gap-3">
+              <div className="hidden xl:flex items-center gap-1 text-xs">
+                <button
+                  type="button"
+                  onClick={() => handleLegal('about')}
+                  className="px-2.5 py-1 text-slate-600 hover:text-emerald-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer font-medium"
+                >
+                  About
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLegal('contact')}
+                  className="px-2.5 py-1 text-slate-600 hover:text-emerald-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer font-medium"
+                >
+                  Contact
+                </button>
+              </div>
+
               <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium shadow-xs">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 <span>100% Private</span>
@@ -444,6 +476,47 @@ export const Header: React.FC<HeaderProps> = ({
                 </a>
               );
             })}
+
+            {/* Mobile Drawer Company & Legal Links */}
+            <div className="pt-3 border-t border-slate-200/80">
+              <div className="text-[10px] uppercase font-mono tracking-wider text-slate-600 px-3 py-1 font-bold">
+                Company &amp; Legal
+              </div>
+              <div className="grid grid-cols-2 gap-1 px-1 mt-1">
+                <button
+                  type="button"
+                  onClick={() => handleLegal('privacy')}
+                  className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
+                >
+                  <Lock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Privacy Policy</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLegal('terms')}
+                  className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
+                >
+                  <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Terms &amp; Use</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLegal('about')}
+                  className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
+                >
+                  <Info className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>About Us</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleLegal('contact')}
+                  className="flex items-center gap-2 p-2 rounded-xl text-left text-xs font-semibold text-slate-700 hover:text-emerald-700 hover:bg-emerald-50 transition-colors cursor-pointer"
+                >
+                  <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Contact Us</span>
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* Drawer Footer with Company Attribution & Privacy */}

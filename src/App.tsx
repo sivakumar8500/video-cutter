@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useEffect, lazy, Suspense } from 'react
 import { Header, type ActiveTab } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
+import { LegalModal, type LegalTab } from './components/LegalModal';
 import { AdBanner } from './components/AdBanner';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
@@ -92,6 +93,7 @@ const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
 
 export function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(parseHashToTab);
+  const [legalTab, setLegalTab] = useState<LegalTab | null>(null);
   const [cutterMode, setCutterMode] = useState<'single' | 'batch'>('single');
   const [batchFiles, setBatchFiles] = useState<File[]>([]);
   const [video, setVideo] = useState<VideoMetadata | null>(null);
@@ -274,9 +276,21 @@ export function App() {
   // Two-way URL Hash navigation for Google crawling and back/forward browser history
   useEffect(() => {
     const handleHashChange = () => {
+      const h = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+      if (['privacy', 'terms', 'about', 'contact'].includes(h)) {
+        setLegalTab(h as LegalTab);
+        return;
+      }
       const tab = parseHashToTab();
       setActiveTab(tab);
     };
+
+    // Check if initial load landed on a legal hash
+    const initialH = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+    if (['privacy', 'terms', 'about', 'contact'].includes(initialH)) {
+      setLegalTab(initialH as LegalTab);
+    }
+
     window.addEventListener('hashchange', handleHashChange);
     window.addEventListener('popstate', handleHashChange);
     return () => {
@@ -284,6 +298,18 @@ export function App() {
       window.removeEventListener('popstate', handleHashChange);
     };
   }, []);
+
+  const handleCloseLegal = useCallback(() => {
+    setLegalTab(null);
+    const currentH = window.location.hash.toLowerCase().replace(/^#\/?/, '');
+    if (['privacy', 'terms', 'about', 'contact'].includes(currentH)) {
+      window.history.replaceState(
+        null,
+        '',
+        window.location.pathname + (activeTab !== 'home' ? `#${activeTab}` : '')
+      );
+    }
+  }, [activeTab]);
 
   // Synchronize document title and meta description dynamically for Google Crawlers
   useEffect(() => {
@@ -323,6 +349,7 @@ export function App() {
         onReset={handleReset}
         activeTab={activeTab}
         onTabChange={handleTabChange}
+        onOpenLegal={(tab) => setLegalTab(tab)}
       />
 
       {/* Main Container */}
@@ -584,7 +611,17 @@ export function App() {
         )}
 
       {/* Reeyansh Tech Solutions Footer & Copyright with Crawlable Link Navigation */}
-      <Footer onNavigate={handleTabChange} />
+      <Footer
+        onNavigate={handleTabChange}
+        onOpenLegal={(tab) => setLegalTab(tab)}
+      />
+
+      {/* Compliance & Company Modal: Privacy Policy, Terms, About Us, Contact Us */}
+      <LegalModal
+        isOpen={!!legalTab}
+        initialTab={legalTab || 'privacy'}
+        onClose={handleCloseLegal}
+      />
     </div>
   );
 }

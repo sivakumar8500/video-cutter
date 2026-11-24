@@ -1,16 +1,27 @@
 import React from 'react';
-import { ShieldCheck, Zap, Scissors, Smartphone, Heart, Sparkles, ExternalLink, Film, Music, Image as ImageIcon, FileText, QrCode } from 'lucide-react';
+import { ShieldCheck, Zap, Scissors, Smartphone, Heart, Sparkles, ExternalLink, Film, Music, Image as ImageIcon, FileText, QrCode, Lock, Info, Mail } from 'lucide-react';
 import type { ActiveTab } from './Header';
+import type { LegalTab } from './LegalModal';
 
 interface FooterProps {
   onNavigate?: (tab: ActiveTab) => void;
+  onOpenLegal?: (tab: LegalTab) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenLegal }) => {
   const handleNav = (tab: ActiveTab, e: React.MouseEvent) => {
     if (onNavigate) {
       e.preventDefault();
       onNavigate(tab);
+    }
+  };
+
+  const handleLegal = (tab: LegalTab, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (onOpenLegal) {
+      onOpenLegal(tab);
+    } else {
+      window.location.hash = `#${tab}`;
     }
   };
 
@@ -236,43 +247,129 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </nav>
 
-          {/* Technology & Privacy */}
-          <div className="space-y-3">
+          {/* Legal, Trust & Company Details */}
+          <nav aria-label="Legal and Company Information" className="space-y-3">
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900">
-              Technology Stack
+              Company &amp; Legal
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600">
-              <li>WebAssembly (WASM) Video Engine</li>
-              <li>Single-threaded FFmpeg Core 0.12</li>
-              <li>Client-Side pdf-lib Engine (AES-256)</li>
-              <li>Vector QR Code Canvas Generator</li>
-              <li>React 19 + TypeScript 7 + Vite 8</li>
-              <li>Direct Folder Export (File System API)</li>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <a
+                  href="#privacy"
+                  onClick={(e) => handleLegal('privacy', e)}
+                  className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
+                  title="Privacy Policy - 100% Client-Side Data Protection"
+                >
+                  <Lock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Privacy Policy</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#terms"
+                  onClick={(e) => handleLegal('terms', e)}
+                  className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
+                  title="Terms &amp; Conditions of Service"
+                >
+                  <FileText className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Terms &amp; Conditions</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#about"
+                  onClick={(e) => handleLegal('about', e)}
+                  className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
+                  title="About Us - Reeyansh Tech Solutions &amp; VidCuts Mission"
+                >
+                  <Info className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>About Us</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  onClick={(e) => handleLegal('contact', e)}
+                  className="flex items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors font-medium cursor-pointer"
+                  title="Contact Us - Technical Support &amp; Inquiries"
+                >
+                  <Mail className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Contact Us</span>
+                </a>
+              </li>
+              <li className="pt-2 text-[11px] text-slate-600 border-t border-slate-100 leading-relaxed">
+                Hyderabad, Telangana, India
+                <br />
+                <a
+                  href="mailto:contact@reeyanshtech.in"
+                  className="text-emerald-600 hover:underline"
+                >
+                  contact@reeyanshtech.in
+                </a>
+              </li>
             </ul>
-          </div>
+          </nav>
         </div>
 
-        {/* Bottom Bar: Copyright & Attribution */}
-        <div className="pt-8 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <a
-            href="https://www.reeyanshtech.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-slate-900 hover:text-emerald-600 transition-colors group cursor-pointer"
-            title="Visit Reeyansh Tech Solutions Official Website"
-          >
-            <img
-              src="./reeyansh-logo-small.png"
-              alt="Reeyansh Tech Solutions Logo"
-              width={20}
-              height={20}
-              className="w-5 h-5 object-contain group-hover:scale-110 transition-transform"
-            />
-            <span>
-              &copy; {new Date().getFullYear()} <strong className="text-slate-900 group-hover:text-emerald-600 font-semibold transition-colors">Reeyansh Tech Solutions</strong>. All rights reserved.
-            </span>
-            <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
-          </a>
+        {/* Bottom Bar: Copyright, Legal Navigation & Attribution */}
+        <div className="pt-8 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <a
+              href="https://www.reeyanshtech.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-slate-900 hover:text-emerald-600 transition-colors group cursor-pointer"
+              title="Visit Reeyansh Tech Solutions Official Website"
+            >
+              <img
+                src="./reeyansh-logo-small.png"
+                alt="Reeyansh Tech Solutions Logo"
+                width={20}
+                height={20}
+                className="w-5 h-5 object-contain group-hover:scale-110 transition-transform"
+              />
+              <span>
+                &copy; {new Date().getFullYear()} <strong className="text-slate-900 group-hover:text-emerald-600 font-semibold transition-colors">Reeyansh Tech Solutions</strong>.
+              </span>
+              <ExternalLink className="w-3 h-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+            </a>
+
+            {/* Quick Compliance Links */}
+            <div className="flex items-center gap-3 text-[11px] text-slate-600">
+              <span className="hidden sm:inline text-slate-300">•</span>
+              <a
+                href="#privacy"
+                onClick={(e) => handleLegal('privacy', e)}
+                className="hover:text-emerald-600 transition-colors cursor-pointer"
+              >
+                Privacy Policy
+              </a>
+              <span className="text-slate-300">•</span>
+              <a
+                href="#terms"
+                onClick={(e) => handleLegal('terms', e)}
+                className="hover:text-emerald-600 transition-colors cursor-pointer"
+              >
+                Terms
+              </a>
+              <span className="text-slate-300">•</span>
+              <a
+                href="#about"
+                onClick={(e) => handleLegal('about', e)}
+                className="hover:text-emerald-600 transition-colors cursor-pointer"
+              >
+                About Us
+              </a>
+              <span className="text-slate-300">•</span>
+              <a
+                href="#contact"
+                onClick={(e) => handleLegal('contact', e)}
+                className="hover:text-emerald-600 transition-colors cursor-pointer"
+              >
+                Contact
+              </a>
+            </div>
+          </div>
 
           <div className="flex items-center gap-1.5 text-slate-600">
             <span>Crafted with</span>
