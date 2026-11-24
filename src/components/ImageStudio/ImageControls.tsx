@@ -54,6 +54,7 @@ interface ImageControlsProps {
   imageInfo?: LoadedImageInfo;
   onApplyCrop?: (newImageInfo: LoadedImageInfo) => void;
   onUpscaleBaseImage?: (newImageInfo: LoadedImageInfo) => void;
+  onCancel?: () => void;
   onReset: () => void;
 }
 
@@ -192,6 +193,7 @@ export const ImageControls: React.FC<ImageControlsProps> = ({
   imageInfo,
   onApplyCrop,
   onUpscaleBaseImage,
+  onCancel,
   onReset,
 }) => {
   const [activeSection, setActiveSection] = useState<ControlSection>('quality');
@@ -607,14 +609,28 @@ export const ImageControls: React.FC<ImageControlsProps> = ({
             {originalWidth}×{originalHeight}
           </span>
         </h3>
-        <button
-          onClick={onReset}
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all cursor-pointer"
-          title="Reset all settings to original defaults"
-        >
-          <ResetIcon className="w-3 h-3 text-emerald-600" />
-          <span>Reset All</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {onCancel && (
+            <button
+              type="button"
+              onClick={onCancel}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-all cursor-pointer"
+              title="Cancel editing and choose another image"
+            >
+              <ArrowLeft className="w-3 h-3" />
+              <span>Cancel / Back</span>
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={onReset}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 transition-all cursor-pointer"
+            title="Reset all settings to original defaults"
+          >
+            <ResetIcon className="w-3 h-3 text-emerald-600" />
+            <span>Reset All</span>
+          </button>
+        </div>
       </div>
 
       {/* Primary Category Tabs (9 full tool sections) */}
