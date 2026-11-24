@@ -40,8 +40,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <img
                   src="./app-icon-small.png"
                   alt="VidCuts App Icon"
+                  title="VidCuts App Icon"
                   width={48}
                   height={48}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain rounded-xl drop-shadow"
                 />
               </a>
@@ -70,8 +73,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <img
                       src="./reeyansh-logo-small.png"
                       alt="Reeyansh Tech Solutions Logo"
+                      title="Reeyansh Tech Solutions Logo"
                       width={14}
                       height={14}
+                      loading="lazy"
+                      decoding="async"
                       className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                     />
                     <span>Reeyansh Tech Solutions</span>
@@ -322,8 +328,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <img
                 src="./reeyansh-logo-small.png"
                 alt="Reeyansh Tech Solutions Logo"
+                title="Reeyansh Tech Solutions Logo"
                 width={20}
                 height={20}
+                loading="lazy"
+                decoding="async"
                 className="w-5 h-5 object-contain group-hover:scale-110 transition-transform"
               />
               <span>

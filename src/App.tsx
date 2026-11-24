@@ -67,7 +67,7 @@ const parseHashToTab = (): ActiveTab => {
 // Dynamic per-section SEO Titles & Meta Descriptions for Search Engines
 const TAB_SEO_CONFIG: Record<ActiveTab, { title: string; desc: string }> = {
   home: {
-    title: 'VidCuts — Free In-Browser Video Cutter, Image Studio, 32 PDF Tools & QR Generator | Reeyansh Tech Solutions',
+    title: 'VidCuts — Free Video, Image, PDF & QR Suite | Reeyansh',
     desc: '100% private in-browser multimedia and document suite. Split videos, edit photos, process 32 PDF tools & create vector QR codes with zero server uploads.',
   },
   'video-cutter': {
@@ -419,8 +419,11 @@ export function App() {
                             <img
                               src="./app-icon-small.png"
                               alt="VidCuts App Icon"
+                              title="VidCuts App Icon"
                               width={96}
                               height={96}
+                              loading="eager"
+                              decoding="async"
                               className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-contain bg-white p-2 shadow-lg border border-slate-200"
                             />
                           </div>
@@ -433,9 +436,12 @@ export function App() {
                           >
                             <img
                               src="./reeyansh-logo-small.png"
-                              alt="Reeyansh"
+                              alt="Reeyansh Tech Solutions Logo"
+                              title="Reeyansh Tech Solutions Logo"
                               width={14}
                               height={14}
+                              loading="lazy"
+                              decoding="async"
                               className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                             />
                             <span>By Reeyansh Tech Solutions • 100% In-Browser &amp; Private</span>

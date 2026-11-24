@@ -650,7 +650,10 @@ export const ImageCanvasPreview: React.FC<ImageCanvasPreviewProps> = ({
         {showOriginal ? (
           <img
             src={imageInfo.previewUrl}
-            alt="Original"
+            alt="Original Image Preview"
+            title="Original Image Preview"
+            loading="lazy"
+            decoding="async"
             className="max-h-[380px] max-w-full object-contain rounded-lg shadow-2xl relative z-10 transition-transform"
             style={{ transform: `scale(${zoom})` }}
           />

@@ -285,7 +285,12 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                 <div className="md:col-span-4 p-5 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-2">
                   <img
                     src="./reeyansh-logo-small.png"
-                    alt="Reeyansh Tech Solutions"
+                    alt="Reeyansh Tech Solutions Logo"
+                    title="Reeyansh Tech Solutions Logo"
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    decoding="async"
                     className="w-12 h-12 mx-auto object-contain"
                   />
                   <h4 className="text-sm font-extrabold text-slate-900">Reeyansh Tech Solutions</h4>

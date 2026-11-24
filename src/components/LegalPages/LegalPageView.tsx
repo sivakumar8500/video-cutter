@@ -360,6 +360,11 @@ export const LegalPageView: React.FC<LegalPageViewProps> = ({ page, onNavigate }
                 <img
                   src="./reeyansh-logo-small.png"
                   alt="Reeyansh Tech Solutions Logo"
+                  title="Reeyansh Tech Solutions Logo"
+                  width={64}
+                  height={64}
+                  loading="lazy"
+                  decoding="async"
                   className="w-16 h-16 mx-auto object-contain"
                 />
                 <div>

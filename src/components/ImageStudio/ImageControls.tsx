@@ -1424,7 +1424,10 @@ export const ImageControls: React.FC<ImageControlsProps> = ({
                   <div className="flex items-center gap-2.5">
                     <img
                       src={config.frame.customFrameUrl}
-                      alt="Custom Frame"
+                      alt="Custom Frame Overlay"
+                      title="Custom Frame Overlay"
+                      loading="lazy"
+                      decoding="async"
                       className="w-10 h-10 object-contain rounded-lg bg-slate-100 border border-slate-200"
                     />
                     <div>

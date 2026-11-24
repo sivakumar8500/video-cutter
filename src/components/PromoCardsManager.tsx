@@ -552,6 +552,9 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                         <img
                           src={config.topCard.previewUrl}
                           alt="Top Promo Card"
+                          title="Top Promo Card"
+                          loading="lazy"
+                          decoding="async"
                           className="w-20 h-12 object-cover rounded-lg border border-slate-700 shrink-0"
                         />
                         <div className="min-w-0 flex-1">
@@ -653,6 +656,9 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                         <img
                           src={config.bottomCard.previewUrl}
                           alt="Bottom Promo Card"
+                          title="Bottom Promo Card"
+                          loading="lazy"
+                          decoding="async"
                           className="w-20 h-12 object-cover rounded-lg border border-slate-700 shrink-0"
                         />
                         <div className="min-w-0 flex-1">
@@ -971,7 +977,10 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                                 <div className="flex items-center gap-2">
                                   <img
                                     src={slot.card.previewUrl}
-                                    alt={slot.card.name}
+                                    alt={slot.card.name || 'Promo Card'}
+                                    title={slot.card.name || 'Promo Card'}
+                                    loading="lazy"
+                                    decoding="async"
                                     className="w-12 h-7 object-cover rounded border border-slate-700"
                                   />
                                   <span className="text-xs text-white max-w-[100px] truncate hidden md:inline">
@@ -1201,7 +1210,10 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                   {activeTopCard ? (
                     <img
                       src={activeTopCard.previewUrl}
-                      alt="Top Preview"
+                      alt="Top Preview Card"
+                      title="Top Preview Card"
+                      loading="lazy"
+                      decoding="async"
                       style={{ transform: `scale(${adjustments.topZoom})` }}
                       className={`w-full h-full ${
                         adjustments.fitMode === 'cover' ? 'object-cover' : 'object-contain'
@@ -1274,7 +1286,10 @@ export const PromoCardsManager: React.FC<PromoCardsManagerProps> = ({
                   {activeBottomCard ? (
                     <img
                       src={activeBottomCard.previewUrl}
-                      alt="Bottom Preview"
+                      alt="Bottom Preview Card"
+                      title="Bottom Preview Card"
+                      loading="lazy"
+                      decoding="async"
                       style={{ transform: `scale(${adjustments.bottomZoom})` }}
                       className={`w-full h-full ${
                         adjustments.fitMode === 'cover' ? 'object-cover' : 'object-contain'

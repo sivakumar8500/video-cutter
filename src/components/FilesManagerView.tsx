@@ -305,7 +305,10 @@ export const FilesManagerView: React.FC<FilesManagerViewProps> = ({
                 {item.type === 'image' ? (
                   <img
                     src={item.url}
-                    alt={item.name}
+                    alt={item.name || 'Media Thumbnail'}
+                    title={item.name || 'Media Thumbnail'}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 ) : (

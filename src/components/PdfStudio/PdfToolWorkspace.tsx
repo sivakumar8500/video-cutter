@@ -1335,7 +1335,14 @@ export const PdfToolWorkspace: React.FC<PdfToolWorkspaceProps> = ({ tool, onBack
                         key={idx}
                         className="relative group rounded-xl overflow-hidden border border-slate-700 bg-slate-950 aspect-[3/4]"
                       >
-                        <img src={scanUrl} alt={`Page ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img
+                          src={scanUrl}
+                          alt={`Document Page ${idx + 1}`}
+                          title={`Document Page ${idx + 1}`}
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover"
+                        />
                         <div className="absolute top-1 left-1 px-1.5 py-0.5 rounded-md bg-black/70 text-white text-[10px] font-bold">
                           P.{idx + 1}
                         </div>

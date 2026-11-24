@@ -781,7 +781,10 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
                           <div className="w-12 h-12 rounded-xl bg-black border border-slate-300 flex items-center justify-center p-1 shrink-0 overflow-hidden">
                             <img
                               src={config.logoUrl}
-                              alt="Uploaded Logo"
+                              alt="Uploaded QR Logo"
+                              title="Uploaded QR Logo"
+                              loading="lazy"
+                              decoding="async"
                               className="w-full h-full object-contain"
                             />
                           </div>

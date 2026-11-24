@@ -151,8 +151,11 @@ export const Header: React.FC<HeaderProps> = ({
                 <img
                   src="./app-icon-small.png"
                   alt="VidCuts App Icon"
+                  title="VidCuts App Icon"
                   width={44}
                   height={44}
+                  loading="eager"
+                  decoding="async"
                   className="w-full h-full object-contain rounded-lg transition-transform duration-200 group-hover:scale-105"
                 />
               </a>
@@ -179,8 +182,11 @@ export const Header: React.FC<HeaderProps> = ({
                     <img
                       src="./reeyansh-logo-small.png"
                       alt="Reeyansh Tech Solutions Logo"
+                      title="Reeyansh Tech Solutions Logo"
                       width={14}
                       height={14}
+                      loading="lazy"
+                      decoding="async"
                       className="w-3.5 h-3.5 object-contain group-hover:scale-110 transition-transform"
                     />
                     <span className="text-[10px] font-bold tracking-wide">
@@ -389,8 +395,11 @@ export const Header: React.FC<HeaderProps> = ({
               <img
                 src="./app-icon-small.png"
                 alt="VidCuts App Icon"
+                title="VidCuts App Icon"
                 width={38}
                 height={38}
+                loading="lazy"
+                decoding="async"
                 className="w-9 h-9 object-contain rounded-xl border border-slate-200 p-1 bg-white shadow-2xs"
               />
               <div>
@@ -543,8 +552,11 @@ export const Header: React.FC<HeaderProps> = ({
                 <img
                   src="./reeyansh-logo-small.png"
                   alt="Reeyansh Tech Solutions Logo"
+                  title="Reeyansh Tech Solutions Logo"
                   width={18}
                   height={18}
+                  loading="lazy"
+                  decoding="async"
                   className="w-4.5 h-4.5 object-contain"
                 />
                 <span className="text-[11px] font-bold text-slate-800 group-hover:text-emerald-700">
