@@ -127,13 +127,35 @@
           "url": "https://www.reeyanshtech.in/",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://www.vidcuts.online/reeyansh-logo.png"
+            "url": "https://www.vidcuts.online/reeyansh-logo.png",
+            "width": 512,
+            "height": 512
           },
-          "description": "Reeyansh Tech Solutions creates privacy-first, client-side browser utilities for video editing, photo retouching, document processing, and vector graphics."
+          "sameAs": [
+            "https://github.com/sivakumar8500/video-cutter",
+            "https://www.vidcuts.online/"
+          ],
+          "contactPoint": [
+            {
+              "@type": "ContactPoint",
+              "contactType": "customer service",
+              "email": "contact@reeyanshtech.in",
+              "availableLanguage": ["English", "Telugu", "Hindi"]
+            }
+          ],
+          "description": "Reeyansh Tech Solutions creates privacy-first, client-side browser utilities for video editing, photo retouching, document processing, and vector graphics.",
+          "knowsAbout": [
+            "Video Editing & Lossless Splitting",
+            "WebAssembly FFmpeg Video Processing",
+            "9:16 YouTube Shorts & Instagram Reels Conversion",
+            "Online Photo Editing & Aspect Cropping",
+            "PDF Merging, Splitting, and AES-256 Encryption",
+            "Vector QR Code Generation & Scanning"
+          ]
         },
         {
-          "@type": "WebApplication",
-          "@id": "https://www.vidcuts.online/#webapp",
+          "@type": ["SoftwareApplication", "WebApplication"],
+          "@id": "https://www.vidcuts.online/#softwareapplication",
           "url": "https://www.vidcuts.online/",
           "name": "VidCuts Media Suite",
           "applicationCategory": "MultimediaApplication",
@@ -143,6 +165,9 @@
           "softwareVersion": "2.2.0",
           "inLanguage": "en-US",
           "creator": {
+            "@id": "https://www.reeyanshtech.in/#organization"
+          },
+          "publisher": {
             "@id": "https://www.reeyanshtech.in/#organization"
           },
           "aggregateRating": {
@@ -155,7 +180,8 @@
           "offers": {
             "@type": "Offer",
             "price": "0",
-            "priceCurrency": "USD"
+            "priceCurrency": "USD",
+            "category": "Free"
           },
           "screenshot": "https://www.vidcuts.online/app-icon.png",
           "description": "All-in-one private in-browser multimedia and document workspace. Features high-precision video cutting, 16:9 to 9:16 Shorts conversion, image editor with shape cropping, all 32 iLovePDF document workflows, and vector QR code generator with logo alignment.",
@@ -334,18 +360,6 @@
               "position": 1,
               "name": "Home",
               "item": "https://www.vidcuts.online/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Video Tools",
-              "item": "https://www.vidcuts.online/#tools"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "VidCuts Video Cutter & Splitter",
-              "item": "https://www.vidcuts.online/"
             }
           ]
         },
@@ -357,51 +371,79 @@
             {
               "@type": "SiteNavigationElement",
               "position": 1,
-              "name": "Home Overview",
+              "name": "Homepage",
               "description": "All-in-one private in-browser multimedia suite overview",
-              "url": "https://www.vidcuts.online/#home"
+              "url": "https://www.vidcuts.online/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 2,
-              "name": "Video Cutter & 9:16 Shorts",
+              "name": "Free Online Video Cutter",
               "description": "High-precision video cutting by duration, pieces, or minute ranges with vertical 9:16 Shorts conversion",
-              "url": "https://www.vidcuts.online/#video-cutter"
+              "url": "https://www.vidcuts.online/video-cutter/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 3,
-              "name": "Media Tools & Audio Extractor",
+              "name": "Online Media Conversion Tools",
               "description": "Direct URL video downloader, video-to-audio MP3/AAC extractor, and video audio muter",
-              "url": "https://www.vidcuts.online/#media-tools"
+              "url": "https://www.vidcuts.online/media-tools/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 4,
-              "name": "Image Studio & Shape Mask",
+              "name": "Free Online Image Editor",
               "description": "Client-side photo editor with preset aspect ratio crops (1:1, 4:5, 16:9, 9:16) and geometric shapes",
-              "url": "https://www.vidcuts.online/#image-studio"
+              "url": "https://www.vidcuts.online/image-tools/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 5,
-              "name": "32 Client-Side PDF Tools",
+              "name": "32 Free Online PDF Tools",
               "description": "Complete PDF workspace: Merge, split, compress, convert, watermark, and AES-256 encrypt documents",
-              "url": "https://www.vidcuts.online/#pdf-studio"
+              "url": "https://www.vidcuts.online/pdf-tools/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 6,
-              "name": "Vector QR Code Studio",
+              "name": "Free QR Code Generator",
               "description": "Custom vector QR code generator with 15 protocols, logo embeds, 9-position alignment, and camera scanner",
-              "url": "https://www.vidcuts.online/#qr"
+              "url": "https://www.vidcuts.online/qr-code-generator/"
             },
             {
               "@type": "SiteNavigationElement",
               "position": 7,
-              "name": "Privacy & Technical FAQ",
-              "description": "Frequently asked questions regarding client-side WebAssembly processing, privacy, and zero server uploads",
-              "url": "https://www.vidcuts.online/#faq"
+              "name": "File Tools",
+              "description": "Local browser media manager and batch clip exporter",
+              "url": "https://www.vidcuts.online/file-tools/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 8,
+              "name": "Privacy Policy",
+              "description": "100% in-browser processing with zero cloud data storage",
+              "url": "https://www.vidcuts.online/privacy/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 9,
+              "name": "Terms & Conditions",
+              "description": "Client-side multimedia suite usage terms and full copyright retention",
+              "url": "https://www.vidcuts.online/terms/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 10,
+              "name": "About Us",
+              "description": "About VidCuts and Reeyansh Tech Solutions mission",
+              "url": "https://www.vidcuts.online/about/"
+            },
+            {
+              "@type": "SiteNavigationElement",
+              "position": 11,
+              "name": "Contact Us",
+              "description": "Technical support and business inquiries",
+              "url": "https://www.vidcuts.online/contact/"
             }
           ]
         }

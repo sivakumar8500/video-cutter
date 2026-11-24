@@ -17,6 +17,9 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: PerplexityBot
 Allow: /
 
@@ -34,6 +37,27 @@ Allow: /
 
 User-agent: Cohere-ai
 Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Answer Engine LLM Documentation (AEO)
+# https://www.vidcuts.online/llms.txt
 
 # Sitemap Location
 Sitemap: https://www.vidcuts.online/sitemap.xml

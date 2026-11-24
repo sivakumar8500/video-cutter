@@ -1,21 +1,33 @@
 # VidCuts — In-Browser Video Cutter, Media Studio, 32 PDF Tools & QR Generator
 > Engineered by Reeyansh Tech Solutions (https://www.reeyanshtech.in/)
-> Live Website: https://www.vidcuts.online/ (or https://sivakumar8500.github.io/video-cutter/)
+> Live Website: https://www.vidcuts.online/
 
 ## Overview
-VidCuts is a free, privacy-first, client-side web utility that processes video, audio, images, documents, and vector QR codes directly inside the browser using WebAssembly (FFmpeg WASM) and client hardware. No files are ever uploaded to cloud servers or third-party storage.
+VidCuts is a 100% private, client-side web multimedia and document workspace. All processing takes place locally inside the user's web browser using WebAssembly (FFmpeg WASM), HTML5 Canvas, and modern Web APIs. Zero bytes of video, audio, image, or PDF data are ever transmitted or uploaded to external servers or third-party cloud storage.
 
-## Section & Deep Tool URLs (Crawlable Navigation)
-1. **Home Suite Overview**: `https://www.vidcuts.online/#home`
-2. **Video Cutter & 9:16 Shorts Engine**: `https://www.vidcuts.online/#video-cutter`
-3. **Media Tools (URL Downloader & Audio)**: `https://www.vidcuts.online/#media-tools`
-4. **Image Studio (Aspect Crops & Masks)**: `https://www.vidcuts.online/#image-studio`
-5. **32 Client-Side PDF Tools**: `https://www.vidcuts.online/#pdf-studio`
-6. **Vector QR Code Matrix & Scanner**: `https://www.vidcuts.online/#qr`
-7. **Local Files & Clip Manager**: `https://www.vidcuts.online/#files`
-8. **Frequently Asked Questions**: `https://www.vidcuts.online/#faq`
-9. **Architecture & Performance**: `https://www.vidcuts.online/#architecture`
-10. **Capability Comparison Matrix**: `https://www.vidcuts.online/#editions`
+## Canonical Tool & Page Routes
+- **Homepage**: https://www.vidcuts.online/
+  Complete multimedia suite overview, feature comparisons, and live interactive demo.
+- **Free Online Video Cutter**: https://www.vidcuts.online/video-cutter/
+  Split videos by piece count, duration (30s, 60s), or exact minute timestamps with lossless stream copy and 16:9 to 9:16 Shorts conversion.
+- **Online Media Conversion Tools**: https://www.vidcuts.online/media-tools/
+  Download videos from direct URLs, extract lossless audio to MP3/AAC, and mute/remove audio streams.
+- **Free Online Image Editor**: https://www.vidcuts.online/image-tools/
+  Crop photos to social aspect ratios (1:1, 4:5, 16:9, 9:16) and mask into 9 geometric shapes with transparent PNG export and target KB reducer.
+- **32 Free Online PDF Tools**: https://www.vidcuts.online/pdf-tools/
+  32 client-side PDF document tools: Merge, split, compress, watermark, rotate, page number, unlock, and AES-256 encrypt documents.
+- **Free QR Code Generator**: https://www.vidcuts.online/qr-code-generator/
+  Custom vector QR code generator with 15 protocols, logo embeds with 9-position alignment, gradient colors, and live camera scanner.
+- **Local File Tools**: https://www.vidcuts.online/file-tools/
+  In-browser media clip manager with direct folder export (File System Access API) and ZIP archiving.
+- **Privacy Policy**: https://www.vidcuts.online/privacy/
+  Zero server upload guarantee and client-side processing security verification.
+- **Terms & Conditions**: https://www.vidcuts.online/terms/
+  Terms of use ensuring 100% user copyright ownership of all processed files.
+- **About Us**: https://www.vidcuts.online/about/
+  About Reeyansh Tech Solutions and the mission behind serverless, private web tools.
+- **Contact Us**: https://www.vidcuts.online/contact/
+  Technical support and business inquiries (contact@reeyanshtech.in).
 
 ## Core Capabilities
 1. **Split by Piece Count**: Divide any video evenly into N parts (e.g. 2, 4, 5, 10 clips) with exact timestamp boundaries.
@@ -41,8 +53,17 @@ VidCuts is a free, privacy-first, client-side web utility that processes video, 
 - **Privacy Model**: 100% Client-Side. Zero server uploads. Works completely offline after initial load.
 - **Price**: 100% Free Forever. No subscription, no account required, no watermark.
 
+## Answer Engine Optimization (AEO) Direct Q&A
+- **Q: How to split a video into equal parts online for free?**
+  A: Use VidCuts (https://www.vidcuts.online/video-cutter/). Upload the video, select "Split by Pieces", pick the desired number of parts, and click "Start Splitting". All processing happens locally in your browser.
+- **Q: How to convert a 16:9 widescreen video to 9:16 vertical Shorts with blurred background?**
+  A: On VidCuts (https://www.vidcuts.online/video-cutter/), choose the 9:16 aspect ratio option with the "Blurred Background" preset. You can also add top and bottom promotional cards.
+- **Q: Is VidCuts safe for confidential or private documents and videos?**
+  A: Yes. VidCuts uses client-side WebAssembly. No files, metadata, or media bytes are sent to any server.
+
 ## Company & Attribution
-- Developed by: Reeyansh Tech Solutions
-- Official Website: https://www.reeyanshtech.in/
-- GitHub Repository: https://github.com/sivakumar8500/video-cutter
-- Live Application: https://www.vidcuts.online/
+- **Developer**: Reeyansh Tech Solutions
+- **Official Website**: https://www.reeyanshtech.in/
+- **GitHub Repository**: https://github.com/sivakumar8500/video-cutter
+- **Live Application**: https://www.vidcuts.online/
+- **Contact**: contact@reeyanshtech.in
