@@ -46,7 +46,6 @@ import {
   generateQrSvg,
   decodeQrFromCanvas,
 } from '../../utils/qrGenerator';
-import { AdBanner } from '../AdBanner';
 
 interface QrStudioProps {
   onSendToImageStudio?: (file: File) => void;
@@ -468,9 +467,6 @@ export const QrStudio: React.FC<QrStudioProps> = () => {
           ))}
         </div>
       </div>
-
-      {/* Mid-Page Responsive AdSense Banner */}
-      <AdBanner />
 
       {/* ================= 3. THREE SIMPLE STEPS (Centerpiece from Screenshot) ================= */}
       <div className="py-8 space-y-10">

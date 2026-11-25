@@ -37,7 +37,6 @@ import {
 } from 'lucide-react';
 import { PDF_CATEGORIES, PDF_TOOLS } from '../../utils/pdfCatalog';
 import { PdfToolWorkspace } from './PdfToolWorkspace';
-import { AdBanner } from '../AdBanner';
 import type { PdfCategory, PdfToolId } from '../../types/pdfStudio';
 
 // Helper icon mapper
@@ -393,9 +392,6 @@ export const PdfStudio: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Mid-Page AdSense Banner */}
-      <AdBanner />
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

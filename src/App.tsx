@@ -4,7 +4,7 @@ import { Footer } from './components/Footer';
 import { HomePage } from './components/HomePage';
 import { StudioPageHeader } from './components/StudioPageHeader';
 import { LegalPageView } from './components/LegalPages/LegalPageView';
-import { AdBanner } from './components/AdBanner';
+import { ToolDocumentationGuide } from './components/StudioGuides/ToolDocumentationGuide';
 import { trackEvent } from './utils/analytics';
 import { ExternalLink, Scissors, Smartphone } from 'lucide-react';
 import type {
@@ -520,9 +520,6 @@ export function App() {
                         onOpenBatchConverter={() => setCutterMode('batch')}
                       />
 
-                      {/* Mid-Page AdSense Unit */}
-                      <AdBanner />
-
                       {/* Full SEO & Educational Content Section */}
                       <SeoContentSection />
                     </div>
@@ -606,7 +603,7 @@ export function App() {
                 }}
               />
             </Suspense>
-            <AdBanner />
+            <ToolDocumentationGuide toolId="media-tools" onNavigate={handleTabChange} />
           </section>
         )}
 
@@ -623,7 +620,7 @@ export function App() {
             <Suspense fallback={<StudioLoader label="Loading Image Studio & Shape Cropper..." />}>
               <ImageStudio />
             </Suspense>
-            <AdBanner />
+            <ToolDocumentationGuide toolId="image-tools" onNavigate={handleTabChange} />
           </section>
         )}
 
@@ -640,7 +637,7 @@ export function App() {
             <Suspense fallback={<StudioLoader label="Loading 32 Client-Side PDF Tools..." />}>
               <PdfStudio />
             </Suspense>
-            <AdBanner />
+            <ToolDocumentationGuide toolId="pdf-tools" onNavigate={handleTabChange} />
           </section>
         )}
 
@@ -661,7 +658,7 @@ export function App() {
                 }}
               />
             </Suspense>
-            <AdBanner />
+            <ToolDocumentationGuide toolId="qr-code-generator" onNavigate={handleTabChange} />
           </section>
         )}
 
@@ -683,6 +680,7 @@ export function App() {
                 onSwitchTab={handleTabChange}
               />
             </Suspense>
+            <ToolDocumentationGuide toolId="file-tools" onNavigate={handleTabChange} />
           </section>
         )}
 
@@ -696,7 +694,6 @@ export function App() {
               page={activeTab}
               onNavigate={handleTabChange}
             />
-            <AdBanner />
           </section>
         )}
       </main>

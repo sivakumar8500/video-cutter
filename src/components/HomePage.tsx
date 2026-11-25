@@ -19,7 +19,11 @@ import {
   Share2,
 } from 'lucide-react';
 import type { ActiveTab } from './Header';
-import { AdBanner } from './AdBanner';
+
+// Lazy load SEO & Educational Content Section
+const SeoContentSection = lazy(() =>
+  import('./SeoContentSection').then((m) => ({ default: m.SeoContentSection }))
+);
 
 // Lazy load 3D Laser scanner so Three.js does not block initial HomePage rendering
 const QR3DLaserScanner = lazy(() =>
@@ -522,11 +526,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Mid-Page In-Feed Fluid Ad Unit (Slot #6721366060) */}
-      <div className="max-w-6xl mx-auto px-4 py-2">
-        <AdBanner variant="in-feed" />
-      </div>
-
       {/* ========================================================================= */}
       {/* SECTION 4: IMAGE STUDIO (SHAPES, KB REDUCER, FILTERS) */}
       {/* ========================================================================= */}
@@ -725,11 +724,6 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Pre-Footer Display Responsive Ad Unit (Slot #7986346271) */}
-      <div className="max-w-6xl mx-auto px-4 py-2">
-        <AdBanner variant="display" />
-      </div>
-
       {/* ========================================================================= */}
       {/* SECTION 6: QR STUDIO & CAMERA SCANNER */}
       {/* ========================================================================= */}
@@ -853,6 +847,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onNavigate }) => {
           </div>
         </div>
       </section>
+
+      {/* Comprehensive Educational, Architecture & FAQ Guide Section */}
+      <Suspense fallback={null}>
+        <SeoContentSection />
+      </Suspense>
     </div>
   );
 };

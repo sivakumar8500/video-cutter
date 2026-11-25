@@ -16,6 +16,7 @@ import {
   FileText,
   SlidersHorizontal,
 } from 'lucide-react';
+import { AdBanner } from './AdBanner';
 
 interface FaqItem {
   question: string;
@@ -402,6 +403,11 @@ export const SeoContentSection: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Policy-Compliant In-Feed AdSense Placement inside Educational Guide */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AdBanner isContentEligible={true} variant="in-feed" />
       </div>
 
       {/* 7. SEO FAQ Accordion Section */}
